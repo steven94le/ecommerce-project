@@ -5,6 +5,7 @@ const morgan = require("morgan");
 
 const PORT = 4000;
 //testing
+//testing again
 
 express()
   .use(function (req, res, next) {
@@ -21,7 +22,9 @@ express()
   .use(morgan("tiny"))
   .use(express.static("./server/assets"))
   .use(express.json())
-  .use(express.urlencoded({ extended: false }))
+  .use(express.urlencoded({
+    extended: false
+  }))
   .use("/", express.static(__dirname + "/"))
 
   // REST endpoints?
