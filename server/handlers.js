@@ -34,7 +34,7 @@ const addNewOder = async (req, res) => {
       console.log(item._id);
       db.collection("items").updateOne(
         { _id: item._id, name: item.name },
-        { $inc: { numInStock: -item.quantity } },
+        { $inc: { numInStock: -1 } },
         (err, result) => {
           result
             ? console.log(
