@@ -8,6 +8,10 @@ const options = {
   useUnifiedTopology: true,
 };
 
+const {
+  getItems
+} = require('./handlers')
+
 console.log("asdasd", MONGO_URI);
 const batchImport = async () => {
   const client = new MongoClient(MONGO_URI, options);
