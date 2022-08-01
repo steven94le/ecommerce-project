@@ -2,10 +2,10 @@
 
 const express = require("express");
 const morgan = require("morgan");
-const { addNewOder } = require("./handlers");
+
+const { addNewOrder, getCategories, getCategory } = require("./handlers");
+
 const PORT = 4000;
-//testing
-//testing again
 
 express()
   .use(function (req, res, next) {
@@ -31,6 +31,8 @@ express()
 
   // REST endpoints?
   .get("/bacon", (req, res) => res.status(200).json("🥓"))
-  .post("/checkout", addNewOder)
+  .get("/category", getCategories)
+  .get("/category/:id", getCategory)
+  .post("/checkout", addNewOrder)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
