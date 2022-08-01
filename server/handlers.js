@@ -34,7 +34,7 @@ const getCategories = async (req, res) => {
 };
 
 //get wearables from a single category
-const getCategory = async (req, res) => {
+const getCategoryItems = async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -115,4 +115,4 @@ const addNewOrder = async (req, res) => {
   }
 };
 
-module.exports = { addNewOrder, getCategories, getCategory };
+module.exports = { addNewOrder, getCategories, getCategoryItems };

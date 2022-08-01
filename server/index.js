@@ -3,7 +3,7 @@
 const express = require("express");
 const morgan = require("morgan");
 
-const { addNewOrder, getCategories, getCategory } = require("./handlers");
+const { addNewOrder, getCategories, getCategoryItems } = require("./handlers");
 
 const PORT = 4000;
 
@@ -32,7 +32,7 @@ express()
   // REST endpoints?
   .get("/bacon", (req, res) => res.status(200).json("🥓"))
   .get("/category", getCategories)
-  .get("/category/:id", getCategory)
+  .get("/category/:id", getCategoryItems)
   .post("/checkout", addNewOrder)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
