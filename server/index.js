@@ -3,11 +3,9 @@
 const express = require("express");
 const morgan = require("morgan");
 
-const {getItems, getItem} = require("./handlers")
+const { addNewOrder, getCategories, getCategoryItems, getItems, getItem } = require("./handlers");
 
 const PORT = 4000;
-//testing
-//testing again
 
 express()
   .use(function (req, res, next) {
@@ -32,9 +30,11 @@ express()
   .use("/", express.static(__dirname + "/"))
 
   // REST endpoints?
+  .get("/bacon", (req, res) => res.status(200).json("🥓"))
+  .get("/category", getCategories)
+  .get("/category/:id", getCategoryItems)
   .get("/api/get-items", getItems)
   .get("/api/get-item/:id", getItem)
-
-  .get("/bacon", (req, res) => res.status(200).json("🥓"))
+  .post("/checkout", addNewOrder)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
