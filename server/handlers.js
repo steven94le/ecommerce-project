@@ -23,7 +23,8 @@ const getItems = async (req, res) => {
       status: 200,
       data: allItems,
     })
-  } catch {
+  } catch (err) {
+    console.error(err)
     res.status(404).json({
       status: 404,
       message: 'File not found.',
@@ -32,7 +33,7 @@ const getItems = async (req, res) => {
 } 
 
 const getItem = async (req, res) => { 
-    const reqId = JSON.parse(req.params.id)
+    const reqId = parseInt(req.params.id)
       try {
         const client = new MongoClient(MONGO_URI, options);
         await client.connect();
@@ -56,6 +57,7 @@ const getItem = async (req, res) => {
           })
         }
     } catch (err) {
+      console.error(err)
       res.status(404).json({
         status: 404,
         message: 'File not found.',
