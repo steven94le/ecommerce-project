@@ -2,7 +2,7 @@
 
 const express = require("express");
 const morgan = require("morgan");
-
+const { addNewOder } = require("./handlers");
 const PORT = 4000;
 //testing
 //testing again
@@ -31,5 +31,6 @@ express()
 
   // REST endpoints?
   .get("/bacon", (req, res) => res.status(200).json("🥓"))
+  .post("/checkout", addNewOder)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));

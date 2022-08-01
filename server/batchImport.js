@@ -1,6 +1,6 @@
 const { MongoClient } = require("mongodb");
 const items = require("./data/items.json");
-const companies = require("./data/items.json");
+const companies = require("./data/companies.json");
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 const options = {
