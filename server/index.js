@@ -3,7 +3,15 @@
 const express = require("express");
 const morgan = require("morgan");
 
-const { addNewOrder, getCategories, getCategoryItems, getItems, getItem } = require("./handlers");
+const {
+  addNewOrder,
+  getCategories,
+  getCategoryItems,
+  getItems,
+  getItem,
+  getBrands,
+  getBrandItems,
+} = require("./handlers");
 
 const PORT = 4000;
 
@@ -29,10 +37,10 @@ express()
   )
   .use("/", express.static(__dirname + "/"))
 
-  // REST endpoints?
-  .get("/bacon", (req, res) => res.status(200).json("🥓"))
   .get("/category", getCategories)
   .get("/category/:id", getCategoryItems)
+  .get("/brand", getBrands)
+  .get("/brand/:id", getBrandItems)
   .get("/api/get-items", getItems)
   .get("/api/get-item/:id", getItem)
   .post("/checkout", addNewOrder)
