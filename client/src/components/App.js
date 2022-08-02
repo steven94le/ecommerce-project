@@ -1,5 +1,8 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Brands from "./Brands";
+import Brands from "./brands/Brands";
+import BrandPage from "./brands/BrandPage";
+import ProductPage from "./ProductPage";
+
 import GlobalStyles from "./GlobalStyles";
 import Home from "./homepage/Home";
 import NavBar from "./navigationBar/NavBar";
@@ -15,6 +18,12 @@ const App = () => {
         </Route>
         <Route exact path="/brands">
           <Brands />
+        </Route>
+        <Route exact path="/brands/:id">
+          <BrandPage />
+        </Route>
+        <Route exact path="/product/:id">
+          <ProductPage />
         </Route>
         <Route exact path="/category"></Route>
         <Route exact path="/cart"></Route>
