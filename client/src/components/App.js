@@ -1,12 +1,13 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Brands from "./Brands";
 import GlobalStyles from "./GlobalStyles";
+import NavBar from "./navigationBar/NavBar";
 
 const App = () => {
   return (
     <BrowserRouter>
       <GlobalStyles />
-      {/* <Header /> */}
+      <NavBar />
       <Switch>
         <Route exact path="/"></Route>
         <Route exact path="/brands">
