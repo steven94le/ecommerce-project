@@ -12,60 +12,117 @@ const options = {
   useUnifiedTopology: true,
 };
 
+//get all wearable items
 const getItems = async (req, res) => {
   try {
     const client = new MongoClient(MONGO_URI, options);
     await client.connect();
-    const db = client.db("GroupECommerce")
-    const allItems = await db.collection("items").find().toArray()
-    await client.close() 
+    const db = client.db("GroupECommerce");
+    const allItems = await db.collection("items").find().toArray();
+    await client.close();
     res.status(200).json({
       status: 200,
       data: allItems,
-    })
+    });
   } catch (err) {
-    console.error(err)
+    console.error(err);
     res.status(404).json({
       status: 404,
-      message: 'File not found.',
-  });
-  }
-} 
-
-const getItem = async (req, res) => { 
-    const reqId = parseInt(req.params.id)
-      try {
-        const client = new MongoClient(MONGO_URI, options);
-        await client.connect();
-        const db = client.db("GroupECommerce");
-        const allItems = await db.collection("items").find().toArray()
-        await client.close()
-        const itemIds = allItems.map((item) => {
-          return item._id
-        })  
-        const doesIdExist = itemIds.find((id) => id === reqId)
-        const foundItem = allItems.find(item => item["_id"] === reqId)
-        if (doesIdExist === undefined) {
-          res.status(400).json({
-            status: 400,
-            message: 'Invalid Id'
-          })
-        } else {
-          res.status(200).json({
-            status: 200,
-            data: foundItem,
-          })
-        }
-    } catch (err) {
-      console.error(err)
-      res.status(404).json({
-        status: 404,
-        message: 'File not found.',
+      message: "File not found.",
     });
   }
-}
+};
 
+//get a particular wearable item
+const getItem = async (req, res) => {
+  const reqId = parseInt(req.params.id);
+  try {
+    const client = new MongoClient(MONGO_URI, options);
+    await client.connect();
+    const db = client.db("GroupECommerce");
+    const allItems = await db.collection("items").find().toArray();
+    await client.close();
+    const itemIds = allItems.map((item) => {
+      return item._id;
+    });
+    const doesIdExist = itemIds.find((id) => id === reqId);
+    const foundItem = allItems.find((item) => item["_id"] === reqId);
+    if (doesIdExist === undefined) {
+      res.status(400).json({
+        status: 400,
+        message: "Invalid Id",
+      });
+    } else {
+      res.status(200).json({
+        status: 200,
+        data: foundItem,
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(404).json({
+      status: 404,
+      message: "File not found.",
+    });
+  }
+};
 
+//get all brand names
+const getBrands = async (req, res) => {
+  try {
+    const client = new MongoClient(MONGO_URI, options);
+    await client.connect();
+    const db = client.db("GroupECommerce");
+
+    const brands = await db.collection("companies").distinct("name");
+
+    client.close();
+    res.status(200).json({
+      status: 200,
+      data: brands,
+      message: "Companies fetched!",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+//get wearables from a single brand
+const getBrandItems = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const client = new MongoClient(MONGO_URI, options);
+    await client.connect();
+    const db = client.db("GroupECommerce");
+
+    const brands = await db.collection("companies").distinct("name");
+
+    if (!brands.includes(id)) {
+      return res.status(404).json({ status: 404, message: "Brand not found!" });
+    }
+
+    const brandDocument = await db
+      .collection("companies")
+      .findOne({ name: id });
+
+    const brandId = brandDocument._id;
+
+    const brandItems = await db
+      .collection("items")
+      .find({ companyId: brandId })
+      .toArray();
+
+    client.close();
+    res.status(200).json({
+      status: 200,
+      data: brandItems,
+      message: "Brand items fetched!",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 //get all category names
 const getCategories = async (req, res) => {
@@ -76,7 +133,6 @@ const getCategories = async (req, res) => {
 
     const categories = await db.collection("items").distinct("category");
 
-    console.log("categories", categories);
     client.close();
     res.status(200).json({
       status: 200,
@@ -170,4 +226,12 @@ const addNewOrder = async (req, res) => {
   }
 };
 
-module.exports = { addNewOrder, getCategories, getCategoryItems, getItems, getItem };
+module.exports = {
+  addNewOrder,
+  getCategories,
+  getCategoryItems,
+  getItems,
+  getItem,
+  getBrands,
+  getBrandItems,
+};
