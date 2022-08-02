@@ -1,15 +1,24 @@
-import { useState, useEffect } from 'react';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Brands from "./Brands";
+import GlobalStyles from "./GlobalStyles";
 
-function App() {
-  const [bacon, setBacon] = useState(null);
-
-  useEffect(() => {
-    fetch('/bacon')
-      .then(res => res.json())
-      .then(data => setBacon(data));
-  }, []);
-
-  return <div>{bacon ? bacon : `...where's my stuff?...`}</div>;
-}
+const App = () => {
+  return (
+    <BrowserRouter>
+      <GlobalStyles />
+      {/* <Header /> */}
+      <Switch>
+        <Route exact path="/"></Route>
+        <Route exact path="/brands">
+          <Brands />
+        </Route>
+        <Route exact path="/category"></Route>
+        <Route exact path="/cart"></Route>
+        <Route exact path="/confirmation"></Route>
+        <Route exact path="/account"></Route>
+      </Switch>
+    </BrowserRouter>
+  );
+};
 
 export default App;
