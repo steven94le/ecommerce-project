@@ -1,10 +1,17 @@
 import styled from "styled-components";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
+import { CartItemsContext } from "./contexts/CartItemsContext";
 
 const ProductPage = () => {
   const { id } = useParams();
+  const { cartItems, setCartItems } = useContext(CartItemsContext);
   const [productInfo, setProductInfo] = useState("");
+
+  const handleAddToCart = (ev) => {
+    ev.preventDefault();
+    setCartItems([...cartItems, productInfo]);
+  };
 
   useEffect(() => {
     const fetchProductInfo = async () => {
@@ -23,6 +30,8 @@ const ProductPage = () => {
     fetchProductInfo();
   }, [id]);
 
+  console.log("cartItems", cartItems);
+
   return (
     <>
       <StyledTitle>{productInfo.name}</StyledTitle>
@@ -30,12 +39,12 @@ const ProductPage = () => {
         {productInfo ? (
           <>
             <img src={productInfo.imageSrc} alt="wearable" />
-            <ItemDescription>
+            <ItemDescription value={productInfo}>
               <div>{productInfo.price}</div>
               <div>Body Location: {productInfo.body_location}</div>
               <div>Category: {productInfo.category}</div>
               <div>Stock: {productInfo.numInStock}</div>
-              <StyledButton>Add To Cart</StyledButton>
+              <StyledButton onClick={handleAddToCart}>Add To Cart</StyledButton>
             </ItemDescription>
           </>
         ) : (
