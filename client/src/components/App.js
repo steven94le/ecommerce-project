@@ -4,6 +4,7 @@ import BrandPage from "./brands/BrandPage";
 import ProductPage from "./ProductPage";
 
 import GlobalStyles from "./GlobalStyles";
+import Home from "./homepage/Home";
 import NavBar from "./navigationBar/NavBar";
 import Cart from "./cart/Cart";
 
@@ -13,7 +14,9 @@ const App = () => {
       <GlobalStyles />
       <NavBar />
       <Switch>
-        <Route exact path="/"></Route>
+        <Route exact path="/">
+          <Home />
+        </Route>
         <Route exact path="/brands">
           <Brands />
         </Route>
