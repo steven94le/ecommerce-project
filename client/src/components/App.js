@@ -1,6 +1,7 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Brands from "./Brands";
 import GlobalStyles from "./GlobalStyles";
+import Home from "./homepage/Home";
 import NavBar from "./navigationBar/NavBar";
 
 const App = () => {
@@ -9,7 +10,9 @@ const App = () => {
       <GlobalStyles />
       <NavBar />
       <Switch>
-        <Route exact path="/"></Route>
+        <Route exact path="/">
+          <Home />
+        </Route>
         <Route exact path="/brands">
           <Brands />
         </Route>
