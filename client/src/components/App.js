@@ -6,6 +6,7 @@ import ProductPage from "./ProductPage";
 import GlobalStyles from "./GlobalStyles";
 import Home from "./homepage/Home";
 import NavBar from "./navigationBar/NavBar";
+import Cart from "./cart/Cart";
 
 const App = () => {
   return (
@@ -26,7 +27,9 @@ const App = () => {
           <ProductPage />
         </Route>
         <Route exact path="/category"></Route>
-        <Route exact path="/cart"></Route>
+        <Route exact path="/cart">
+          <Cart />
+        </Route>
         <Route exact path="/confirmation"></Route>
         <Route exact path="/account"></Route>
       </Switch>
