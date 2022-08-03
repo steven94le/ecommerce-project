@@ -1,22 +1,14 @@
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const EmptyCart = () => {
-  const history = useHistory();
-
   return (
     <EmptyCartStatus>
-      <p>Your cart is currently empty.</p>
+      <StyledHeader>Your cart is currently empty.</StyledHeader>
       {/* Change first link to all products page */}
-      <StyledButton type="button" onClick={() => history.push("/")}>
-        Shop our wearables
-      </StyledButton>
-      <StyledButton type="button" onClick={() => history.push("/brands")}>
-        Shop for a brand
-      </StyledButton>
-      <StyledButton type="button" onClick={() => history.push("/categories")}>
-        Shop for a category
-      </StyledButton>
+      <StyledLink to="/">Shop our wearables</StyledLink>
+      <StyledLink to="/brands">Shop for a brand</StyledLink>
+      <StyledLink to="/category">Shop for a category</StyledLink>
     </EmptyCartStatus>
   );
 };
@@ -24,7 +16,13 @@ const EmptyCart = () => {
 const EmptyCartStatus = styled.div`
   text-align: center;
 `;
-const StyledButton = styled.button`
+
+const StyledHeader = styled.h3`
+  color: black;
+  margin: 20px;
+`;
+
+const StyledLink = styled(Link)`
   background-color: black;
   font-size: 16px;
   color: white;
@@ -33,6 +31,7 @@ const StyledButton = styled.button`
   margin: 5px;
   height: 30px;
   width: 175px;
+  padding: 5px;
 
   &:hover {
     cursor: pointer;
