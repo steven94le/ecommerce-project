@@ -2,18 +2,15 @@ import React, { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom"
 import styled from "styled-components"
 
-
-
 const CategoryPage = () => {
     const {id} = useParams()
-    const reqId = id.toLowerCase()
     const [loading, setLoading] = useState(true)
     const [categoryItems, setCategoryItems] = useState()
 
     useEffect(() => {
         setLoading(true)
         const getCategoryItems = async () => {
-            const requestItems = await fetch(`/category/${reqId}`);
+            const requestItems = await fetch(`/category/${id}`);
             const requestJson = await requestItems.json();
             setCategoryItems(requestJson.data);
             console.log(categoryItems)
@@ -27,7 +24,7 @@ const CategoryPage = () => {
         <StyledHeader>{id}</StyledHeader>
         <CategoryWrapper>
         {
-                categoryItems.map((item, id) => {
+                categoryItems?.map((item, id) => {
                     return (
                     <StyledCard to={`/product/${item._id}`} key={id}>
                         <img src={item.imageSrc}/>

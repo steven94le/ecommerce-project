@@ -23,7 +23,7 @@ const Categories = () => {
         <StyledHeader>Categories</StyledHeader>
             <CategoryWrapper>
             {
-                categories.map((category, id) => {
+                categories?.map((category, id) => {
                     return (
                     <StyledCard to={`category/${category}`} key={id}>
                         <p>{category}</p>
