@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { Link } from "react-router-dom"
 
 const Categories = () => {
-
+    //add line
     const [loading, setLoading] = useState(true)
     const [categories, setCategories] = useState([])
 
