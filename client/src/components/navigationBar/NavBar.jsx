@@ -7,7 +7,7 @@ const NavBar = () => {
       <LeftSide>
         <Logo>
           <NavLink exact to="/">
-            <h1 style={{ color: "white" }}>Team A.S.S</h1>
+            <h1 style={{ color: "white" }}>Team 04</h1>
           </NavLink>
         </Logo>
         <StyledNavLink exact to="/brands">

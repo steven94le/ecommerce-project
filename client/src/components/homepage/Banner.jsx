@@ -11,7 +11,7 @@ const Banner = () => {
             fontSize: "50px",
           }}
         >
-          A.S.S Luxury Wearable Collection
+          Luxury Wearable Collection
         </h1>
         <BtnDiv>
           <StyledBtn>MEN</StyledBtn>
