@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 
 const Categories = () => {
     //add line
+    //another line
     const [loading, setLoading] = useState(true)
     const [categories, setCategories] = useState([])
 
