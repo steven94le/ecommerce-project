@@ -153,11 +153,12 @@ const getCategoryItems = async (req, res) => {
     await client.connect();
     const db = client.db("GroupECommerce");
 
-    const modifiedId = id[0].toUpperCase() + id.slice(1).toLowerCase();
+    // const modifiedId = id[0].toUpperCase() + id.slice(1).toLowerCase();
+    // console.log(modifiedId)
 
     const categories = await db.collection("items").distinct("category");
 
-    if (!categories.includes(modifiedId)) {
+    if (!categories.includes(id)) {
       return res
         .status(404)
         .json({ status: 404, message: "Category not found!" });
@@ -165,7 +166,7 @@ const getCategoryItems = async (req, res) => {
 
     const category = await db
       .collection("items")
-      .find({ category: modifiedId })
+      .find({ category: id })
       .toArray();
 
     client.close();
