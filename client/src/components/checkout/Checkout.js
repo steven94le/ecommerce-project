@@ -4,11 +4,18 @@ import React, { useState } from "react";
 
 const Checkout = () => {
   const [shippingMethod, setShippingMethod] = useState("");
+  const [billingAddressToggle, setBillingAddressToggle] = useState(true);
+
+  const handleBillingBox = () => {
+    setBillingAddressToggle(!billingAddressToggle);
+  };
 
   const handleShipping = (ev) => {
     const shippingCost = ev.target.value;
     setShippingMethod(shippingCost);
   };
+
+  console.log("billingAddressToggle", billingAddressToggle);
 
   return (
     <>
@@ -23,6 +30,15 @@ const Checkout = () => {
             <div>City - Province - Postal</div>
             <div>Country</div>
             <div>Phone Number</div>
+            <div>
+              <input
+                type="checkbox"
+                id="billing"
+                name="billing"
+                onChange={handleBillingBox}
+              />
+              <label htmlFor="billing">Use as billing address</label>
+            </div>
           </ShippingInfo>
           <ShippingInfo>
             <div>SHIPPING METHOD</div>
@@ -58,15 +74,17 @@ const Checkout = () => {
             <div>Expiration</div>
             <input />
           </CardDetails>
-          <BillingInfo>
-            <div>BILLING ADDRESS</div>
-            <hr />
-            <div>Full Name</div>
-            <div>Address</div>
-            <div>City - Province - Postal</div>
-            <div>Country</div>
-            <div>Phone Number</div>
-          </BillingInfo>
+          {billingAddressToggle && (
+            <BillingInfo>
+              <div>BILLING ADDRESS</div>
+              <hr />
+              <div>Full Name</div>
+              <div>Address</div>
+              <div>City - Province - Postal</div>
+              <div>Country</div>
+              <div>Phone Number</div>
+            </BillingInfo>
+          )}
         </UserInfo>
         <OrderSummary
           shippingMethod={shippingMethod}

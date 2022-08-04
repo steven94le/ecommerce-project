@@ -89,7 +89,7 @@ input {
   width: 100%;
 }
 
-input[type='radio'], label{   
+input[type='radio'], input[type='checkbox'], label{   
   margin-top: -1px;
   vertical-align: middle;
 
