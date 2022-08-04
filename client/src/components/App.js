@@ -1,4 +1,4 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Brands from "./brands/Brands";
 import BrandPage from "./brands/BrandPage";
 import ProductPage from "./ProductPage";
@@ -9,8 +9,12 @@ import Home from "./homepage/Home";
 import NavBar from "./navigationBar/NavBar";
 import Cart from "./cart/Cart";
 import Checkout from "./checkout/Checkout";
+import AccountPage from "./accountpage/AccountPage";
+import { useContext } from "react";
+import { GoogleUserContext } from "./contexts/GoogleUserContext";
 
 const App = () => {
+  const { googleUserData } = useContext(GoogleUserContext);
   return (
     <BrowserRouter>
       <GlobalStyles />
@@ -41,7 +45,13 @@ const App = () => {
           <Checkout />
         </Route>
         <Route exact path="/confirmation"></Route>
-        <Route exact path="/account"></Route>
+        <Route exact path="/account">
+          {!googleUserData.name ? (
+            <AccountPage />
+          ) : (
+            <Redirect to={{ pathname: "/" }} />
+          )}
+        </Route>
       </Switch>
     </BrowserRouter>
   );
