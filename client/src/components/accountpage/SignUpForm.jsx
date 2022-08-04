@@ -26,7 +26,6 @@ const SignUpForm = () => {
 
     setFormFields({ ...formFields, [name]: value });
   };
-  console.log(formFields);
   return (
     <Container>
       <h2 style={{ margin: "10px 0", color: "black" }}>

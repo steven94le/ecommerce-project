@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import jwt_decode from "jwt-decode";
+import { GoogleUserContext } from "../contexts/GoogleUserContext";
 
 const defaultFormFields = {
   email: "",
@@ -9,13 +12,27 @@ const defaultFormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+  const { googleUserData, setGoogleUserData } = useContext(GoogleUserContext);
 
+  useEffect(() => {
+    const handleCallbackResponse = (response) => {
+      let userObj = jwt_decode(response.credential);
+      setGoogleUserData(userObj);
+    };
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:
+        "666226095597-4b4nrr17vj9m2irpkaejn0fic0jo55v7.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "outline",
+      size: "large",
+    });
+  }, [setGoogleUserData]);
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
-  };
-  const signInWithGoogle = async () => {
-    // await signInWithGooglePopup();
-    console.log("Signed In with Google");
   };
 
   const handleSubmit = async (e) => {
@@ -26,9 +43,9 @@ const SignInForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormFields({ ...formFields, [name]: value });
   };
+  console.log(googleUserData);
 
   return (
     <Container>
@@ -65,14 +82,8 @@ const SignInForm = () => {
           }}
         >
           <BtnWrapper type="submit">Sign In</BtnWrapper>
-          <BtnWrapper
-            className="googleSignIn"
-            buttonType="google"
-            type="button"
-            onClick={signInWithGoogle}
-          >
-            Sign In With Google
-          </BtnWrapper>
+
+          <div id="signInDiv"></div>
         </div>
       </form>
     </Container>
