@@ -24,13 +24,12 @@ const SignInForm = () => {
     console.log("Hi, Im working");
   };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
     setFormFields({ ...formFields, [name]: value });
   };
 
-  console.log(formFields);
   return (
     <Container>
       <h2 style={{ margin: "10px 0", color: "black" }}>
@@ -61,7 +60,7 @@ const SignInForm = () => {
         <div
           style={{
             display: " flex",
-            justifyContent: "space-between",
+            flexDirection: "column",
             marginTop: "20px",
           }}
         >
@@ -93,7 +92,8 @@ const StyledInput = styled.input`
   background-color: white;
   color: black;
   font-size: 18px;
-  padding: 10px 10px 10px 5px;
+  padding: 0 5px;
+
   display: block;
   width: 80%;
   border: none;
@@ -114,6 +114,7 @@ const StyledLabel = styled.label`
   top: 10px;
 `;
 const BtnWrapper = styled.button`
+  margin-top: 20px;
   min-width: 120px;
   width: auto;
   height: 50px;
