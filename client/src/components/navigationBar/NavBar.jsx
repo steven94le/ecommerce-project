@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { GoogleUserContext } from "../contexts/GoogleUserContext";
+import CurrentUser from "./CurrentUser";
 
 const NavBar = () => {
+  const { googleUserData } = useContext(GoogleUserContext);
   return (
     <Wrapper>
       <LeftSide>
@@ -18,12 +22,25 @@ const NavBar = () => {
         </StyledNavLink>
       </LeftSide>
       <RightSide>
-        <StyledNavLink exact to="/account">
-          Sign-In
-        </StyledNavLink>
-        <StyledNavLink exact to="/cart">
-          Cart
-        </StyledNavLink>
+        {googleUserData.name ? (
+          <>
+            <StyledNavLink exact to="/cart">
+              Your Cart
+            </StyledNavLink>{" "}
+            |
+            <CurrentUser />
+          </>
+        ) : (
+          <>
+            <StyledNavLink exact to="/account">
+              Sign-In
+            </StyledNavLink>
+            <StyledNavLink exact to="/cart">
+              Cart
+            </StyledNavLink>
+          </>
+        )}
+
         <Nav>
           {/* TODO: only show link if the user is signed-In - E.g. Wishlist etc.*/}
         </Nav>
@@ -49,9 +66,10 @@ const LeftSide = styled.div`
 `;
 const RightSide = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  width: 10%;
+  align-items: center;
+
+  width: 15%;
 `;
 
 const Logo = styled.div`
