@@ -8,6 +8,7 @@ import GlobalStyles from "./GlobalStyles";
 import Home from "./homepage/Home";
 import NavBar from "./navigationBar/NavBar";
 import Cart from "./cart/Cart";
+import AccountPage from "./accountpage/AccountPage";
 
 const App = () => {
   return (
@@ -37,7 +38,9 @@ const App = () => {
           <Cart />
         </Route>
         <Route exact path="/confirmation"></Route>
-        <Route exact path="/account"></Route>
+        <Route exact path="/account">
+          <AccountPage />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
