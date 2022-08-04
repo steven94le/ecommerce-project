@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React, { useContext } from "react";
 import { CartItemsContext } from "../contexts/CartItemsContext";
+import { Link } from "react-router-dom";
 
 const Summary = () => {
   const { cartItems } = useContext(CartItemsContext);
@@ -35,7 +36,9 @@ const Summary = () => {
         <p>${totalCostRounded}</p>
       </TotalCost>
       {/* link to checkout page or registration if not signed in*/}
-      <CheckOutButton type="button">PROCEED TO CHECKOUT</CheckOutButton>
+      <Link to="/checkout">
+        <CheckOutButton type="button">PROCEED TO CHECKOUT</CheckOutButton>
+      </Link>
     </Wrapper>
   );
 };

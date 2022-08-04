@@ -63,10 +63,10 @@ h2,
 h3,
 label,
 button {
-  color: #fff;
   font-family: var(--font-heading);
-  font-size: 32px;
+  font-size: 14px;
   text-align: center;
+
 }
 p,
 a,
@@ -78,13 +78,15 @@ input {
 
   input {
     font-size: 24px;
-    height: 42px;
-    border: 2px solid var(--color-orange);
+    height: 21px;
+    border: 1px solid lightgrey;
     border-radius: 4px;
     padding: 0 12px;
   }
 
   hr {
-  border-color: var(--color-alabama-crimson);
+  border: 0.1px solid lightgrey;
+  width: 100%;
 }
+
 `;

@@ -8,6 +8,7 @@ import GlobalStyles from "./GlobalStyles";
 import Home from "./homepage/Home";
 import NavBar from "./navigationBar/NavBar";
 import Cart from "./cart/Cart";
+import Checkout from "./checkout/Checkout";
 
 const App = () => {
   return (
@@ -35,6 +36,9 @@ const App = () => {
         </Route>
         <Route exact path="/cart">
           <Cart />
+        </Route>
+        <Route exact path="/checkout">
+          <Checkout />
         </Route>
         <Route exact path="/confirmation"></Route>
         <Route exact path="/account"></Route>
