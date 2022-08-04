@@ -6,7 +6,8 @@ const Checkout = () => {
   const [shippingMethod, setShippingMethod] = useState("");
 
   const handleShipping = (ev) => {
-    setShippingMethod(Number(ev.target.value));
+    const shippingCost = ev.target.value;
+    setShippingMethod(shippingCost);
   };
 
   return (
@@ -26,25 +27,28 @@ const Checkout = () => {
           <ShippingInfo>
             <div>SHIPPING METHOD</div>
             <hr />
-            <p>
-              You are eligible for free shipping for on all orders above $100.
-            </p>
-            <input
-              type="radio"
-              id="standard"
-              name="shipping"
-              value="0"
-              onChange={handleShipping}
-            ></input>
-            <label for="standard">$0.00 | 4 - 5 days | Standard</label>
-            <input
-              type="radio"
-              id="priority"
-              name="shipping"
-              value="10"
-              onChange={handleShipping}
-            ></input>
-            <label for="standard">$10.00 | 2 days | Priority</label>
+            <Radio>
+              <div>
+                <input
+                  type="radio"
+                  id="standard"
+                  name="shipping"
+                  value="0.00"
+                  onChange={handleShipping}
+                />
+                <label htmlFor="standard">$0.00 | 4 - 5 days | Standard</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="priority"
+                  name="shipping"
+                  value="10.00"
+                  onChange={handleShipping}
+                />
+                <label htmlFor="standard">$10.00 | 2 days | Priority</label>
+              </div>
+            </Radio>
           </ShippingInfo>
           <CardDetails>
             <div>CARD DETAILS</div>
@@ -102,6 +106,11 @@ const UserInfo = styled.div`
   > div > div:not(:first-child) {
     padding: 1px;
   }
+`;
+
+const Radio = styled.div`
+  display: flex;
+  flex-direction: column; ;
 `;
 
 const ShippingInfo = styled.div``;

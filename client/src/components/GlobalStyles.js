@@ -89,4 +89,11 @@ input {
   width: 100%;
 }
 
+input[type='radio'], label{   
+  margin-top: -1px;
+  vertical-align: middle;
+
+
+}
+
 `;

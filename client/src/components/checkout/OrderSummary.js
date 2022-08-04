@@ -8,8 +8,7 @@ const OrderSummary = ({ shippingMethod }) => {
 
   const cartItemsCost = cartItems.map((cartItem) => {
     const { price } = cartItem;
-    const unstringedPrice = price.replace("$", "");
-    const actualPrice = Number(unstringedPrice);
+    const actualPrice = Number(price.replace("$", ""));
     return actualPrice;
   });
 
@@ -18,9 +17,12 @@ const OrderSummary = ({ shippingMethod }) => {
     0
   );
 
-  const subTotalRounded = Number((Math.round(subTotal * 100) / 100).toFixed(2));
-  const taxes = subTotalRounded * 0.15;
-  const totalCost = subTotalRounded + taxes + shippingMethod;
+  const taxes = subTotal * 0.15;
+  const totalCost = subTotal + taxes + Number(shippingMethod);
+
+  const subTotalStr = parseFloat(subTotal).toFixed(2);
+  const taxesStr = parseFloat(taxes).toFixed(2);
+  const totalCostStr = parseFloat(totalCost).toFixed(2);
 
   return (
     <Wrapper>
@@ -40,22 +42,22 @@ const OrderSummary = ({ shippingMethod }) => {
       </ItemWrapper>
       <hr />
       <div>
-        <TotalCost>
+        <Cost>
           <p>Subtotal</p>
-          <p>${subTotalRounded}</p>
-        </TotalCost>
-        <TotalCost>
+          <p>${subTotalStr}</p>
+        </Cost>
+        <Cost>
           <p>Shipping</p>
-          <p>${shippingMethod ? shippingMethod : 0}</p>
-        </TotalCost>
-        <TotalCost>
+          <p>${shippingMethod ? shippingMethod : ""}</p>
+        </Cost>
+        <Cost>
           <p>Taxes (15%)</p>
-          <p>${taxes}</p>
-        </TotalCost>
+          <p>${taxesStr}</p>
+        </Cost>
         <hr />
         <TotalCost>
           <p>Order Total</p>
-          <p>${totalCost}</p>
+          <p>${totalCostStr}</p>
         </TotalCost>
       </div>
       {/* ADD POST METHOD */}
@@ -82,9 +84,13 @@ const Item = styled.div`
   justify-content: space-between;
 `;
 
-const TotalCost = styled.div`
+const Cost = styled.div`
   display: flex;
   justify-content: space-between;
+  padding: 5px 0 5px 0;
+`;
+
+const TotalCost = styled(Cost)`
   font-weight: bold;
 `;
 
