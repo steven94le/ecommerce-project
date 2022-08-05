@@ -12,6 +12,7 @@ import Checkout from "./checkout/Checkout";
 import AccountPage from "./accountpage/AccountPage";
 import { useContext } from "react";
 import { GoogleUserContext } from "./contexts/GoogleUserContext";
+import Confirmation from "./checkout/Confirmation";
 
 const App = () => {
   const { googleUserData } = useContext(GoogleUserContext);
@@ -44,7 +45,9 @@ const App = () => {
         <Route exact path="/checkout">
           <Checkout />
         </Route>
-        <Route exact path="/confirmation"></Route>
+        <Route exact path="/confirmation">
+          <Confirmation />
+        </Route>
         <Route exact path="/account">
           {!googleUserData.name ? (
             <AccountPage />

@@ -26,18 +26,22 @@ const Summary = () => {
 
   return (
     <Wrapper>
-      <p>Enter your email to login or continue to checkout as a guest.</p>
-      <div>Email address</div>
-      <input
-        name="email"
-        type="text"
-        onChange={(e) => handleOrderFormChange(e.target.value, "email")}
-      />
+      {!email && (
+        <>
+          <p>Enter your email to continue to checkout as a guest.</p>
+          <div>Email address</div>
+
+          <input
+            name="email"
+            type="text"
+            onChange={(e) => handleOrderFormChange(e.target.value, "email")}
+          />
+        </>
+      )}
       <TotalCost>
         <p>Order Total: </p>
         <p>${totalCostRounded}</p>
       </TotalCost>
-      {/* link to checkout page or registration if not signed in*/}
       <Link to="/checkout">
         <CheckOutButton type="button" disabled={!email}>
           PROCEED TO CHECKOUT
@@ -50,18 +54,13 @@ const Summary = () => {
 const Wrapper = styled.div`
   height: 75%;
   width: 35%;
-  padding: 20px;
   margin-left: 20px;
-
-  p {
-    padding-top: 10px;
-  }
 `;
 
 const TotalCost = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 50px 0 20px 0;
+  margin: 10px 0;
   font-weight: bold;
 `;
 
