@@ -1,10 +1,15 @@
 import styled from "styled-components";
 import OrderSummary from "./OrderSummary";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { CartItemsContext } from "../contexts/CartItemsContext";
+import { FormsContext } from "../contexts/FormsContext";
+import ShippingForm from "./ShippingForm";
 
 const Checkout = () => {
   const [shippingMethod, setShippingMethod] = useState("");
-  const [billingAddressToggle, setBillingAddressToggle] = useState(true);
+  const [billingAddressToggle, setBillingAddressToggle] = useState(false);
+  const { cartItems } = useContext(CartItemsContext);
+  const { handleOrderFormChange } = useContext(FormsContext);
 
   const handleBillingBox = () => {
     setBillingAddressToggle(!billingAddressToggle);
@@ -15,7 +20,7 @@ const Checkout = () => {
     setShippingMethod(shippingCost);
   };
 
-  console.log("billingAddressToggle", billingAddressToggle);
+  console.log("cartItems", cartItems);
 
   return (
     <>
@@ -25,11 +30,7 @@ const Checkout = () => {
           <ShippingInfo>
             <div>SHIPPING ADDRESS</div>
             <hr />
-            <div>Full Name</div>
-            <div>Address</div>
-            <div>City - Province - Postal</div>
-            <div>Country</div>
-            <div>Phone Number</div>
+            <ShippingForm />
             <div>
               <input
                 type="checkbox"
@@ -51,6 +52,7 @@ const Checkout = () => {
                   name="shipping"
                   value="0.00"
                   onChange={handleShipping}
+                  required
                 />
                 <label htmlFor="standard">$0.00 | 4 - 5 days | Standard</label>
               </div>
@@ -69,22 +71,34 @@ const Checkout = () => {
           <CardDetails>
             <div>CARD DETAILS</div>
             <hr />
-            <div>Card Number</div>
-            <input />
-            <div>Expiration</div>
-            <input />
+            <FormGroup>
+              <div>Card Number</div>
+              <input
+                name="creditCard"
+                type="text"
+                placeholder="Card Number"
+                onChange={(e) =>
+                  handleOrderFormChange(e.target.value, "creditCard")
+                }
+              />
+              <div>Expiration</div>
+              <input
+                name="expiration"
+                type="text"
+                placeholder="Expiration"
+                onChange={(e) =>
+                  handleOrderFormChange(e.target.value, "expiration")
+                }
+              />
+            </FormGroup>
           </CardDetails>
-          {billingAddressToggle && (
+          {/* {!billingAddressToggle && (
             <BillingInfo>
               <div>BILLING ADDRESS</div>
               <hr />
-              <div>Full Name</div>
-              <div>Address</div>
-              <div>City - Province - Postal</div>
-              <div>Country</div>
-              <div>Phone Number</div>
+              <ShippingForm />
             </BillingInfo>
-          )}
+          )} */}
         </UserInfo>
         <OrderSummary
           shippingMethod={shippingMethod}
@@ -134,6 +148,15 @@ const Radio = styled.div`
 const ShippingInfo = styled.div``;
 
 const CardDetails = styled.div``;
+
+const FormGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  > input {
+    width: 25%;
+  }
+`;
 
 const BillingInfo = styled.div``;
 
