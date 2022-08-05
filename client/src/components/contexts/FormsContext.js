@@ -6,7 +6,6 @@ export const FormsProvider = ({ children }) => {
   const initialShippingForm = {
     givenName: "",
     surname: "",
-    email: "",
     address: "",
     phoneNumber: "",
     city: "",

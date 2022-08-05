@@ -2,12 +2,15 @@ import styled from "styled-components";
 import React, { useContext } from "react";
 import { CartItemsContext } from "../contexts/CartItemsContext";
 import { Link } from "react-router-dom";
+import { FormsContext } from "../contexts/FormsContext";
 
 const Summary = () => {
   const { cartItems } = useContext(CartItemsContext);
+  const { orderForm, handleOrderFormChange } = useContext(FormsContext);
 
   const cartItemsCost = cartItems.map((cartItem) => {
     const { price } = cartItem;
+
     const unstringedPrice = price.replace("$", "");
     const actualPrice = Number(unstringedPrice);
     return actualPrice;
@@ -20,17 +23,17 @@ const Summary = () => {
 
   const totalCostRounded = (Math.round(totalCost * 100) / 100).toFixed(2);
 
+  console.log("orderForm", orderForm);
+
   return (
     <Wrapper>
-      <h4>Order Summary</h4>
-      <CostWrapper>
-        {cartItems.map((cartItem, index) => (
-          <Cost key={`item ${index + 1}`}>
-            <p>{cartItem.name}</p>
-            <p>{cartItem.price}</p>
-          </Cost>
-        ))}
-      </CostWrapper>
+      <p>Enter your email to login or continue to checkout as a guest.</p>
+      <div>Email address</div>
+      <input
+        name="email"
+        type="text"
+        onChange={(e) => handleOrderFormChange(e.target.value, "email")}
+      />
       <TotalCost>
         <p>Order Total: </p>
         <p>${totalCostRounded}</p>
@@ -52,16 +55,6 @@ const Wrapper = styled.div`
   p {
     padding-top: 10px;
   }
-`;
-
-const Cost = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const CostWrapper = styled.div`
-  height: 250px;
-  overflow: auto;
 `;
 
 const TotalCost = styled.div`

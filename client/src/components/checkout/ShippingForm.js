@@ -13,7 +13,6 @@ const ShippingForm = () => {
         <input
           name="givenName"
           type="text"
-          placeholder="First Name"
           onChange={(e) => {
             handleShippingFormChange(e.target.value, "givenName");
             handleOrderFormChange(e.target.value, "givenName");
@@ -23,7 +22,6 @@ const ShippingForm = () => {
         <input
           name="surname"
           type="text"
-          placeholder="Last Name"
           onChange={(e) => {
             handleShippingFormChange(e.target.value, "surname");
             handleOrderFormChange(e.target.value, "surname");
@@ -35,14 +33,12 @@ const ShippingForm = () => {
         <input
           name="address"
           type="text"
-          placeholder="Address"
           onChange={(e) => handleShippingFormChange(e.target.value, "address")}
         />
         <div>Phone Number</div>
         <input
           name="phoneNumber"
           type="text"
-          placeholder="Phone Number"
           onChange={(e) =>
             handleShippingFormChange(e.target.value, "phoneNumber")
           }
@@ -53,14 +49,12 @@ const ShippingForm = () => {
         <input
           name="city"
           type="text"
-          placeholder="City"
           onChange={(e) => handleShippingFormChange(e.target.value, "city")}
         />
         <div>Province</div>
         <input
           name="province"
           type="text"
-          placeholder="Province"
           onChange={(e) => handleShippingFormChange(e.target.value, "province")}
         />
       </FormGroup>
@@ -69,14 +63,12 @@ const ShippingForm = () => {
         <input
           name="country"
           type="text"
-          placeholder="Country"
           onChange={(e) => handleShippingFormChange(e.target.value, "country")}
         />
         <div>Postal Code</div>
         <input
           name="postalCode"
           type="text"
-          placeholder="Postal Code"
           onChange={(e) =>
             handleShippingFormChange(e.target.value, "postalCode")
           }

@@ -9,7 +9,7 @@ const Checkout = () => {
   const [shippingMethod, setShippingMethod] = useState("");
   const [billingAddressToggle, setBillingAddressToggle] = useState(false);
   const { cartItems } = useContext(CartItemsContext);
-  const { handleOrderFormChange } = useContext(FormsContext);
+  const { orderForm, handleOrderFormChange } = useContext(FormsContext);
 
   const handleBillingBox = () => {
     setBillingAddressToggle(!billingAddressToggle);
@@ -21,6 +21,7 @@ const Checkout = () => {
   };
 
   console.log("cartItems", cartItems);
+  console.log("orderForm", orderForm);
 
   return (
     <>
@@ -76,7 +77,6 @@ const Checkout = () => {
               <input
                 name="creditCard"
                 type="text"
-                placeholder="Card Number"
                 onChange={(e) =>
                   handleOrderFormChange(e.target.value, "creditCard")
                 }
@@ -85,7 +85,6 @@ const Checkout = () => {
               <input
                 name="expiration"
                 type="text"
-                placeholder="Expiration"
                 onChange={(e) =>
                   handleOrderFormChange(e.target.value, "expiration")
                 }
@@ -158,6 +157,6 @@ const FormGroup = styled.div`
   }
 `;
 
-const BillingInfo = styled.div``;
+// const BillingInfo = styled.div``;
 
 export default Checkout;
