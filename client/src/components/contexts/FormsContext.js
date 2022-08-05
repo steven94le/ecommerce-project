@@ -20,7 +20,7 @@ export const FormsProvider = ({ children }) => {
     email: "",
     creditCard: "",
     expiration: "",
-    orderedItem: [],
+    orderedItems: [],
   };
 
   const [shippingForm, setShippingForm] = useState(initialShippingForm);

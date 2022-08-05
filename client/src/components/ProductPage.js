@@ -14,11 +14,11 @@ const ProductPage = () => {
     ev.preventDefault();
     setCartItems([...cartItems, productInfo]);
 
-    const { orderedItem } = orderForm;
+    const { orderedItems } = orderForm;
 
     setOrderForm({
       ...orderForm,
-      orderedItem: [...orderedItem, productInfo],
+      orderedItems: [...orderedItems, productInfo],
     });
   };
 

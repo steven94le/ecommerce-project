@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import React, { useContext } from "react";
 import { CartItemsContext } from "../contexts/CartItemsContext";
-import { Link } from "react-router-dom";
 
-const OrderSummary = ({ shippingMethod }) => {
+const OrderSummary = ({ shippingMethod, handleOrderSubmit }) => {
   const { cartItems } = useContext(CartItemsContext);
 
   const cartItemsCost = cartItems.map((cartItem) => {
@@ -23,6 +22,8 @@ const OrderSummary = ({ shippingMethod }) => {
   const subTotalStr = parseFloat(subTotal).toFixed(2);
   const taxesStr = parseFloat(taxes).toFixed(2);
   const totalCostStr = parseFloat(totalCost).toFixed(2);
+
+  console.log("cartItems", cartItems);
 
   return (
     <Wrapper>
@@ -60,10 +61,9 @@ const OrderSummary = ({ shippingMethod }) => {
           <p>${totalCostStr}</p>
         </TotalCost>
       </div>
-      {/* ADD POST METHOD */}
-      <Link to="/confirmation">
-        <PlaceOrderButton type="button">PLACE ORDER</PlaceOrderButton>
-      </Link>
+      <PlaceOrderButton type="button" onClick={handleOrderSubmit}>
+        PLACE ORDER
+      </PlaceOrderButton>
     </Wrapper>
   );
 };
