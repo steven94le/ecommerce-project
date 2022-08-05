@@ -5,24 +5,15 @@ import { Redirect } from "react-router-dom";
 import { CartItemsContext } from "../contexts/CartItemsContext";
 import { FormsContext } from "../contexts/FormsContext";
 import ShippingForm from "./ShippingForm";
+import CardDetails from "./CardDetails";
+import ShippingMethod from "./ShippingMethod";
 
 const Checkout = () => {
   const [shippingMethod, setShippingMethod] = useState("");
-  const [billingAddressToggle, setBillingAddressToggle] = useState(false);
   const { setCartItems } = useContext(CartItemsContext);
-  const { orderForm, shippingForm, handleOrderFormChange } =
-    useContext(FormsContext);
+  const { orderForm, shippingForm } = useContext(FormsContext);
   const [formStatusPending, setFormStatusPending] = useState("");
   const [disabledOrderSubmit, setDisabledOrderSubmit] = useState(true);
-
-  const handleBillingBox = () => {
-    setBillingAddressToggle(!billingAddressToggle);
-  };
-
-  const handleShipping = (ev) => {
-    const shippingCost = ev.target.value;
-    setShippingMethod(shippingCost);
-  };
 
   const handleOrderSubmit = async (ev) => {
     ev.preventDefault();
@@ -64,71 +55,9 @@ const Checkout = () => {
           <Header>CHECKOUT</Header>
           <Wrapper>
             <UserInfo>
-              <ShippingInfo>
-                <div>SHIPPING ADDRESS</div>
-                <hr />
-                <ShippingForm />
-                <div>
-                  <input
-                    type="checkbox"
-                    id="billing"
-                    name="billing"
-                    onChange={handleBillingBox}
-                  />
-                  <label htmlFor="billing">Use as billing address</label>
-                </div>
-              </ShippingInfo>
-              <ShippingInfo>
-                <div>SHIPPING METHOD</div>
-                <hr />
-                <Radio>
-                  <div>
-                    <input
-                      type="radio"
-                      id="standard"
-                      name="shipping"
-                      value="0.00"
-                      onChange={handleShipping}
-                      required
-                    />
-                    <label htmlFor="standard">
-                      $0.00 | 4 - 5 days | Standard
-                    </label>
-                  </div>
-                  <div>
-                    <input
-                      type="radio"
-                      id="priority"
-                      name="shipping"
-                      value="10.00"
-                      onChange={handleShipping}
-                    />
-                    <label htmlFor="standard">$10.00 | 2 days | Priority</label>
-                  </div>
-                </Radio>
-              </ShippingInfo>
-              <CardDetails>
-                <div>CARD DETAILS</div>
-                <hr />
-                <FormGroup>
-                  <div>Card Number</div>
-                  <input
-                    name="creditCard"
-                    type="text"
-                    onChange={(e) =>
-                      handleOrderFormChange(e.target.value, "creditCard")
-                    }
-                  />
-                  <div>Expiration</div>
-                  <input
-                    name="expiration"
-                    type="text"
-                    onChange={(e) =>
-                      handleOrderFormChange(e.target.value, "expiration")
-                    }
-                  />
-                </FormGroup>
-              </CardDetails>
+              <ShippingForm />
+              <ShippingMethod setShippingMethod={setShippingMethod} />
+              <CardDetails />
             </UserInfo>
             <OrderSummary
               shippingMethod={shippingMethod}
@@ -162,34 +91,12 @@ const UserInfo = styled.div`
   width: 40%;
   height: 100%;
 
-  > div:not(first-child) {
+  > div {
     margin-bottom: 2rem;
   }
 
-  > div > div:first-child {
-    font-weight: bold;
-  }
-
-  > div > div:not(:first-child) {
-    padding: 1px;
-  }
-`;
-
-const Radio = styled.div`
-  display: flex;
-  flex-direction: column; ;
-`;
-
-const ShippingInfo = styled.div``;
-
-const CardDetails = styled.div``;
-
-const FormGroup = styled.div`
-  display: flex;
-  justify-content: space-between;
-
-  > input {
-    width: 25%;
+  > div > div {
+    padding: 5px 0 5px 0;
   }
 `;
 

@@ -39,8 +39,6 @@ const ProductPage = () => {
     fetchProductInfo();
   }, [id]);
 
-  console.log("cartItems", cartItems);
-
   return (
     <>
       <StyledTitle>{productInfo.name}</StyledTitle>

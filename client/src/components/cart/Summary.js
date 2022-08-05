@@ -26,18 +26,14 @@ const Summary = () => {
 
   return (
     <Wrapper>
-      {!email && (
-        <>
-          <p>Enter your email to continue to checkout as a guest.</p>
-          <div>Email address</div>
+      <p>Enter your email to continue to checkout as a guest.</p>
+      <div>Email address</div>
+      <input
+        name="email"
+        type="text"
+        onChange={(e) => handleOrderFormChange(e.target.value, "email")}
+      />
 
-          <input
-            name="email"
-            type="text"
-            onChange={(e) => handleOrderFormChange(e.target.value, "email")}
-          />
-        </>
-      )}
       <TotalCost>
         <p>Order Total: </p>
         <p>${totalCostRounded}</p>

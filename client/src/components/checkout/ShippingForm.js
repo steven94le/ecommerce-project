@@ -7,7 +7,9 @@ const ShippingForm = () => {
     useContext(FormsContext);
 
   return (
-    <>
+    <div>
+      <h4>SHIPPING ADDRESS</h4>
+      <hr />
       <FormGroup>
         <p>First Name</p>
         <input
@@ -29,13 +31,14 @@ const ShippingForm = () => {
         />
       </FormGroup>
       <FormGroup>
-        <div>Address</div>
+        <p>Address</p>
         <input
           name="address"
           type="text"
           onChange={(e) => handleShippingFormChange(e.target.value, "address")}
         />
-        <div>Phone Number</div>
+
+        <p>Phone Number</p>
         <input
           name="phoneNumber"
           type="text"
@@ -45,13 +48,14 @@ const ShippingForm = () => {
         />
       </FormGroup>
       <FormGroup>
-        <div>City</div>
+        <p>City</p>
         <input
           name="city"
           type="text"
           onChange={(e) => handleShippingFormChange(e.target.value, "city")}
         />
-        <div>Province</div>
+
+        <p>Province</p>
         <input
           name="province"
           type="text"
@@ -59,13 +63,13 @@ const ShippingForm = () => {
         />
       </FormGroup>
       <FormGroup>
-        <div>Country</div>
+        <p>Country</p>
         <input
           name="country"
           type="text"
           onChange={(e) => handleShippingFormChange(e.target.value, "country")}
         />
-        <div>Postal Code</div>
+        <p>Postal Code</p>
         <input
           name="postalCode"
           type="text"
@@ -74,14 +78,13 @@ const ShippingForm = () => {
           }
         />
       </FormGroup>
-    </>
+    </div>
   );
 };
 
 const FormGroup = styled.div`
   display: flex;
   justify-content: space-between;
-
   > input {
     width: 25%;
   }
