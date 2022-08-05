@@ -7,6 +7,7 @@ import { FormsContext } from "../contexts/FormsContext";
 const Summary = () => {
   const { cartItems } = useContext(CartItemsContext);
   const { orderForm, handleOrderFormChange } = useContext(FormsContext);
+  const { email } = orderForm;
 
   const cartItemsCost = cartItems.map((cartItem) => {
     const { price } = cartItem;
@@ -23,8 +24,6 @@ const Summary = () => {
 
   const totalCostRounded = (Math.round(totalCost * 100) / 100).toFixed(2);
 
-  console.log("orderForm", orderForm);
-
   return (
     <Wrapper>
       <p>Enter your email to login or continue to checkout as a guest.</p>
@@ -40,7 +39,9 @@ const Summary = () => {
       </TotalCost>
       {/* link to checkout page or registration if not signed in*/}
       <Link to="/checkout">
-        <CheckOutButton type="button">PROCEED TO CHECKOUT</CheckOutButton>
+        <CheckOutButton type="button" disabled={!email}>
+          PROCEED TO CHECKOUT
+        </CheckOutButton>
       </Link>
     </Wrapper>
   );
@@ -75,6 +76,11 @@ const CheckOutButton = styled.button`
 
   &:hover {
     cursor: pointer;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 `;
 

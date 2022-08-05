@@ -2,7 +2,11 @@ import styled from "styled-components";
 import React, { useContext } from "react";
 import { CartItemsContext } from "../contexts/CartItemsContext";
 
-const OrderSummary = ({ shippingMethod, handleOrderSubmit }) => {
+const OrderSummary = ({
+  shippingMethod,
+  handleOrderSubmit,
+  disabledOrderSubmit,
+}) => {
   const { cartItems } = useContext(CartItemsContext);
 
   const cartItemsCost = cartItems.map((cartItem) => {
@@ -22,8 +26,6 @@ const OrderSummary = ({ shippingMethod, handleOrderSubmit }) => {
   const subTotalStr = parseFloat(subTotal).toFixed(2);
   const taxesStr = parseFloat(taxes).toFixed(2);
   const totalCostStr = parseFloat(totalCost).toFixed(2);
-
-  console.log("cartItems", cartItems);
 
   return (
     <Wrapper>
@@ -61,7 +63,11 @@ const OrderSummary = ({ shippingMethod, handleOrderSubmit }) => {
           <p>${totalCostStr}</p>
         </TotalCost>
       </div>
-      <PlaceOrderButton type="button" onClick={handleOrderSubmit}>
+      <PlaceOrderButton
+        type="button"
+        onClick={handleOrderSubmit}
+        disabled={disabledOrderSubmit}
+      >
         PLACE ORDER
       </PlaceOrderButton>
     </Wrapper>
@@ -105,6 +111,11 @@ const PlaceOrderButton = styled.button`
 
   &:hover {
     cursor: pointer;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 `;
 

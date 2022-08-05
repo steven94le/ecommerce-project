@@ -1,17 +1,19 @@
 import styled from "styled-components";
 import OrderSummary from "./OrderSummary";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-// import { CartItemsContext } from "../contexts/CartItemsContext";
+import { CartItemsContext } from "../contexts/CartItemsContext";
 import { FormsContext } from "../contexts/FormsContext";
 import ShippingForm from "./ShippingForm";
 
 const Checkout = () => {
   const [shippingMethod, setShippingMethod] = useState("");
   const [billingAddressToggle, setBillingAddressToggle] = useState(false);
-  // const { cartItems } = useContext(CartItemsContext);
-  const { orderForm, handleOrderFormChange } = useContext(FormsContext);
+  const { setCartItems } = useContext(CartItemsContext);
+  const { orderForm, shippingForm, handleOrderFormChange } =
+    useContext(FormsContext);
   const [formStatusPending, setFormStatusPending] = useState("");
+  const [disabledOrderSubmit, setDisabledOrderSubmit] = useState(true);
 
   const handleBillingBox = () => {
     setBillingAddressToggle(!billingAddressToggle);
@@ -42,17 +44,21 @@ const Checkout = () => {
         throw Error(`${res.status} ${res.statusText}`);
       }
       setFormStatusPending("confirmed");
+      setCartItems([]);
     } catch (err) {
       console.log(err);
     }
   };
 
-  // console.log("cartItems", cartItems);
-  console.log("orderForm", orderForm);
+  useEffect(() => {
+    !Object.values(shippingForm).includes("") &&
+    !Object.values(orderForm).includes("")
+      ? setDisabledOrderSubmit(false)
+      : setDisabledOrderSubmit(true);
+  }, [orderForm, shippingForm, setDisabledOrderSubmit]);
 
   return (
     <>
-      {" "}
       {formStatusPending !== "confirmed" ? (
         <>
           <Header>CHECKOUT</Header>
@@ -123,17 +129,11 @@ const Checkout = () => {
                   />
                 </FormGroup>
               </CardDetails>
-              {/* {!billingAddressToggle && (
-            <BillingInfo>
-              <div>BILLING ADDRESS</div>
-              <hr />
-              <ShippingForm />
-            </BillingInfo>
-          )} */}
             </UserInfo>
             <OrderSummary
               shippingMethod={shippingMethod}
               handleOrderSubmit={handleOrderSubmit}
+              disabledOrderSubmit={disabledOrderSubmit}
             />
           </Wrapper>
         </>
@@ -192,7 +192,5 @@ const FormGroup = styled.div`
     width: 25%;
   }
 `;
-
-// const BillingInfo = styled.div``;
 
 export default Checkout;
