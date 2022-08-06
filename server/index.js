@@ -12,7 +12,7 @@ const {
   getBrands,
   getBrandItems,
   addNewUser,
-  getUsers,
+  verifyUser,
 } = require("./handlers");
 
 const PORT = 4000;
@@ -46,7 +46,7 @@ express()
   .get("/api/get-items", getItems)
   .get("/api/get-item/:id", getItem)
   .post("/checkout", addNewOrder)
-  .get("/account", getUsers)
+  .get("/account", verifyUser)
 
   .post("/account", addNewUser)
 
