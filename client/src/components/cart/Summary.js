@@ -3,10 +3,13 @@ import React, { useContext } from "react";
 import { CartItemsContext } from "../contexts/CartItemsContext";
 import { Link } from "react-router-dom";
 import { FormsContext } from "../contexts/FormsContext";
+import { GoogleUserContext } from "../contexts/GoogleUserContext";
 
 const Summary = () => {
   const { cartItems } = useContext(CartItemsContext);
   const { orderForm, handleOrderFormChange } = useContext(FormsContext);
+  const { googleUserData } = useContext(GoogleUserContext);
+  const { email_verified } = googleUserData;
   const { email } = orderForm;
 
   const cartItemsCost = cartItems.map((cartItem) => {
@@ -24,22 +27,30 @@ const Summary = () => {
 
   const totalCostRounded = (Math.round(totalCost * 100) / 100).toFixed(2);
 
+  console.log("googleUserData", googleUserData);
+
   return (
     <Wrapper>
-      <p>Enter your email to continue to checkout as a guest.</p>
-      <div>Email address</div>
-      <input
-        name="email"
-        type="text"
-        onChange={(e) => handleOrderFormChange(e.target.value, "email")}
-      />
-
+      {!email_verified && (
+        <>
+          <p>Enter your email to continue to checkout as a guest.</p>
+          <div>Email address</div>
+          <input
+            name="email"
+            type="text"
+            onChange={(e) => handleOrderFormChange(e.target.value, "email")}
+          />
+        </>
+      )}
       <TotalCost>
         <p>Order Total: </p>
         <p>${totalCostRounded}</p>
       </TotalCost>
       <Link to="/checkout">
-        <CheckOutButton type="button" disabled={!email}>
+        <CheckOutButton
+          type="button"
+          disabled={!email_verified && !email.includes("@")}
+        >
           PROCEED TO CHECKOUT
         </CheckOutButton>
       </Link>

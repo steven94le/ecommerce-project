@@ -4,6 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import jwt_decode from "jwt-decode";
 import { GoogleUserContext } from "../contexts/GoogleUserContext";
+import { FormsContext } from "../contexts/FormsContext";
 
 const defaultFormFields = {
   email: "",
@@ -13,11 +14,19 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
   const { googleUserData, setGoogleUserData } = useContext(GoogleUserContext);
+  const { orderForm, setOrderForm } = useContext(FormsContext);
 
   useEffect(() => {
     const handleCallbackResponse = (response) => {
       let userObj = jwt_decode(response.credential);
+
       setGoogleUserData(userObj);
+      setOrderForm({
+        ...orderForm,
+        email: userObj.email,
+        givenName: userObj.given_name,
+        surname: userObj.family_name,
+      });
     };
     /* global google */
     google.accounts.id.initialize({
@@ -30,7 +39,7 @@ const SignInForm = () => {
       theme: "outline",
       size: "large",
     });
-  }, [setGoogleUserData]);
+  }, [setGoogleUserData, setOrderForm]);
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };

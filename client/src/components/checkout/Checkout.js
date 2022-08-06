@@ -48,6 +48,8 @@ const Checkout = () => {
       : setDisabledOrderSubmit(true);
   }, [orderForm, shippingForm, setDisabledOrderSubmit]);
 
+  console.log("orderForm", orderForm);
+
   return (
     <>
       {formStatusPending !== "confirmed" ? (
