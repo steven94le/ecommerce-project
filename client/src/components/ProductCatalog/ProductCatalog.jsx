@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const ProductCatalog = () => {
     const {itemsState} = useContext(ItemsContext)
     const [navFilter, setNavFilter] = useState()
+    const [posts, setPosts] = useState(10)
     const [minMax, setMinMax] = useState({
         minimum: 0,
         maximum: 100000,
