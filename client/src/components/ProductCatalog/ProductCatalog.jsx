@@ -15,15 +15,15 @@ const ProductCatalog = () => {
     return !itemsState ? <></> : (
         <>
             <Wrapper>
-                <RadioBox setNavFilter={setNavFilter} setMinMax={setMinMax}  />
+                <RadioBox setNavFilter={setNavFilter} setMinMax={setMinMax} navFilter={navFilter}  />
                 <ItemGrid>
                     {
-                        itemsState.map((item, id) => {
+                        itemsState?.map((item, id) => {
                             if ((item.category === navFilter) && (parseInt(item.price.slice(1)) >= minMax.minimum) && (parseInt(item.price.slice(1)) <= minMax.maximum)) {
                                 return ( 
                                     <StyledCard to={`/product/${item._id}`} key={id}>
                                         <StyledText>{item.name}</StyledText>
-                                        <StyledThumbnail src={item.imageSrc} alt="" />
+                                        <StyledThumbnail src={item.imageSrc} alt="wearable" />
                                         <StyledText>{item.price}</StyledText>
                                     </StyledCard>
                                     )
@@ -31,7 +31,7 @@ const ProductCatalog = () => {
                                 return (
                                     <StyledCard to={`/product/${item._id}`} key={id}>
                                         <StyledText>{item.name}</StyledText>
-                                        <StyledThumbnail src={item.imageSrc} alt="" />
+                                        <StyledThumbnail src={item.imageSrc} alt="wearable" />
                                         <StyledText>{item.price}</StyledText>
                                         {item.numInStock === 0 ? <StyledText style={{'color':'red'}}>Sold Out</StyledText> : <StyledText></StyledText>}
                                     </StyledCard>
@@ -66,7 +66,7 @@ const ItemGrid = styled.div`
 
 const StyledText = styled.p`
     font-stretch: expanded;
-    font-size: 18px;
+    font-size: 14px;
     line-height: 24px;
     text-align: center;
 `
@@ -76,7 +76,7 @@ const StyledCard = styled(Link)`
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    width: 300px;
+    width: 200px;
     height: 350px;
     margin: 30px;
     padding: 20px;

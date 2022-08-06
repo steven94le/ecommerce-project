@@ -47,11 +47,18 @@ const ProductPage = () => {
           <>
             <img src={productInfo.imageSrc} alt="wearable" />
             <ItemDescription value={productInfo}>
-              <div>{productInfo.price}</div>
-              <div>Body Location: {productInfo.body_location}</div>
-              <div>Category: {productInfo.category}</div>
-              <div>Stock: {productInfo.numInStock}</div>
-              <StyledButton onClick={handleAddToCart}>Add To Cart</StyledButton>
+              <StyledDiv>{productInfo.price}</StyledDiv>
+              <StyledDiv>Body Location: {productInfo.body_location}</StyledDiv>
+              <StyledDiv>Category: {productInfo.category}</StyledDiv>
+              <StyledDiv>Stock: {productInfo.numInStock}</StyledDiv>
+              {
+                productInfo.numInStock === 0 ? 
+                <OutOfStock>
+                  <OutOfStockText>Out of Stock</OutOfStockText>
+                </OutOfStock> 
+                :
+                <StyledButton onClick={handleAddToCart}>Add To Cart</StyledButton>
+              }
             </ItemDescription>
           </>
         ) : (
@@ -82,10 +89,30 @@ const ItemDescription = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  div {
-    padding-bottom: 20px;
-  }
+  padding: 20px;
 `;
+
+const OutOfStockText = styled.span`
+  padding: 0px;
+  margin: 0px;
+`
+
+const OutOfStock = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background: red;
+  text-align: center;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  height: 25px;
+`
+
+const StyledDiv = styled.div`
+  padding-bottom: 20px;
+`
 
 const StyledButton = styled.button`
   color: white;
