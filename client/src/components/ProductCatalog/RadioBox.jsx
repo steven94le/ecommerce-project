@@ -1,11 +1,10 @@
-import { useEffect, useState, useContext } from "react"
+import { useEffect, useState } from "react"
 import styled from "styled-components"
-import { ItemsContext } from "../contexts/ItemsContext"
 
-const RadioBox = ({ setNavFilter, setMinMax }) => {
+const RadioBox = ({ setNavFilter, setMinMax, navFilter }) => {
     const [loading, setLoading] = useState(true)
     const [categoryNames, setCategoryNames] = useState()
-    const {itemsState} = useContext(ItemsContext)
+    const [priceState, setPriceState] = useState()
     const priceOptions = ['All', 'Less than $25', '$25 to $50', '$50 to $100', '$100 to $200', 'Over $200']
 
     useEffect(() => {
@@ -15,11 +14,12 @@ const RadioBox = ({ setNavFilter, setMinMax }) => {
             const requestJson = await requestCategories.json();
             setCategoryNames(requestJson.data)
             setNavFilter('All')
+            setPriceState('All')
             setMinMax({minimum: 0, maximum: 100000})
             setLoading(false)
         }
         getCategoryItems()
-    },[])
+    },[setMinMax, setNavFilter])
 
     const handleNav = (e) => {
         setNavFilter(e.target.value)
@@ -29,22 +29,29 @@ const RadioBox = ({ setNavFilter, setMinMax }) => {
         switch (e.target.value) {
             case "All":
                 setMinMax({minimum: 0, maximum: 100000})
+                setPriceState(e.target.value)
                 break;
             case "Less than $25":
                 setMinMax({minimum: 0, maximum: 25})
+                setPriceState(e.target.value)
                 break;
             case "$25 to $50":
                 setMinMax({minimum: 25, maximum: 50})
+                setPriceState(e.target.value)
                 break;
             case "$50 to $100":
                 setMinMax({minimum: 50, maximum: 100})
+                setPriceState(e.target.value)
                 break;
             case "$100 to $200":
                 setMinMax({minimum: 100, maximum: 200})
+                setPriceState(e.target.value)
                 break;
             case "Over $200":
                 setMinMax({minimum: 200, maximum: 100000})
+                setPriceState(e.target.value)
                 break;
+                default:
         }
     }
 
@@ -54,30 +61,39 @@ return loading ? <></> : (
         <RadioArea>
         <FilterHeaders>Filter by Category</FilterHeaders>
             <FormPair>
-                <CheckInput name="filter-by-category" type="radio" value='All' onClick={handleNav}/>
+                <CheckInput name="filter-by-category" type="radio" value='All' onChange={handleNav} checked={navFilter === 'All'}/>
                 <CheckLabel>All</CheckLabel>
             </FormPair>          
             {
                 categoryNames.map((category, key) => {
                 return (
                     <FormPair key={key}>
-                        <CheckInput name="filter-by-category" type="radio" id={category} value={category} onClick={handleNav}/>
+                        <CheckInput name="filter-by-category" type="radio" id={category} value={category} onChange={handleNav} checked={navFilter === category}/>
                         <CheckLabel htmlFor="box1">{category}</CheckLabel>
                     </FormPair>
                     )
                 })
             }
         <FilterHeaders>Sort by Price</FilterHeaders>
-        {
-            priceOptions.map((price, key) => {
-                return (
-                    <FormPair key={key}>
-                        <CheckInput name="nav-by-price" type="radio" value={price} id={price} onClick={handlePriceRange}/>
-                        <CheckLabel>{price}</CheckLabel>
-                    </FormPair>
-                    )
-                })
-            }
+            {
+                priceOptions.map((price, key) => {
+                    if (price === 'All') {
+                        return (
+                            <FormPair key={key}>
+                                <CheckInput name="nav-by-price" type="radio" value='All' id={price} onChange={handlePriceRange} checked={priceState === 'All'}/>
+                                <CheckLabel>{price}</CheckLabel>
+                            </FormPair>
+                            )
+                    } else {
+                        return (
+                            <FormPair key={key}>
+                                <CheckInput name="nav-by-price" type="radio" value={price} id={price} onChange={handlePriceRange} checked={priceState === price}/>
+                                <CheckLabel>{price}</CheckLabel>
+                            </FormPair>
+                            )
+                        }
+                    })
+                }
         </RadioArea> 
     </CheckBoxWrapper>
 )
@@ -102,6 +118,7 @@ const RadioArea = styled.form`
     flex-direction: column;
     width: 300px;
     height: auto;
+    padding-bottom: 30px;
     box-shadow: 0px 0px 5px 2px lightgray;
 `
 const CheckInput = styled.input`
