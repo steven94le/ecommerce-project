@@ -2,15 +2,24 @@ import styled from "styled-components";
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { CartItemsContext } from "./contexts/CartItemsContext";
+import { FormsContext } from "./contexts/FormsContext";
 
 const ProductPage = () => {
   const { id } = useParams();
   const { cartItems, setCartItems } = useContext(CartItemsContext);
+  const { orderForm, setOrderForm } = useContext(FormsContext);
   const [productInfo, setProductInfo] = useState("");
 
   const handleAddToCart = (ev) => {
     ev.preventDefault();
     setCartItems([...cartItems, productInfo]);
+
+    const { orderedItems } = orderForm;
+
+    setOrderForm({
+      ...orderForm,
+      orderedItems: [...orderedItems, productInfo],
+    });
   };
 
   useEffect(() => {
@@ -29,8 +38,6 @@ const ProductPage = () => {
     };
     fetchProductInfo();
   }, [id]);
-
-  console.log("cartItems", cartItems);
 
   return (
     <>

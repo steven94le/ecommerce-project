@@ -182,7 +182,8 @@ const getCategoryItems = async (req, res) => {
 
 //creates a new order when someone checkout the cart
 const addNewOrder = async (req, res) => {
-  const { fullName, creditCard, expiration, orderedItems, email } = req.body;
+  const { givenName, surname, creditCard, expiration, orderedItems, email } =
+    req.body;
 
   try {
     const client = new MongoClient(MONGO_URI, options);
@@ -191,7 +192,8 @@ const addNewOrder = async (req, res) => {
 
     const newOrderDetails = {
       _id: uuidv4(),
-      fullName,
+      givenName,
+      surname,
       creditCard,
       expiration,
       orderedItems,
