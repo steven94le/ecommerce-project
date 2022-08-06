@@ -90,7 +90,6 @@ input {
 }
 
 input, label{   
-  margin-top: -1px;
   vertical-align: middle;
 }
 

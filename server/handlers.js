@@ -185,7 +185,7 @@ const addNewOrder = async (req, res) => {
   const { givenName, surname, creditCard, expiration, orderedItems, email } =
     req.body;
 
-  // ^ and $ define start and end of string
+  // ^ and $ define start and end of string, respectively
   //+ define one or multiple occurances
   //[] range of all digits between 0 and 9, inclusive
 

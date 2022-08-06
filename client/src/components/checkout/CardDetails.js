@@ -23,7 +23,7 @@ const CardDetails = () => {
         <input
           name="expiration"
           type="text"
-          placeholder="MMYY"
+          placeholder="MM-YY"
           onChange={(e) => handleOrderFormChange(e.target.value, "expiration")}
           required
           maxLength="4"

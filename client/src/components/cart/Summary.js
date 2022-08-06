@@ -32,7 +32,7 @@ const Summary = () => {
       {!email_verified && (
         <>
           <h4>Enter your email to continue to checkout as a guest.</h4>
-          <div>
+          <EmailInput>
             <p>Email address</p>
             <input
               name="email"
@@ -40,7 +40,7 @@ const Summary = () => {
               placeholder="john@smith.com"
               onChange={(e) => handleOrderFormChange(e.target.value, "email")}
             />
-          </div>
+          </EmailInput>
         </>
       )}
       <TotalCost>
@@ -66,6 +66,16 @@ const Wrapper = styled.div`
 
   div {
     padding: 10px 0;
+  }
+`;
+
+const EmailInput = styled.div`
+  display: flex;
+  gap: 1rem;
+
+  input {
+    width: 50%;
+    margin-top: -2px;
   }
 `;
 
