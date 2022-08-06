@@ -1,4 +1,5 @@
 "use strict";
+const e = require("express");
 const { MongoClient } = require("mongodb");
 
 // use this package to generate unique ids: https://www.npmjs.com/package/uuid
@@ -229,6 +230,65 @@ const addNewOrder = async (req, res) => {
   }
 };
 
+// Creates new user when someone sign up
+
+const addNewUser = async (req, res) => {
+  const { fullName, email, password } = req.body;
+
+  try {
+    const client = new MongoClient(MONGO_URI, options);
+    await client.connect();
+    const db = client.db("GroupECommerce");
+    const users = await db.collection("users").find().toArray();
+
+    const foundUser = users.find((user) => user.email === email);
+
+    const newUserDetails = {
+      _id: uuidv4(),
+      fullName,
+      email,
+      password,
+    };
+
+    foundUser
+      ? res
+          .status(404)
+          .json({ status: 404, message: "User Email Already Exists" })
+      : await db.collection("users").insertOne(newUserDetails);
+    client.close();
+    res.status(201).json({
+      status: 201,
+      data: newUserDetails,
+      message: "User has been registered successfully",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// Get all the users
+
+const getUsers = async (req, res) => {
+  try {
+    const client = new MongoClient(MONGO_URI, options);
+
+    await client.connect();
+    const db = client.db("GroupECommerce");
+
+    const users = await db.collection("users").find().toArray();
+
+    client.close();
+
+    return res.status(200).json({
+      status: 200,
+      data: users,
+      message: "This is the list of all the users",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports = {
   addNewOrder,
   getCategories,
@@ -237,4 +297,6 @@ module.exports = {
   getItem,
   getBrands,
   getBrandItems,
+  addNewUser,
+  getUsers,
 };

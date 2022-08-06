@@ -11,6 +11,8 @@ const {
   getItem,
   getBrands,
   getBrandItems,
+  addNewUser,
+  getUsers,
 } = require("./handlers");
 
 const PORT = 4000;
@@ -44,5 +46,8 @@ express()
   .get("/api/get-items", getItems)
   .get("/api/get-item/:id", getItem)
   .post("/checkout", addNewOrder)
+  .get("/account", getUsers)
+
+  .post("/account", addNewUser)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
