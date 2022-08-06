@@ -25,18 +25,20 @@ const ProductCatalog = () => {
             <Wrapper>
                 <RadioBox setNavFilter={setNavFilter} setMinMax={setMinMax} navFilter={navFilter}  />
                 <ItemGrid>
-                    <p>{filteredArray.length}</p>
-                    {
-                        filteredArray?.map((item, id) => {              
-                                return ( 
-                                    <StyledCard to={`/product/${item._id}`} key={id}>
-                                        <StyledText>{item.name}</StyledText>
-                                        <StyledThumbnail src={item.imageSrc} alt={item.name} />
-                                        <StyledText>{item.price}</StyledText>
-                                    </StyledCard>
-                                    )
-                        })
-                    }
+                        {
+                            filteredArray?.map((item, id) => {              
+                                    return ( 
+                                        <StyledCard to={`/product/${item._id}`} key={id}>
+                                            <StyledText>{item.name}</StyledText>
+                                            <StyledThumbnail src={item.imageSrc} alt={item.name} />
+                                            <PriceDisplay>{item.price}</PriceDisplay>
+                                            {
+                                                item.numInStock === 0 ? <StyledText style={{'color' : 'red'}}>Out Of Stock</StyledText> : <StyledText></StyledText>
+                                            }
+                                        </StyledCard>
+                                        )
+                            })
+                        }
                 </ItemGrid>
             </Wrapper>
         </>
@@ -44,7 +46,8 @@ const ProductCatalog = () => {
 }
 
 const StyledThumbnail = styled.img`
-    height: 150px;
+    height: auto;
+    max-width: 150px;
 `
 
 const Wrapper = styled.div`
@@ -64,8 +67,8 @@ const ItemGrid = styled.div`
 
 const StyledText = styled.p`
     font-stretch: expanded;
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 10px;
+    line-height: 13px;
     text-align: center;
 `
 
@@ -74,7 +77,7 @@ const StyledCard = styled(Link)`
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    width: 200px;
+    width:175px;
     height: 350px;
     margin: 30px;
     padding: 20px;
@@ -85,6 +88,10 @@ const StyledCard = styled(Link)`
         box-shadow: 0px 0px 50px 4px lightgray;
         transition: all ease-in 400ms;
 }
+`
+
+const PriceDisplay = styled.p`
+    font-size: 20px;
 `
 
 export default ProductCatalog
