@@ -3,9 +3,12 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { GoogleUserContext } from "../contexts/GoogleUserContext";
 import CurrentUser from "./CurrentUser";
+import { CartItemsContext } from "../contexts/CartItemsContext";
 
 const NavBar = () => {
   const { googleUserData } = useContext(GoogleUserContext);
+  const { cartItems } = useContext(CartItemsContext);
+
   return (
     <Wrapper>
       <LeftSide>
@@ -36,7 +39,7 @@ const NavBar = () => {
               Sign-In
             </StyledNavLink>
             <StyledNavLink exact to="/cart">
-              Cart
+              Cart ({cartItems.length})
             </StyledNavLink>
           </>
         )}

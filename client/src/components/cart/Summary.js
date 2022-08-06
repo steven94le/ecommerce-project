@@ -27,19 +27,20 @@ const Summary = () => {
 
   const totalCostRounded = (Math.round(totalCost * 100) / 100).toFixed(2);
 
-  console.log("googleUserData", googleUserData);
-
   return (
     <Wrapper>
       {!email_verified && (
         <>
-          <p>Enter your email to continue to checkout as a guest.</p>
-          <div>Email address</div>
-          <input
-            name="email"
-            type="text"
-            onChange={(e) => handleOrderFormChange(e.target.value, "email")}
-          />
+          <h4>Enter your email to continue to checkout as a guest.</h4>
+          <div>
+            <p>Email address</p>
+            <input
+              name="email"
+              type="text"
+              placeholder="john@smith.com"
+              onChange={(e) => handleOrderFormChange(e.target.value, "email")}
+            />
+          </div>
         </>
       )}
       <TotalCost>
@@ -62,12 +63,15 @@ const Wrapper = styled.div`
   height: 75%;
   width: 35%;
   margin-left: 20px;
+
+  div {
+    padding: 10px 0;
+  }
 `;
 
 const TotalCost = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 10px 0;
   font-weight: bold;
 `;
 

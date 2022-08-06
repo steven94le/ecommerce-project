@@ -94,4 +94,14 @@ input, label{
   vertical-align: middle;
 }
 
+input::placeholder {
+  font-size: 14px;
+  text-align: start;
+  opacity: 0.5
+}
+
+input[type="text"] {
+    font-size:12px;
+}
+
 `;

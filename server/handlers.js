@@ -185,6 +185,34 @@ const addNewOrder = async (req, res) => {
   const { givenName, surname, creditCard, expiration, orderedItems, email } =
     req.body;
 
+  // ^ and $ define start and end of string
+  //+ define one or multiple occurances
+  //[] range of all digits between 0 and 9, inclusive
+
+  const numbers = /^[0-9]+$/;
+
+  if (creditCard.split("").length !== 8 || creditCard.match(numbers) === null) {
+    return res
+      .status(400)
+      .json({ status: "error", error: "Invalid Card Number Format" });
+  }
+
+  if (expiration.split("").length !== 4 || expiration.match(numbers) === null) {
+    return res
+      .status(400)
+      .json({ status: "error", error: "Invalid Expiration Format" });
+  }
+
+  if (!email.includes("@")) {
+    return res
+      .status(400)
+      .json({ status: "error", error: "Invalid Email Format" });
+  }
+
+  if (orderedItems.length === 0) {
+    return res.status(400).json({ status: "error", error: "Cart is empty" });
+  }
+
   try {
     const client = new MongoClient(MONGO_URI, options);
     await client.connect();
