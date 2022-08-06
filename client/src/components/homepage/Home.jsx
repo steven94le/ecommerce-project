@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import ProductCatalog from "../ProductCatalog/ProductCatalog";
 
 import Banner from "./Banner";
 import BestSellers from "./bestseller/BestSellers";
@@ -8,6 +9,7 @@ const Home = () => {
     <HomeWrapper>
       <Banner />
       <BestSellers />
+      <ProductCatalog />
     </HomeWrapper>
   );
 };
