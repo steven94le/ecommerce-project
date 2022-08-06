@@ -26,7 +26,7 @@ const CategoryPage = () => {
                 categoryItems?.map((item, id) => {
                     return (
                     <StyledCard to={`/product/${item._id}`} key={id}>
-                        <img src={item.imageSrc} alt="wearable"/>
+                        <img src={item.imageSrc} alt={item.name}/>
                         <p>{item.name}</p>
                         <p>{item.price}</p>
                         <p>in stock:{item.numInStock}</p>
