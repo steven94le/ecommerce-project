@@ -12,31 +12,29 @@ const ProductCatalog = () => {
         maximum: 100000,
     })
 
+    const filteredArray = itemsState?.filter((item) => {
+        if ((item.category === navFilter) && (parseInt(item.price.slice(1)) >= minMax.minimum) && (parseInt(item.price.slice(1)) <= minMax.maximum)) {
+            return item;
+        } else if ((navFilter === 'All') && (parseInt(item.price.slice(1)) >= minMax.minimum) && (parseInt(item.price.slice(1)) <= minMax.maximum)) {
+            return item;
+        }
+    })
+
     return !itemsState ? <></> : (
         <>
             <Wrapper>
                 <RadioBox setNavFilter={setNavFilter} setMinMax={setMinMax} navFilter={navFilter}  />
                 <ItemGrid>
+                    <p>{filteredArray.length}</p>
                     {
-                        itemsState?.map((item, id) => {
-                            if ((item.category === navFilter) && (parseInt(item.price.slice(1)) >= minMax.minimum) && (parseInt(item.price.slice(1)) <= minMax.maximum)) {
+                        filteredArray?.map((item, id) => {              
                                 return ( 
                                     <StyledCard to={`/product/${item._id}`} key={id}>
                                         <StyledText>{item.name}</StyledText>
-                                        <StyledThumbnail src={item.imageSrc} alt="wearable" />
+                                        <StyledThumbnail src={item.imageSrc} alt={item.name} />
                                         <StyledText>{item.price}</StyledText>
                                     </StyledCard>
                                     )
-                            } else if ((navFilter === 'All') && (parseInt(item.price.slice(1)) >= minMax.minimum) && (parseInt(item.price.slice(1)) <= minMax.maximum)) {
-                                return (
-                                    <StyledCard to={`/product/${item._id}`} key={id}>
-                                        <StyledText>{item.name}</StyledText>
-                                        <StyledThumbnail src={item.imageSrc} alt="wearable" />
-                                        <StyledText>{item.price}</StyledText>
-                                        {item.numInStock === 0 ? <StyledText style={{'color':'red'}}>Sold Out</StyledText> : <StyledText></StyledText>}
-                                    </StyledCard>
-                                )
-                            }
                         })
                     }
                 </ItemGrid>
