@@ -11,9 +11,17 @@ import ShippingMethod from "./ShippingMethod";
 const Checkout = () => {
   const [shippingMethod, setShippingMethod] = useState("");
   const { setCartItems } = useContext(CartItemsContext);
-  const { orderForm, shippingForm } = useContext(FormsContext);
   const [formStatusPending, setFormStatusPending] = useState("");
   const [disabledOrderSubmit, setDisabledOrderSubmit] = useState(true);
+  const [orderErrMsg, setOrderErrMsg] = useState("");
+  const {
+    orderForm,
+    shippingForm,
+    setOrderForm,
+    setShippingForm,
+    initialShippingForm,
+    initialOrderForm,
+  } = useContext(FormsContext);
 
   const handleOrderSubmit = async (ev) => {
     ev.preventDefault();
@@ -29,13 +37,19 @@ const Checkout = () => {
 
     try {
       const res = await fetch("/checkout", settings);
+      const data = await res.json();
+
+      console.log("res", data);
 
       if (!res.ok) {
         setFormStatusPending("error");
+        setOrderErrMsg(data.error);
         throw Error(`${res.status} ${res.statusText}`);
       }
       setFormStatusPending("confirmed");
       setCartItems([]);
+      setOrderForm(initialOrderForm);
+      setShippingForm(initialShippingForm);
     } catch (err) {
       console.log(err);
     }
@@ -48,12 +62,11 @@ const Checkout = () => {
       : setDisabledOrderSubmit(true);
   }, [orderForm, shippingForm, setDisabledOrderSubmit]);
 
-  console.log("orderForm", orderForm);
-
   return (
     <>
       {formStatusPending !== "confirmed" ? (
         <>
+          {formStatusPending === "error" && <ErrorMsg>{orderErrMsg}</ErrorMsg>}
           <Header>CHECKOUT</Header>
           <Wrapper>
             <UserInfo>
@@ -74,6 +87,16 @@ const Checkout = () => {
     </>
   );
 };
+
+const ErrorMsg = styled.div`
+  display: flex;
+  margin: 0 auto;
+  height: 25px;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  font-size: 14px;
+`;
 
 const Header = styled.h4`
   display: flex;

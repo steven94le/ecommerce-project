@@ -2,13 +2,22 @@ import React from "react";
 import { useContext } from "react";
 import styled from "styled-components";
 import { GoogleUserContext } from "../contexts/GoogleUserContext";
+import { FormsContext } from "../contexts/FormsContext";
 
 const CurrentUser = () => {
+  const {
+    setShippingForm,
+    setOrderForm,
+    initialShippingForm,
+    initialOrderForm,
+  } = useContext(FormsContext);
   const { googleUserData, setGoogleUserData } = useContext(GoogleUserContext);
   const { given_name, picture } = googleUserData;
 
   const handleSignOut = (e) => {
     setGoogleUserData({});
+    setShippingForm(initialShippingForm);
+    setOrderForm(initialOrderForm);
   };
   return (
     <Wrapper>

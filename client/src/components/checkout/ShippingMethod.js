@@ -1,9 +1,13 @@
 import styled from "styled-components";
+import React, { useState } from "react";
 
 const ShippingMethod = ({ setShippingMethod }) => {
+  const [toggleShipping, setToggleShipping] = useState("standard");
+
   const handleShipping = (ev) => {
     const shippingCost = ev.target.value;
     setShippingMethod(shippingCost);
+    setToggleShipping(ev.target.id);
   };
 
   return (
@@ -18,6 +22,7 @@ const ShippingMethod = ({ setShippingMethod }) => {
             name="shipping"
             value="0.00"
             onChange={handleShipping}
+            checked={toggleShipping === "standard"}
             required
           />
           <label htmlFor="standard">$0.00 | 4 - 5 days | Standard</label>
@@ -29,6 +34,7 @@ const ShippingMethod = ({ setShippingMethod }) => {
             name="shipping"
             value="10.00"
             onChange={handleShipping}
+            checked={toggleShipping === "priority"}
           />
           <label htmlFor="standard">$10.00 | 2 days | Priority</label>
         </div>

@@ -5,7 +5,6 @@ const EmptyCart = () => {
   return (
     <EmptyCartStatus>
       <StyledHeader>Your cart is currently empty.</StyledHeader>
-      {/* Change first link to all products page */}
       <StyledLink to="/">Shop our wearables</StyledLink>
       <StyledLink to="/brands">Shop for a brand</StyledLink>
       <StyledLink to="/category">Shop for a category</StyledLink>
