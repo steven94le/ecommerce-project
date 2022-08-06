@@ -29,7 +29,7 @@ const OrderSummary = ({
 
   return (
     <Wrapper>
-      <h4>ORDER SUMMARY</h4>
+      <h4>ORDER SUMMARY ({cartItems.length})</h4>
       <ItemWrapper>
         {cartItems.map((cartItem, index) => (
           <Item key={`item ${index + 1}`}>
@@ -51,7 +51,7 @@ const OrderSummary = ({
         </Cost>
         <Cost>
           <p>Shipping</p>
-          <p>${shippingMethod ? shippingMethod : ""}</p>
+          <p>${shippingMethod ? shippingMethod : "0.00"}</p>
         </Cost>
         <Cost>
           <p>Taxes (15%)</p>

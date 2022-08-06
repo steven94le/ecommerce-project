@@ -90,8 +90,17 @@ input {
 }
 
 input, label{   
-  margin-top: -1px;
   vertical-align: middle;
+}
+
+input::placeholder {
+  font-size: 14px;
+  text-align: start;
+  opacity: 0.5
+}
+
+input[type="text"] {
+    font-size:12px;
 }
 
 `;
