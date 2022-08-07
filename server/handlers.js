@@ -294,24 +294,32 @@ const addNewUser = async (req, res) => {
   }
 };
 
-// Get all the users
+// verify user when signing in
 
-const getUsers = async (req, res) => {
+const verifyUser = async (req, res) => {
+  const { email, password } = req.body;
   try {
     const client = new MongoClient(MONGO_URI, options);
 
     await client.connect();
     const db = client.db("GroupECommerce");
 
-    const users = await db.collection("users").find().toArray();
+    const foundUser = await db.collection("users").findOne(email);
+    console.log("foundUser:", foundUser);
 
     client.close();
 
-    return res.status(200).json({
-      status: 200,
-      data: users,
-      message: "This is the list of all the users",
-    });
+    foundUser
+      ? res.status(200).json({
+          status: 200,
+          data: foundUser,
+          message: "User verified",
+        })
+      : res.status(200).json({
+          status: 200,
+          data: foundUser,
+          message: "User does not exist!",
+        });
   } catch (err) {
     console.log(err);
   }
@@ -326,5 +334,5 @@ module.exports = {
   getBrands,
   getBrandItems,
   addNewUser,
-  getUsers,
+  verifyUser,
 };
