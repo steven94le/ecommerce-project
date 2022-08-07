@@ -39,7 +39,7 @@ const SignInForm = () => {
       theme: "outline",
       size: "large",
     });
-  }, [setGoogleUserData, setOrderForm]);
+  }, [setGoogleUserData, setOrderForm, orderForm]);
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
