@@ -4,10 +4,12 @@ import { useContext } from "react";
 import { GoogleUserContext } from "../contexts/GoogleUserContext";
 import CurrentUser from "./CurrentUser";
 import { CartItemsContext } from "../contexts/CartItemsContext";
+import { EmailSignInContext } from "../contexts/EmailSignInContext";
 
 const NavBar = () => {
   const { googleUserData } = useContext(GoogleUserContext);
   const { cartItems } = useContext(CartItemsContext);
+  const { currentUser } = useContext(EmailSignInContext);
 
   return (
     <Wrapper>
@@ -25,12 +27,11 @@ const NavBar = () => {
         </StyledNavLink>
       </LeftSide>
       <RightSide>
-        {googleUserData.name ? (
+        {googleUserData.name || currentUser.fullName ? (
           <>
             <StyledNavLink exact to="/cart">
               Your Cart
-            </StyledNavLink>{" "}
-            |
+            </StyledNavLink>
             <CurrentUser />
           </>
         ) : (

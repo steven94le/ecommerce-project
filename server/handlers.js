@@ -304,7 +304,7 @@ const verifyUser = async (req, res) => {
     await client.connect();
     const db = client.db("GroupECommerce");
 
-    const foundUser = await db.collection("users").findOne(email);
+    const foundUser = await db.collection("users").findOne({ email });
     console.log("foundUser:", foundUser);
 
     client.close();
