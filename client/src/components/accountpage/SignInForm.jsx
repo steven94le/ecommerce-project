@@ -15,10 +15,9 @@ const defaultFormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
-  const { googleUserData, setGoogleUserData } = useContext(GoogleUserContext);
+  const { setGoogleUserData } = useContext(GoogleUserContext);
   const { orderForm, setOrderForm } = useContext(FormsContext);
-  const { currentUser, setCurrentUser, error, setError } =
-    useContext(EmailSignInContext);
+  const { setCurrentUser, error, setError } = useContext(EmailSignInContext);
 
   useEffect(() => {
     const handleCallbackResponse = (response) => {

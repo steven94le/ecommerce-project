@@ -48,6 +48,6 @@ express()
   .post("/checkout", addNewOrder)
   .post("/users", verifyUser)
 
-  .post("/users", addNewUser)
+  .post("/add-user", addNewUser)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
