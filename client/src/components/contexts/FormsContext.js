@@ -43,6 +43,8 @@ export const FormsProvider = ({ children }) => {
         setOrderForm,
         handleShippingFormChange,
         handleOrderFormChange,
+        initialShippingForm,
+        initialOrderForm,
       }}
     >
       {children}

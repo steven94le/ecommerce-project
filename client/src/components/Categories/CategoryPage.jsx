@@ -13,11 +13,10 @@ const CategoryPage = () => {
             const requestItems = await fetch(`/category/${id}`);
             const requestJson = await requestItems.json();
             setCategoryItems(requestJson.data);
-            console.log(categoryItems)
             setLoading(false)
         }
         getCategoryItems()
-    }, []);
+    }, [id]);
 
     return loading ? <></> : (
         <>
@@ -27,7 +26,7 @@ const CategoryPage = () => {
                 categoryItems?.map((item, id) => {
                     return (
                     <StyledCard to={`/product/${item._id}`} key={id}>
-                        <img src={item.imageSrc}/>
+                        <img src={item.imageSrc} alt={item.name}/>
                         <p>{item.name}</p>
                         <p>{item.price}</p>
                         <p>in stock:{item.numInStock}</p>
