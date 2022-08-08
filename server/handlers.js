@@ -304,8 +304,7 @@ const verifyUser = async (req, res) => {
     await client.connect();
     const db = client.db("GroupECommerce");
 
-    const foundUser = await db.collection("users").findOne({ email });
-    console.log("foundUser:", foundUser);
+    const foundUser = await db.collection("users").findOne({ email, password });
 
     client.close();
 
@@ -318,7 +317,7 @@ const verifyUser = async (req, res) => {
       : res.status(200).json({
           status: 200,
           data: foundUser,
-          message: "User does not exist!",
+          message: "Please check your email or password!",
         });
   } catch (err) {
     console.log(err);

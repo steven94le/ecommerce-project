@@ -17,7 +17,8 @@ const SignInForm = () => {
   const { email, password } = formFields;
   const { setGoogleUserData } = useContext(GoogleUserContext);
   const { orderForm, setOrderForm } = useContext(FormsContext);
-  const { setCurrentUser, error, setError } = useContext(EmailSignInContext);
+  const { currentUser, setCurrentUser, error, setError } =
+    useContext(EmailSignInContext);
 
   useEffect(() => {
     const handleCallbackResponse = (response) => {
@@ -70,6 +71,7 @@ const SignInForm = () => {
     const userData = data.data;
 
     if (!userData) {
+      setCurrentUser(data.message);
       return setError(true);
     } else {
       setCurrentUser(userData);
@@ -117,7 +119,7 @@ const SignInForm = () => {
             marginTop: "20px",
           }}
         >
-          {error && <h3 style={{ color: "red" }}>User does not exist!</h3>}
+          {error && <h3 style={{ color: "red" }}>{currentUser}</h3>}
           <BtnWrapper type="submit">Sign In</BtnWrapper>
 
           <div id="signInDiv"></div>
