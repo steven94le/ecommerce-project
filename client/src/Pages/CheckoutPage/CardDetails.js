@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, { useContext } from "react";
-import { FormsContext } from "../contexts/FormsContext";
+import { FormsContext } from "../../components/Contexts/FormsContext";
 
 const CardDetails = () => {
   const { handleOrderFormChange } = useContext(FormsContext);

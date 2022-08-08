@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
-import { GoogleUserContext } from "../contexts/GoogleUserContext";
+import { GoogleUserContext } from "../Contexts/GoogleUserContext";
 import CurrentUser from "./CurrentUser";
-import { CartItemsContext } from "../contexts/CartItemsContext";
-import { EmailSignInContext } from "../contexts/EmailSignInContext";
+import { EmailSignInContext } from "../Contexts/EmailSignInContext";
+import { CartItemsContext } from "../Contexts/CartItemsContext";
 
 const NavBar = () => {
   const { googleUserData } = useContext(GoogleUserContext);

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { CartItemsContext } from "./contexts/CartItemsContext";
-import { FormsContext } from "./contexts/FormsContext";
+import { CartItemsContext } from "../../components/Contexts/CartItemsContext";
+import { FormsContext } from "../../components/Contexts/FormsContext";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -51,14 +51,15 @@ const ProductPage = () => {
               <StyledDiv>Body Location: {productInfo.body_location}</StyledDiv>
               <StyledDiv>Category: {productInfo.category}</StyledDiv>
               <StyledDiv>Stock: {productInfo.numInStock}</StyledDiv>
-              {
-                productInfo.numInStock === 0 ? 
+              {productInfo.numInStock === 0 ? (
                 <OutOfStock>
                   <OutOfStockText>Out of Stock</OutOfStockText>
-                </OutOfStock> 
-                :
-                <StyledButton onClick={handleAddToCart}>Add To Cart</StyledButton>
-              }
+                </OutOfStock>
+              ) : (
+                <StyledButton onClick={handleAddToCart}>
+                  Add To Cart
+                </StyledButton>
+              )}
             </ItemDescription>
           </>
         ) : (
@@ -95,7 +96,7 @@ const ItemDescription = styled.div`
 const OutOfStockText = styled.span`
   padding: 0px;
   margin: 0px;
-`
+`;
 
 const OutOfStock = styled.div`
   display: flex;
@@ -108,11 +109,11 @@ const OutOfStock = styled.div`
   border: none;
   border-radius: 5px;
   height: 25px;
-`
+`;
 
 const StyledDiv = styled.div`
   padding-bottom: 20px;
-`
+`;
 
 const StyledButton = styled.button`
   color: white;

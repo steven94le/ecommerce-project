@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import ProductCard from "./ProductCard";
-import { ItemsContext } from "../../contexts/ItemsContext";
+
+import { ItemsContext } from "../../../components/Contexts/ItemsContext";
 
 const BestSellers = () => {
   const { itemsState } = useContext(ItemsContext);

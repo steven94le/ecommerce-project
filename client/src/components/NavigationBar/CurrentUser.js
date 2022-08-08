@@ -1,10 +1,10 @@
 import React from "react";
 import { useContext } from "react";
 import styled from "styled-components";
-import { GoogleUserContext } from "../contexts/GoogleUserContext";
-import { FormsContext } from "../contexts/FormsContext";
-import { EmailSignInContext } from "../contexts/EmailSignInContext";
-import { CartItemsContext } from "../contexts/CartItemsContext";
+import { GoogleUserContext } from "../Contexts/GoogleUserContext";
+import { FormsContext } from "../Contexts/FormsContext";
+import { EmailSignInContext } from "../Contexts/EmailSignInContext";
+import { CartItemsContext } from "../Contexts/CartItemsContext";
 import { useHistory } from "react-router-dom";
 
 const CurrentUser = () => {
