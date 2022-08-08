@@ -12,7 +12,7 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { fullName, email, password, confirmPassword } = formFields;
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
 
   const newUserEmail = email.toLowerCase();
@@ -24,7 +24,7 @@ const SignUpForm = () => {
 
     if (password !== confirmPassword) {
       setError(true);
-      errorMessage("Passwords do not match");
+      setErrorMessage("Passwords do not match");
       return;
     }
 
@@ -48,6 +48,7 @@ const SignUpForm = () => {
       setErrorMessage(data.message);
       return;
     } else {
+      setError(false);
       resetFormFields();
       setErrorMessage(data.message);
     }
@@ -111,7 +112,11 @@ const SignUpForm = () => {
           }}
         >
           <div style={{ marginBottom: "10px" }}>
-            {error && <h2>{errorMessage}</h2>}
+            {error ? (
+              <h2 style={{ color: "red" }}>{errorMessage}</h2>
+            ) : (
+              <h2 style={{ color: "green" }}>{errorMessage}</h2>
+            )}
           </div>
           <BtnWrapper type="submit">Sign Up</BtnWrapper>
         </div>
