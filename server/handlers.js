@@ -1,4 +1,5 @@
 "use strict";
+const e = require("express");
 const { MongoClient } = require("mongodb");
 
 // use this package to generate unique ids: https://www.npmjs.com/package/uuid
@@ -257,6 +258,72 @@ const addNewOrder = async (req, res) => {
   }
 };
 
+// Creates new user when someone sign up
+
+const addNewUser = async (req, res) => {
+  const { fullName, email, password } = req.body;
+
+  try {
+    const client = new MongoClient(MONGO_URI, options);
+    await client.connect();
+    const db = client.db("GroupECommerce");
+    const users = await db.collection("users").find().toArray();
+
+    const foundUser = users.find((user) => user.email === email);
+
+    const newUserDetails = {
+      _id: uuidv4(),
+      fullName,
+      email,
+      password,
+    };
+
+    foundUser
+      ? res
+          .status(404)
+          .json({ status: 404, message: "User Email Already Exists" })
+      : await db.collection("users").insertOne(newUserDetails);
+    client.close();
+    res.status(201).json({
+      status: 201,
+      data: newUserDetails,
+      message: "User has been registered successfully",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// verify user when signing in
+
+const verifyUser = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const client = new MongoClient(MONGO_URI, options);
+
+    await client.connect();
+    const db = client.db("GroupECommerce");
+
+    const foundUser = await db.collection("users").findOne({ email, password });
+
+    client.close();
+
+    foundUser
+      ? res.status(200).json({
+          status: 200,
+          data: foundUser,
+          message: "User verified",
+        })
+      : res.status(200).json({
+          status: 200,
+          data: foundUser,
+          message: "Please check your email or password!",
+        });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports = {
   addNewOrder,
   getCategories,
@@ -265,4 +332,6 @@ module.exports = {
   getItem,
   getBrands,
   getBrandItems,
+  addNewUser,
+  verifyUser,
 };

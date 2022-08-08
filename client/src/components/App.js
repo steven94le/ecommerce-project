@@ -13,9 +13,12 @@ import AccountPage from "./accountpage/AccountPage";
 import { useContext } from "react";
 import { GoogleUserContext } from "./contexts/GoogleUserContext";
 import Confirmation from "./checkout/Confirmation";
+import { EmailSignInContext } from "./contexts/EmailSignInContext";
 
 const App = () => {
   const { googleUserData } = useContext(GoogleUserContext);
+  const { currentUser } = useContext(EmailSignInContext);
+
   return (
     <BrowserRouter>
       <GlobalStyles />
@@ -49,7 +52,7 @@ const App = () => {
           <Confirmation />
         </Route>
         <Route exact path="/account">
-          {!googleUserData.name ? (
+          {!googleUserData.name && !currentUser.fullName ? (
             <AccountPage />
           ) : (
             <Redirect to={{ pathname: "/" }} />

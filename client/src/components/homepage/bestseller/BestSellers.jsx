@@ -5,13 +5,11 @@ import { ItemsContext } from "../../contexts/ItemsContext";
 
 const BestSellers = () => {
   const { itemsState } = useContext(ItemsContext);
-  console.log("itemsState:", itemsState);
   const randomBestSellers = itemsState
     .sort(() => 0.5 - Math.random())
     .slice(0, 10);
 
   let slider = document.querySelector(".products-container");
-  console.log("slider:", slider);
 
   const btnPrev = () => {
     if (slider) {
