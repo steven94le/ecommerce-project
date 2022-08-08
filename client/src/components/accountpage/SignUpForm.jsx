@@ -12,15 +12,48 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { fullName, email, password, confirmPassword } = formFields;
+  const [error, setError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
+  const newUserEmail = email.toLowerCase();
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("passwords do not match");
+      setError(true);
+      setErrorMessage("Passwords do not match");
       return;
     }
+
+    const response = await fetch("/add-user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fullName,
+        email: newUserEmail,
+        password,
+      }),
+    });
+    const data = await response.json();
+    console.log("data:", data);
+    const newUserData = data.data;
+
+    if (!newUserData) {
+      setError(true);
+      setErrorMessage(data.message);
+      return;
+    } else {
+      setError(false);
+      resetFormFields();
+      setErrorMessage(data.message);
+    }
   };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -74,9 +107,17 @@ const SignUpForm = () => {
           style={{
             display: "flex",
             justifyContent: "center",
+            flexDirection: "column",
             marginTop: "30px",
           }}
         >
+          <div style={{ marginBottom: "10px" }}>
+            {error ? (
+              <h2 style={{ color: "red" }}>{errorMessage}</h2>
+            ) : (
+              <h2 style={{ color: "green" }}>{errorMessage}</h2>
+            )}
+          </div>
           <BtnWrapper type="submit">Sign Up</BtnWrapper>
         </div>
       </form>

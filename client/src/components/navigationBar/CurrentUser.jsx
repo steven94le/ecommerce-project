@@ -3,6 +3,7 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { GoogleUserContext } from "../contexts/GoogleUserContext";
 import { FormsContext } from "../contexts/FormsContext";
+import { EmailSignInContext } from "../contexts/EmailSignInContext";
 
 const CurrentUser = () => {
   const {
@@ -12,17 +13,24 @@ const CurrentUser = () => {
     initialOrderForm,
   } = useContext(FormsContext);
   const { googleUserData, setGoogleUserData } = useContext(GoogleUserContext);
+  const { currentUser, setCurrentUser } = useContext(EmailSignInContext);
   const { given_name, picture } = googleUserData;
-
   const handleSignOut = (e) => {
+    e.preventDefault();
     setGoogleUserData({});
+    setCurrentUser({});
     setShippingForm(initialShippingForm);
     setOrderForm(initialOrderForm);
   };
-  return (
+  return googleUserData.name ? (
     <Wrapper>
       <StyledImg src={picture} />
       <StyledSpan>{`Howdy, ${given_name}`}</StyledSpan>
+      <SignOutBtn onClick={(e) => handleSignOut(e)}>Sign Out</SignOutBtn>
+    </Wrapper>
+  ) : (
+    <Wrapper>
+      <StyledSpan>{`Howdy, ${currentUser.fullName}`}</StyledSpan>
       <SignOutBtn onClick={(e) => handleSignOut(e)}>Sign Out</SignOutBtn>
     </Wrapper>
   );

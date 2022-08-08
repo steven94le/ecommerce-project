@@ -5,6 +5,8 @@ import styled from "styled-components";
 import jwt_decode from "jwt-decode";
 import { GoogleUserContext } from "../contexts/GoogleUserContext";
 import { FormsContext } from "../contexts/FormsContext";
+import { EmailSignInContext } from "../contexts/EmailSignInContext";
+import { useHistory } from "react-router-dom";
 
 const defaultFormFields = {
   email: "",
@@ -13,8 +15,10 @@ const defaultFormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
-  const { googleUserData, setGoogleUserData } = useContext(GoogleUserContext);
+  const { setGoogleUserData } = useContext(GoogleUserContext);
   const { orderForm, setOrderForm } = useContext(FormsContext);
+  const { currentUser, setCurrentUser, error, setError } =
+    useContext(EmailSignInContext);
 
   useEffect(() => {
     const handleCallbackResponse = (response) => {
@@ -39,22 +43,47 @@ const SignInForm = () => {
       theme: "outline",
       size: "large",
     });
-  }, [setGoogleUserData, setOrderForm]);
+  }, [setGoogleUserData, setOrderForm, orderForm]);
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
+  const history = useHistory();
+  const routeChange = () => {
+    let path = `/`;
 
+    history.push(path);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    resetFormFields();
-    console.log("Hi, Im working");
+
+    const response = await fetch("/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email.toLowerCase(),
+        password,
+      }),
+    });
+
+    const data = await response.json();
+    const userData = data.data;
+
+    if (!userData) {
+      setCurrentUser(data.message);
+      return setError(true);
+    } else {
+      setCurrentUser(userData);
+      routeChange();
+      resetFormFields();
+    }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
-  console.log(googleUserData);
 
   return (
     <Container>
@@ -90,6 +119,7 @@ const SignInForm = () => {
             marginTop: "20px",
           }}
         >
+          {error && <h3 style={{ color: "red" }}>{currentUser}</h3>}
           <BtnWrapper type="submit">Sign In</BtnWrapper>
 
           <div id="signInDiv"></div>
