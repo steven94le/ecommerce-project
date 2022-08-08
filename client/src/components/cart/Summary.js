@@ -11,9 +11,11 @@ const Summary = () => {
   const { orderForm, handleOrderFormChange } = useContext(FormsContext);
   const { googleUserData } = useContext(GoogleUserContext);
   const { currentUser } = useContext(EmailSignInContext);
-  const { emailInput } = orderForm;
+  const { email } = orderForm;
 
-  const isLoggedIn = googleUserData || currentUser;
+  const isLoggedIn =
+    Object.keys(googleUserData).length !== 0 ||
+    Object.keys(currentUser).length !== 0;
 
   const cartItemsCost = cartItems.map((cartItem) => {
     const { price } = cartItem;
@@ -52,7 +54,7 @@ const Summary = () => {
       <Link to="/checkout">
         <CheckOutButton
           type="button"
-          disabled={!isLoggedIn && !emailInput.includes("@")}
+          disabled={!isLoggedIn && !email.includes("@")}
         >
           PROCEED TO CHECKOUT
         </CheckOutButton>
