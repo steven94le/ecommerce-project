@@ -44,7 +44,6 @@ const SignUpForm = () => {
       }),
     });
     const data = await response.json();
-    console.log("data:", data);
     const newUserData = data.data;
 
     if (!newUserData) {
@@ -66,9 +65,9 @@ const SignUpForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormFields({ ...formFields, [name]: value });
   };
+
   return (
     <Container>
       <h2 style={{ margin: "10px 0", color: "black" }}>
