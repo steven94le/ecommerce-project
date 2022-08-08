@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { GoogleUserContext } from "../contexts/GoogleUserContext";
 import { FormsContext } from "../contexts/FormsContext";
 import { EmailSignInContext } from "../contexts/EmailSignInContext";
+import { useHistory } from "react-router-dom";
 
 const CurrentUser = () => {
   const {
@@ -15,13 +16,22 @@ const CurrentUser = () => {
   const { googleUserData, setGoogleUserData } = useContext(GoogleUserContext);
   const { currentUser, setCurrentUser } = useContext(EmailSignInContext);
   const { given_name, picture } = googleUserData;
+
+  const history = useHistory();
+  const routeChange = () => {
+    let path = `/`;
+    history.push(path);
+  };
+
   const handleSignOut = (e) => {
     e.preventDefault();
     setGoogleUserData({});
     setCurrentUser({});
     setShippingForm(initialShippingForm);
     setOrderForm(initialOrderForm);
+    routeChange();
   };
+
   return googleUserData.name ? (
     <Wrapper>
       <StyledImg src={picture} />
