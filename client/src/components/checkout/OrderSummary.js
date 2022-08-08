@@ -11,7 +11,8 @@ const OrderSummary = ({
 
   const cartItemsCost = cartItems.map((cartItem) => {
     const { price } = cartItem;
-    const actualPrice = Number(price.replace("$", ""));
+    const unstringedPrice = price.replace("(refurbished)", "").replace("$", "");
+    const actualPrice = parseFloat(unstringedPrice);
     return actualPrice;
   });
 

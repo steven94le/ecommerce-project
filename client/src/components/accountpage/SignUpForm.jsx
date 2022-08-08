@@ -1,6 +1,8 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
+import { EmailSignInContext } from "../contexts/EmailSignInContext";
+import { FormsContext } from "../contexts/FormsContext";
 
 const defaultFormFields = {
   fullName: "",
@@ -14,6 +16,8 @@ const SignUpForm = () => {
   const { fullName, email, password, confirmPassword } = formFields;
   const [error, setError] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const { setCurrentUser } = useContext(EmailSignInContext);
+  const { orderForm, setOrderForm } = useContext(FormsContext);
 
   const newUserEmail = email.toLowerCase();
   const resetFormFields = () => {
@@ -40,7 +44,6 @@ const SignUpForm = () => {
       }),
     });
     const data = await response.json();
-    console.log("data:", data);
     const newUserData = data.data;
 
     if (!newUserData) {
@@ -51,14 +54,20 @@ const SignUpForm = () => {
       setError(false);
       resetFormFields();
       setErrorMessage(data.message);
+      setCurrentUser(newUserData);
+      setOrderForm({
+        ...orderForm,
+        email: newUserData.email,
+        fullName: newUserData.fullName,
+      });
     }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormFields({ ...formFields, [name]: value });
   };
+
   return (
     <Container>
       <h2 style={{ margin: "10px 0", color: "black" }}>

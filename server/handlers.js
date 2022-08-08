@@ -26,7 +26,7 @@ const getItems = async (req, res) => {
       data: allItems,
     });
   } catch (err) {
-    console.error(err);
+    console.log(err);
     res.status(404).json({
       status: 404,
       message: "File not found.",
@@ -60,7 +60,7 @@ const getItem = async (req, res) => {
       });
     }
   } catch (err) {
-    console.error(err);
+    console.log(err);
     res.status(404).json({
       status: 404,
       message: "File not found.",
@@ -154,9 +154,6 @@ const getCategoryItems = async (req, res) => {
     await client.connect();
     const db = client.db("GroupECommerce");
 
-    // const modifiedId = id[0].toUpperCase() + id.slice(1).toLowerCase();
-    // console.log(modifiedId)
-
     const categories = await db.collection("items").distinct("category");
 
     if (!categories.includes(id)) {
@@ -183,8 +180,7 @@ const getCategoryItems = async (req, res) => {
 
 //creates a new order when someone checkout the cart
 const addNewOrder = async (req, res) => {
-  const { givenName, surname, creditCard, expiration, orderedItems, email } =
-    req.body;
+  const { fullName, creditCard, expiration, orderedItems, email } = req.body;
 
   // ^ and $ define start and end of string, respectively
   //+ define one or multiple occurances
@@ -221,8 +217,7 @@ const addNewOrder = async (req, res) => {
 
     const newOrderDetails = {
       _id: uuidv4(),
-      givenName,
-      surname,
+      fullName,
       creditCard,
       expiration,
       orderedItems,
@@ -230,7 +225,6 @@ const addNewOrder = async (req, res) => {
     };
 
     orderedItems.forEach((item) => {
-      console.log(item._id);
       db.collection("items").updateOne(
         { _id: item._id, name: item.name },
         { $inc: { numInStock: -1 } },

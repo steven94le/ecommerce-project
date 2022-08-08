@@ -20,30 +20,6 @@ const SignInForm = () => {
   const { currentUser, setCurrentUser, error, setError } =
     useContext(EmailSignInContext);
 
-  useEffect(() => {
-    const handleCallbackResponse = (response) => {
-      let userObj = jwt_decode(response.credential);
-
-      setGoogleUserData(userObj);
-      setOrderForm({
-        ...orderForm,
-        email: userObj.email,
-        givenName: userObj.given_name,
-        surname: userObj.family_name,
-      });
-    };
-    /* global google */
-    google.accounts.id.initialize({
-      client_id:
-        "666226095597-4b4nrr17vj9m2irpkaejn0fic0jo55v7.apps.googleusercontent.com",
-      callback: handleCallbackResponse,
-    });
-
-    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
-      theme: "outline",
-      size: "large",
-    });
-  }, [setGoogleUserData, setOrderForm, orderForm]);
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -53,6 +29,12 @@ const SignInForm = () => {
 
     history.push(path);
   };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormFields({ ...formFields, [name]: value });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -75,15 +57,39 @@ const SignInForm = () => {
       return setError(true);
     } else {
       setCurrentUser(userData);
-      routeChange();
       resetFormFields();
+      setOrderForm({
+        ...orderForm,
+        email: userData.email,
+        fullName: userData.fullName,
+      });
+      routeChange();
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormFields({ ...formFields, [name]: value });
-  };
+  useEffect(() => {
+    const handleCallbackResponse = (response) => {
+      let userObj = jwt_decode(response.credential);
+
+      setGoogleUserData(userObj);
+      setOrderForm({
+        ...orderForm,
+        email: userObj.email,
+        fullName: userObj.name,
+      });
+    };
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:
+        "666226095597-4b4nrr17vj9m2irpkaejn0fic0jo55v7.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "outline",
+      size: "large",
+    });
+  }, [setGoogleUserData, setOrderForm, orderForm]);
 
   return (
     <Container>
