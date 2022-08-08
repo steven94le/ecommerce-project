@@ -4,13 +4,16 @@ import { CartItemsContext } from "../contexts/CartItemsContext";
 import { Link } from "react-router-dom";
 import { FormsContext } from "../contexts/FormsContext";
 import { GoogleUserContext } from "../contexts/GoogleUserContext";
+import { EmailSignInContext } from "../contexts/EmailSignInContext";
 
 const Summary = () => {
   const { cartItems } = useContext(CartItemsContext);
   const { orderForm, handleOrderFormChange } = useContext(FormsContext);
   const { googleUserData } = useContext(GoogleUserContext);
-  const { email_verified } = googleUserData;
-  const { email } = orderForm;
+  const { currentUser } = useContext(EmailSignInContext);
+  const { emailInput } = orderForm;
+
+  const isLoggedIn = googleUserData || currentUser;
 
   const cartItemsCost = cartItems.map((cartItem) => {
     const { price } = cartItem;
@@ -29,7 +32,7 @@ const Summary = () => {
 
   return (
     <Wrapper>
-      {!email_verified && (
+      {!isLoggedIn && (
         <>
           <h4>Enter your email to continue to checkout as a guest.</h4>
           <EmailInput>
@@ -50,7 +53,7 @@ const Summary = () => {
       <Link to="/checkout">
         <CheckOutButton
           type="button"
-          disabled={!email_verified && !email.includes("@")}
+          disabled={!isLoggedIn && !emailInput.includes("@")}
         >
           PROCEED TO CHECKOUT
         </CheckOutButton>
