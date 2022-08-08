@@ -75,6 +75,7 @@ return loading ? <></> : (
                 })
             }
         <FilterHeaders>Sort by Price</FilterHeaders>
+
             {
                 priceOptions.map((price, key) => {
                     if (price === 'All') {

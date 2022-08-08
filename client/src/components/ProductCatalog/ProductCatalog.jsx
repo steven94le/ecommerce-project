@@ -2,45 +2,63 @@ import { useContext, useState } from "react"
 import { ItemsContext } from "../contexts/ItemsContext"
 import RadioBox from "./RadioBox";
 import styled from "styled-components";
+import Pagination from "./Pagination";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const ProductCatalog = () => {
     const {itemsState} = useContext(ItemsContext)
     const [navFilter, setNavFilter] = useState()
-    const [posts, setPosts] = useState(10)
+    const [posts, setPosts] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [postsPerPage, setPostsPerPage] = useState(10)
     const [minMax, setMinMax] = useState({
         minimum: 0,
         maximum: 100000,
     })
 
-    const filteredArray = itemsState?.filter((item) => {
-        if ((item.category === navFilter) && (parseInt(item.price.slice(1)) >= minMax.minimum) && (parseInt(item.price.slice(1)) <= minMax.maximum)) {
-            return item;
-        } else if ((navFilter === 'All') && (parseInt(item.price.slice(1)) >= minMax.minimum) && (parseInt(item.price.slice(1)) <= minMax.maximum)) {
-            return item;
-        }
-    })
+    useEffect(() => {
+        const filteredArray = itemsState?.filter((item) => {
+            if ((item.category === navFilter) && (parseInt(item.price.slice(1)) >= minMax.minimum) && (parseInt(item.price.slice(1)) <= minMax.maximum)) {
+                return item;
+            } else if ((navFilter === 'All') && (parseInt(item.price.slice(1)) >= minMax.minimum) && (parseInt(item.price.slice(1)) <= minMax.maximum)) {
+                return item;
+            }
+        })
+        setPosts(filteredArray)
+        setCurrentPage(1)
+    }, [navFilter, itemsState, minMax])
 
-    return !itemsState ? <></> : (
+
+    //get current posts
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+    return posts === [] ? <></> : (
         <>
+        
             <Wrapper>
-                <RadioBox setNavFilter={setNavFilter} setMinMax={setMinMax} navFilter={navFilter}  />
+                <Pagination postsPerPage={postsPerPage} posts={posts} setCurrentPage={setCurrentPage} currentPage={currentPage} />
+            <SubWrapper>
+            <RadioBox setNavFilter={setNavFilter} setMinMax={setMinMax} navFilter={navFilter}  />
                 <ItemGrid>
-                        {
-                            filteredArray?.map((item, id) => {              
-                                    return ( 
-                                        <StyledCard to={`/product/${item._id}`} key={id}>
-                                            <StyledText>{item.name}</StyledText>
-                                            <StyledThumbnail src={item.imageSrc} alt={item.name} />
-                                            <PriceDisplay>{item.price}</PriceDisplay>
-                                            {
-                                                item.numInStock === 0 ? <StyledText style={{'color' : 'red'}}>Out Of Stock</StyledText> : <StyledText></StyledText>
-                                            }
-                                        </StyledCard>
-                                        )
-                            })
-                        }
+                    {
+                        currentPosts?.map((item, id) => {              
+                                return ( 
+                                    <StyledCard to={`/product/${item._id}`} key={id}>
+                                        <StyledText>{item.name}</StyledText>
+                                        <StyledThumbnail src={item.imageSrc} alt={item.name} />
+                                        <PriceDisplay>{item.price}</PriceDisplay>
+                                        {
+                                            item.numInStock === 0 ? <StyledText style={{'color' : 'red'}}>Out Of Stock</StyledText> : <StyledText></StyledText>
+                                        }
+                                    </StyledCard>
+                                    )
+                        })
+                    }
                 </ItemGrid>
+            </SubWrapper>
             </Wrapper>
         </>
     )
@@ -48,7 +66,7 @@ const ProductCatalog = () => {
 
 const StyledThumbnail = styled.img`
     height: auto;
-    max-width: 150px;
+    max-width: 125px;
 `
 
 const Wrapper = styled.div`
@@ -56,9 +74,17 @@ const Wrapper = styled.div`
     width: 100%;
     height: auto;
     display: flex;
+    flex-direction: column;
     justify-content: left;
-
 `
+
+const SubWrapper = styled.div`
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: left;
+`
+
 const ItemGrid = styled.div`
     margin-top: 30px;
     display: flex;
@@ -78,7 +104,7 @@ const StyledCard = styled(Link)`
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    width:175px;
+    width:150px;
     height: 350px;
     margin: 30px;
     padding: 20px;
