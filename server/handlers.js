@@ -183,8 +183,7 @@ const getCategoryItems = async (req, res) => {
 
 //creates a new order when someone checkout the cart
 const addNewOrder = async (req, res) => {
-  const { givenName, surname, creditCard, expiration, orderedItems, email } =
-    req.body;
+  const { fullName, creditCard, expiration, orderedItems, email } = req.body;
 
   // ^ and $ define start and end of string, respectively
   //+ define one or multiple occurances
@@ -221,8 +220,7 @@ const addNewOrder = async (req, res) => {
 
     const newOrderDetails = {
       _id: uuidv4(),
-      givenName,
-      surname,
+      fullName,
       creditCard,
       expiration,
       orderedItems,

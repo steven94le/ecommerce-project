@@ -28,8 +28,7 @@ const SignInForm = () => {
       setOrderForm({
         ...orderForm,
         email: userObj.email,
-        givenName: userObj.given_name,
-        surname: userObj.family_name,
+        fullName: userObj.name,
       });
     };
     /* global google */
@@ -44,6 +43,7 @@ const SignInForm = () => {
       size: "large",
     });
   }, [setGoogleUserData, setOrderForm, orderForm]);
+
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -75,8 +75,13 @@ const SignInForm = () => {
       return setError(true);
     } else {
       setCurrentUser(userData);
-      routeChange();
       resetFormFields();
+      setOrderForm({
+        ...orderForm,
+        email: userData.email,
+        fullName: userData.fullName,
+      });
+      routeChange();
     }
   };
 
