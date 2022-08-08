@@ -26,7 +26,7 @@ const getItems = async (req, res) => {
       data: allItems,
     });
   } catch (err) {
-    console.error(err);
+    console.log(err);
     res.status(404).json({
       status: 404,
       message: "File not found.",
@@ -60,7 +60,7 @@ const getItem = async (req, res) => {
       });
     }
   } catch (err) {
-    console.error(err);
+    console.log(err);
     res.status(404).json({
       status: 404,
       message: "File not found.",
@@ -154,9 +154,6 @@ const getCategoryItems = async (req, res) => {
     await client.connect();
     const db = client.db("GroupECommerce");
 
-    // const modifiedId = id[0].toUpperCase() + id.slice(1).toLowerCase();
-    // console.log(modifiedId)
-
     const categories = await db.collection("items").distinct("category");
 
     if (!categories.includes(id)) {
@@ -228,7 +225,6 @@ const addNewOrder = async (req, res) => {
     };
 
     orderedItems.forEach((item) => {
-      console.log(item._id);
       db.collection("items").updateOne(
         { _id: item._id, name: item.name },
         { $inc: { numInStock: -1 } },

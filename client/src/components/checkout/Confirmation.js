@@ -5,8 +5,7 @@ const Confirmation = () => {
   return (
     <Wrapper>
       <div>Order Purchased!</div>
-      <div>Confirmation email sent to abc@xyz.com</div>
-      <div>Thank you for shopping at our store.</div>
+      <div>Thank you for shopping at our store!</div>
       <Link to="/">
         <button>Go to home page</button>
       </Link>
