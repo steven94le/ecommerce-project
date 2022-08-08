@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import ProductCatalog from "../ProductCatalog/ProductCatalog";
+import ProductCatalog from "../../components/ProductCatalog/ProductCatalog";
 
 import Banner from "./Banner";
 import BestSellers from "./bestseller/BestSellers";

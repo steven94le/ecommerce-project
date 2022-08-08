@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, { useContext } from "react";
-import { CartItemsContext } from "../contexts/CartItemsContext";
+import { CartItemsContext } from "../../components/Contexts/CartItemsContext";
 
 const OrderSummary = ({
   shippingMethod,

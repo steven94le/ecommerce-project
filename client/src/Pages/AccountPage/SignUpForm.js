@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useContext } from "react";
 import styled from "styled-components";
-import { EmailSignInContext } from "../contexts/EmailSignInContext";
-import { FormsContext } from "../contexts/FormsContext";
+import { EmailSignInContext } from "../../components/Contexts/EmailSignInContext";
+import { FormsContext } from "../../components/Contexts/FormsContext";
 
 const defaultFormFields = {
   fullName: "",

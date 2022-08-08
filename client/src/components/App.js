@@ -1,19 +1,19 @@
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import Brands from "./brands/Brands";
-import BrandPage from "./brands/BrandPage";
-import ProductPage from "./ProductPage";
-import Categories from "./Categories/Categories";
-import CategoryPage from "./Categories/CategoryPage";
+import Brands from "../Pages/BrandsPage/Brands";
+import BrandPage from "../Pages/BrandsPage/BrandPage";
+import ProductPage from "../Pages/ProductPage/ProductPage";
+import Categories from "../Pages/CategoriesPage/Categories";
+import CategoryPage from "../Pages/CategoriesPage/CategoryPage";
 import GlobalStyles from "./GlobalStyles";
-import Home from "./homepage/Home";
-import NavBar from "./navigationBar/NavBar";
-import Cart from "./cart/Cart";
-import Checkout from "./checkout/Checkout";
-import AccountPage from "./accountpage/AccountPage";
+import Home from "../Pages/HomePage/Home";
+import NavBar from "./NavigationBar/NavBar";
+import Cart from "../Pages/CartPage/Cart";
+import Checkout from "../Pages/CheckoutPage/Checkout";
+import AccountPage from "../Pages/AccountPage/AccountPage";
 import { useContext } from "react";
-import { GoogleUserContext } from "./contexts/GoogleUserContext";
-import Confirmation from "./checkout/Confirmation";
-import { EmailSignInContext } from "./contexts/EmailSignInContext";
+import Confirmation from "../Pages/CheckoutPage/Confirmation";
+import { GoogleUserContext } from "./Contexts/GoogleUserContext";
+import { EmailSignInContext } from "./Contexts/EmailSignInContext";
 
 const App = () => {
   const { googleUserData } = useContext(GoogleUserContext);

@@ -3,9 +3,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import jwt_decode from "jwt-decode";
-import { GoogleUserContext } from "../contexts/GoogleUserContext";
-import { FormsContext } from "../contexts/FormsContext";
-import { EmailSignInContext } from "../contexts/EmailSignInContext";
+import { GoogleUserContext } from "../../components/Contexts/GoogleUserContext";
+import { FormsContext } from "../../components/Contexts/FormsContext";
+import { EmailSignInContext } from "../../components/Contexts/EmailSignInContext";
 import { useHistory } from "react-router-dom";
 
 const defaultFormFields = {

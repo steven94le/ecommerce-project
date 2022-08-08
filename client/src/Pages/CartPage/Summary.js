@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import React, { useContext } from "react";
-import { CartItemsContext } from "../contexts/CartItemsContext";
+import { CartItemsContext } from "../../components/Contexts/CartItemsContext";
 import { Link } from "react-router-dom";
-import { FormsContext } from "../contexts/FormsContext";
-import { GoogleUserContext } from "../contexts/GoogleUserContext";
-import { EmailSignInContext } from "../contexts/EmailSignInContext";
+import { FormsContext } from "../../components/Contexts/FormsContext";
+import { GoogleUserContext } from "../../components/Contexts/GoogleUserContext";
+import { EmailSignInContext } from "../../components/Contexts/EmailSignInContext";
 
 const Summary = () => {
   const { cartItems } = useContext(CartItemsContext);
