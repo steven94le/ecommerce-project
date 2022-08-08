@@ -75,6 +75,7 @@ return loading ? <></> : (
                 })
             }
         <FilterHeaders>Sort by Price</FilterHeaders>
+
             {
                 priceOptions.map((price, key) => {
                     if (price === 'All') {
@@ -116,7 +117,7 @@ const FormPair = styled.div`
 const RadioArea = styled.form`
     display: flex;
     flex-direction: column;
-    width: 300px;
+    width: 200px;
     height: auto;
     padding-bottom: 30px;
     box-shadow: 0px 0px 5px 2px lightgray;
