@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { GoogleUserContext } from "../contexts/GoogleUserContext";
 import { FormsContext } from "../contexts/FormsContext";
 import { EmailSignInContext } from "../contexts/EmailSignInContext";
+import { CartItemsContext } from "../contexts/CartItemsContext";
 import { useHistory } from "react-router-dom";
 
 const CurrentUser = () => {
@@ -13,6 +14,7 @@ const CurrentUser = () => {
     initialShippingForm,
     initialOrderForm,
   } = useContext(FormsContext);
+  const { setCartItems } = useContext(CartItemsContext);
   const { googleUserData, setGoogleUserData } = useContext(GoogleUserContext);
   const { currentUser, setCurrentUser } = useContext(EmailSignInContext);
   const { given_name, picture } = googleUserData;
@@ -29,6 +31,7 @@ const CurrentUser = () => {
     setCurrentUser({});
     setShippingForm(initialShippingForm);
     setOrderForm(initialOrderForm);
+    setCartItems([]);
     routeChange();
   };
 
