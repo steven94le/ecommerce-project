@@ -14,6 +14,8 @@ const SignUpForm = () => {
   const { fullName, email, password, confirmPassword } = formFields;
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const newUserEmail = email.toLowerCase();
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -33,7 +35,7 @@ const SignUpForm = () => {
       },
       body: JSON.stringify({
         fullName,
-        email,
+        email: newUserEmail,
         password,
       }),
     });
