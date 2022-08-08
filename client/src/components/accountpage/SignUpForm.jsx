@@ -1,6 +1,8 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
+import { EmailSignInContext } from "../contexts/EmailSignInContext";
+import { useHistory } from "react-router-dom";
 
 const defaultFormFields = {
   fullName: "",
@@ -14,6 +16,14 @@ const SignUpForm = () => {
   const { fullName, email, password, confirmPassword } = formFields;
   const [error, setError] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const { setCurrentUser } = useContext(EmailSignInContext);
+
+  const history = useHistory();
+  const routeChange = () => {
+    let path = `/`;
+
+    history.push(path);
+  };
 
   const newUserEmail = email.toLowerCase();
   const resetFormFields = () => {
@@ -51,6 +61,8 @@ const SignUpForm = () => {
       setError(false);
       resetFormFields();
       setErrorMessage(data.message);
+      setCurrentUser(newUserData);
+      routeChange();
     }
   };
 
