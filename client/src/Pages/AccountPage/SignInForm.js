@@ -62,8 +62,6 @@ const SignInForm = () => {
       setOrderForm({
         ...orderForm,
         email: userData.email,
-        givenName: userData.given_name,
-        surname: userData.family_name,
       });
       routeChange();
     }
@@ -78,8 +76,6 @@ const SignInForm = () => {
       setOrderForm({
         ...orderForm,
         email: userObj.email,
-        givenName: userObj.given_name,
-        surname: userObj.family_name,
       });
     };
     /* global google */
