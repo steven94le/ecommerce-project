@@ -1,178 +1,100 @@
-"use strict";
-const e = require("express");
-const { MongoClient } = require("mongodb");
-
 // use this package to generate unique ids: https://www.npmjs.com/package/uuid
 const { v4: uuidv4 } = require("uuid");
-
-require("dotenv").config();
-const { MONGO_URI } = process.env;
-
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
+const {
+  getItems,
+  getBrands,
+  getBrandItems,
+  getCategories,
+  getCategoryItems,
+  getUsers,
+  findUser,
+  addOrderDetails,
+  addUserDetails,
+  sendResponse,
+} = require("./utils.js");
 
 //get all wearable items
-const getItems = async (req, res) => {
+const handleGetItems = async (req, res) => {
   try {
-    const client = new MongoClient(MONGO_URI, options);
-    await client.connect();
-    const db = client.db("GroupECommerce");
-    const allItems = await db.collection("items").find().toArray();
-    await client.close();
-    res.status(200).json({
-      status: 200,
-      data: allItems,
-    });
+    const items = await getItems();
+    sendResponse(res, 200, items);
   } catch (err) {
     console.log(err);
-    res.status(404).json({
-      status: 404,
-      message: "File not found.",
-    });
+    sendResponse(res, 404, null, "Items not found.");
   }
 };
 
 //get a particular wearable item
-const getItem = async (req, res) => {
+const handleGetItem = async (req, res) => {
   const reqId = parseInt(req.params.id);
   try {
-    const client = new MongoClient(MONGO_URI, options);
-    await client.connect();
-    const db = client.db("GroupECommerce");
-    const allItems = await db.collection("items").find().toArray();
-    await client.close();
-    const itemIds = allItems.map((item) => {
+    const items = await getItems();
+    const itemIds = items.map((item) => {
       return item._id;
     });
     const doesIdExist = itemIds.find((id) => id === reqId);
-    const foundItem = allItems.find((item) => item["_id"] === reqId);
+    const foundItem = items.find((item) => item["_id"] === reqId);
+
     if (doesIdExist === undefined) {
-      res.status(400).json({
-        status: 400,
-        message: "Invalid Id",
-      });
+      sendResponse(res, 400, null, "Invalid id.");
     } else {
-      res.status(200).json({
-        status: 200,
-        data: foundItem,
-      });
+      sendResponse(res, 200, foundItem);
     }
   } catch (err) {
     console.log(err);
-    res.status(404).json({
-      status: 404,
-      message: "File not found.",
-    });
+    sendResponse(res, 404, null, "Item not found.");
   }
 };
 
 //get all brand names
-const getBrands = async (req, res) => {
+const handleGetBrands = async (req, res) => {
   try {
-    const client = new MongoClient(MONGO_URI, options);
-    await client.connect();
-    const db = client.db("GroupECommerce");
-
-    const brands = await db.collection("companies").distinct("name");
-
-    client.close();
-    res.status(200).json({
-      status: 200,
-      data: brands,
-      message: "Companies fetched!",
-    });
+    const brands = await getBrands();
+    sendResponse(res, 200, brands, "Companies fetched.");
   } catch (err) {
     console.log(err);
   }
 };
 
 //get wearables from a single brand
-const getBrandItems = async (req, res) => {
+const handleGetBrandItems = async (req, res) => {
   const { id } = req.params;
-
   try {
-    const client = new MongoClient(MONGO_URI, options);
-    await client.connect();
-    const db = client.db("GroupECommerce");
-
-    const brands = await db.collection("companies").distinct("name");
-
+    const brands = await getBrands();
     if (!brands.includes(id)) {
-      return res.status(404).json({ status: 404, message: "Brand not found!" });
+      sendResponse(res, 404, null, "Brand not found.");
+      return;
     }
-
-    const brandDocument = await db
-      .collection("companies")
-      .findOne({ name: id });
-
-    const brandId = brandDocument._id;
-
-    const brandItems = await db
-      .collection("items")
-      .find({ companyId: brandId })
-      .toArray();
-
-    client.close();
-    res.status(200).json({
-      status: 200,
-      data: brandItems,
-      message: "Brand items fetched!",
-    });
+    const brandItems = await getBrandItems(id);
+    sendResponse(res, 200, brandItems, "Brand items fetched.");
   } catch (err) {
     console.log(err);
   }
 };
 
 //get all category names
-const getCategories = async (req, res) => {
+const handleGetCategories = async (req, res) => {
   try {
-    const client = new MongoClient(MONGO_URI, options);
-    await client.connect();
-    const db = client.db("GroupECommerce");
-
-    const categories = await db.collection("items").distinct("category");
-
-    client.close();
-    res.status(200).json({
-      status: 200,
-      data: categories,
-      message: "Categories fetched!",
-    });
+    const categories = await getCategories();
+    sendResponse(res, 200, categories, "Categories fetched.");
   } catch (err) {
     console.log(err);
   }
 };
 
 //get wearables from a single category
-const getCategoryItems = async (req, res) => {
+const handleGetCategoryItems = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const client = new MongoClient(MONGO_URI, options);
-    await client.connect();
-    const db = client.db("GroupECommerce");
-
-    const categories = await db.collection("items").distinct("category");
-
+    const categories = await getCategories();
     if (!categories.includes(id)) {
-      return res
-        .status(404)
-        .json({ status: 404, message: "Category not found!" });
+      sendResponse(res, 404, null, "Category not found.");
+      return;
     }
 
-    const category = await db
-      .collection("items")
-      .find({ category: id })
-      .toArray();
-
-    client.close();
-    res.status(200).json({
-      status: 200,
-      data: category,
-      message: "Category fetched!",
-    });
+    const category = await getCategoryItems(id);
+    sendResponse(res, 200, category, "Category fetched.");
   } catch (err) {
     console.log(err);
   }
@@ -183,38 +105,31 @@ const addNewOrder = async (req, res) => {
   const { fullName, creditCard, expiration, orderedItems, email } = req.body;
 
   // ^ and $ define start and end of string, respectively
-  //+ define one or multiple occurances
+  //+ define one or multiple occurrences
   //[] range of all digits between 0 and 9, inclusive
-
   const numbers = /^[0-9]+$/;
 
   if (creditCard.split("").length !== 8 || creditCard.match(numbers) === null) {
-    return res
-      .status(400)
-      .json({ status: "error", error: "Invalid Card Number Format" });
+    sendResponse(res, 400, null, "Invalid card number format.");
+    return;
   }
 
   if (expiration.split("").length !== 4 || expiration.match(numbers) === null) {
-    return res
-      .status(400)
-      .json({ status: "error", error: "Invalid Expiration Format" });
+    sendResponse(res, 400, null, "Invalid expiration format.");
+    return;
   }
 
   if (!email.includes("@")) {
-    return res
-      .status(400)
-      .json({ status: "error", error: "Invalid Email Format" });
+    sendResponse(res, 400, null, "Invalid email format.");
+    return;
   }
 
   if (orderedItems.length === 0) {
-    return res.status(400).json({ status: "error", error: "Cart is empty" });
+    sendResponse(res, 400, null, "Cart is empty.");
+    return;
   }
 
   try {
-    const client = new MongoClient(MONGO_URI, options);
-    await client.connect();
-    const db = client.db("GroupECommerce");
-
     const newOrderDetails = {
       _id: uuidv4(),
       fullName,
@@ -224,47 +139,18 @@ const addNewOrder = async (req, res) => {
       email,
     };
 
-    orderedItems.forEach((item) => {
-      db.collection("items").updateOne(
-        { _id: item._id, name: item.name },
-        { $inc: { numInStock: -1 } },
-        (err, result) => {
-          result
-            ? console.log(
-                "Found:",
-                result.matchedCount,
-                "Updated:",
-                result.acknowledged
-              )
-            : console.log(err);
-        }
-      );
-    });
-    await db.collection("orders").insertOne(newOrderDetails);
-    client.close();
-    res.status(201).json({
-      status: 201,
-      data: newOrderDetails,
-      message: "Order has been placed!",
-    });
+    await addOrderDetails(orderedItems, newOrderDetails);
+    sendResponse(res, 201, newOrderDetails, "Order has been placed.");
   } catch (err) {
     console.log(err);
   }
 };
 
 // Creates new user when someone sign up
-
 const addNewUser = async (req, res) => {
   const { fullName, email, password } = req.body;
 
   try {
-    const client = new MongoClient(MONGO_URI, options);
-    await client.connect();
-    const db = client.db("GroupECommerce");
-    const users = await db.collection("users").find().toArray();
-
-    const foundUser = users.find((user) => user.email === email);
-
     const newUserDetails = {
       _id: uuidv4(),
       fullName,
@@ -272,47 +158,38 @@ const addNewUser = async (req, res) => {
       password,
     };
 
-    foundUser
-      ? res
-          .status(404)
-          .json({ status: 404, message: "User Email Already Exists" })
-      : await db.collection("users").insertOne(newUserDetails);
-    client.close();
-    res.status(201).json({
-      status: 201,
-      data: newUserDetails,
-      message: "User has been registered successfully",
-    });
+    const users = await getUsers();
+    const foundUser = users.find((user) => user.email === email);
+
+    if (foundUser) {
+      sendResponse(res, 404, null, "User email already exists.");
+      return;
+    } else {
+      await addUserDetails(newUserDetails);
+    }
+
+    sendResponse(
+      res,
+      201,
+      newUserDetails,
+      "User has been registered successfully."
+    );
   } catch (err) {
     console.log(err);
   }
 };
 
 // verify user when signing in
-
 const verifyUser = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const client = new MongoClient(MONGO_URI, options);
+    const foundUser = await findUser(email, password);
 
-    await client.connect();
-    const db = client.db("GroupECommerce");
-
-    const foundUser = await db.collection("users").findOne({ email, password });
-
-    client.close();
-
-    foundUser
-      ? res.status(200).json({
-          status: 200,
-          data: foundUser,
-          message: "User verified",
-        })
-      : res.status(200).json({
-          status: 200,
-          data: foundUser,
-          message: "Please check your email or password!",
-        });
+    if (foundUser) {
+      sendResponse(res, 200, foundUser, "User verified.");
+    } else {
+      sendResponse(res, 200, foundUser, "Please check your email or password.");
+    }
   } catch (err) {
     console.log(err);
   }
@@ -320,12 +197,12 @@ const verifyUser = async (req, res) => {
 
 module.exports = {
   addNewOrder,
-  getCategories,
-  getCategoryItems,
-  getItems,
-  getItem,
-  getBrands,
-  getBrandItems,
+  handleGetCategories,
+  handleGetCategoryItems,
+  handleGetItems,
+  handleGetItem,
+  handleGetBrands,
+  handleGetBrandItems,
   addNewUser,
   verifyUser,
 };
