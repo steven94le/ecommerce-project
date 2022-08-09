@@ -124,7 +124,7 @@ const addUserDetails = async (newUserDetails) => {
   }
 };
 
-const updateStock = async (orderedItems) => {
+const addOrderDetails = async (orderedItems, newOrderDetails) => {
   try {
     const client = await startClient();
     const db = client.db("GroupECommerce");
@@ -145,18 +145,6 @@ const updateStock = async (orderedItems) => {
         }
       );
     });
-
-    client.close();
-    return;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-const addOrderDetails = async (newOrderDetails) => {
-  try {
-    const client = await startClient();
-    const db = client.db("GroupECommerce");
     await db.collection("orders").insertOne(newOrderDetails);
     client.close();
     return;
@@ -178,7 +166,6 @@ module.exports = {
   getCategoryItems,
   getUsers,
   findUser,
-  updateStock,
   addOrderDetails,
   addUserDetails,
   sendResponse,

@@ -8,7 +8,6 @@ const {
   getCategoryItems,
   getUsers,
   findUser,
-  updateStock,
   addOrderDetails,
   addUserDetails,
   sendResponse,
@@ -140,8 +139,7 @@ const addNewOrder = async (req, res) => {
       email,
     };
 
-    await updateStock(orderedItems);
-    await addOrderDetails(newOrderDetails);
+    await addOrderDetails(orderedItems, newOrderDetails);
     sendResponse(res, 201, newOrderDetails, "Order has been placed!");
   } catch (err) {
     console.log(err);

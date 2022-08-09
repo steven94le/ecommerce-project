@@ -6,7 +6,6 @@ const morgan = require("morgan");
 const {
   addNewOrder,
   handleGetCategories,
-  getCategoryItems,
   handleGetItems,
   handleGetItem,
   handleGetBrands,
