@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import SearchBar from "../../components/SearchBar/SearchBar";
 import bannerImg from "./assets/portrait-young-fitness-woman-earphones.jpg";
 const Banner = () => {
   return (
@@ -14,8 +15,7 @@ const Banner = () => {
           Luxury Wearable Collection
         </h1>
         <BtnDiv>
-          <StyledBtn>MEN</StyledBtn>
-          <StyledBtn>WOMEN</StyledBtn>
+          <SearchBar />
         </BtnDiv>
       </BannerDetails>
     </BannerWrapper>
@@ -54,20 +54,9 @@ const BannerDetails = styled.div`
 
 const BtnDiv = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 15%;
   margin: 30px;
-`;
-const StyledBtn = styled.button`
-  background-color: green;
-  border-radius: 10px;
-  border: none;
-  padding: 20px;
-
-  &:hover {
-    background-color: white;
-    color: green;
-  }
 `;
 
 export default Banner;
