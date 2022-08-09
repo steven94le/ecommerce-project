@@ -20,7 +20,7 @@ const handleGetItems = async (req, res) => {
     sendResponse(res, 200, items);
   } catch (err) {
     console.log(err);
-    sendResponse(res, 404, null, "File not found.");
+    sendResponse(res, 404, null, "Items not found.");
   }
 };
 
@@ -36,13 +36,13 @@ const handleGetItem = async (req, res) => {
     const foundItem = items.find((item) => item["_id"] === reqId);
 
     if (doesIdExist === undefined) {
-      sendResponse(res, 400, null, "Invalid Id");
+      sendResponse(res, 400, null, "Invalid id.");
     } else {
       sendResponse(res, 200, foundItem);
     }
   } catch (err) {
     console.log(err);
-    sendResponse(res, 404, null, "File not found.");
+    sendResponse(res, 404, null, "Item not found.");
   }
 };
 
@@ -50,7 +50,7 @@ const handleGetItem = async (req, res) => {
 const handleGetBrands = async (req, res) => {
   try {
     const brands = await getBrands();
-    sendResponse(res, 200, brands, "Companies fetched!");
+    sendResponse(res, 200, brands, "Companies fetched.");
   } catch (err) {
     console.log(err);
   }
@@ -62,11 +62,11 @@ const handleGetBrandItems = async (req, res) => {
   try {
     const brands = await getBrands();
     if (!brands.includes(id)) {
-      sendResponse(res, 404, null, "Brand not found!");
+      sendResponse(res, 404, null, "Brand not found.");
       return;
     }
     const brandItems = await getBrandItems(id);
-    sendResponse(res, 200, brandItems, "Brand items fetched!");
+    sendResponse(res, 200, brandItems, "Brand items fetched.");
   } catch (err) {
     console.log(err);
   }
@@ -76,7 +76,7 @@ const handleGetBrandItems = async (req, res) => {
 const handleGetCategories = async (req, res) => {
   try {
     const categories = await getCategories();
-    sendResponse(res, 200, categories, "Categories fetched!");
+    sendResponse(res, 200, categories, "Categories fetched.");
   } catch (err) {
     console.log(err);
   }
@@ -89,12 +89,12 @@ const handleGetCategoryItems = async (req, res) => {
   try {
     const categories = await getCategories();
     if (!categories.includes(id)) {
-      sendResponse(res, 404, null, "Category not found!");
+      sendResponse(res, 404, null, "Category not found.");
       return;
     }
 
     const category = await getCategoryItems(id);
-    sendResponse(res, 200, category, "Category fetched!");
+    sendResponse(res, 200, category, "Category fetched.");
   } catch (err) {
     console.log(err);
   }
@@ -110,22 +110,22 @@ const addNewOrder = async (req, res) => {
   const numbers = /^[0-9]+$/;
 
   if (creditCard.split("").length !== 8 || creditCard.match(numbers) === null) {
-    sendResponse(res, 400, null, "Invalid Card Number Format");
+    sendResponse(res, 400, null, "Invalid card number format.");
     return;
   }
 
   if (expiration.split("").length !== 4 || expiration.match(numbers) === null) {
-    sendResponse(res, 400, null, "Invalid Expiration Format");
+    sendResponse(res, 400, null, "Invalid expiration format.");
     return;
   }
 
   if (!email.includes("@")) {
-    sendResponse(res, 400, null, "Invalid Email Format");
+    sendResponse(res, 400, null, "Invalid email format.");
     return;
   }
 
   if (orderedItems.length === 0) {
-    sendResponse(res, 400, null, "Cart is empty");
+    sendResponse(res, 400, null, "Cart is empty.");
     return;
   }
 
@@ -140,7 +140,7 @@ const addNewOrder = async (req, res) => {
     };
 
     await addOrderDetails(orderedItems, newOrderDetails);
-    sendResponse(res, 201, newOrderDetails, "Order has been placed!");
+    sendResponse(res, 201, newOrderDetails, "Order has been placed.");
   } catch (err) {
     console.log(err);
   }
@@ -162,7 +162,7 @@ const addNewUser = async (req, res) => {
     const foundUser = users.find((user) => user.email === email);
 
     if (foundUser) {
-      sendResponse(res, 404, null, "User Email Already Exists");
+      sendResponse(res, 404, null, "User email already exists.");
       return;
     } else {
       await addUserDetails(newUserDetails);
@@ -172,7 +172,7 @@ const addNewUser = async (req, res) => {
       res,
       201,
       newUserDetails,
-      "User has been registered successfully"
+      "User has been registered successfully."
     );
   } catch (err) {
     console.log(err);
@@ -186,9 +186,9 @@ const verifyUser = async (req, res) => {
     const foundUser = await findUser(email, password);
 
     if (foundUser) {
-      sendResponse(res, 200, foundUser, "User verified");
+      sendResponse(res, 200, foundUser, "User verified.");
     } else {
-      sendResponse(res, 200, foundUser, "Please check your email or password!");
+      sendResponse(res, 200, foundUser, "Please check your email or password.");
     }
   } catch (err) {
     console.log(err);
