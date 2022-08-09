@@ -180,7 +180,8 @@ const getCategoryItems = async (req, res) => {
 
 //creates a new order when someone checkout the cart
 const addNewOrder = async (req, res) => {
-  const { fullName, creditCard, expiration, orderedItems, email } = req.body;
+  const { givenName, surname, creditCard, expiration, orderedItems, email } =
+    req.body;
 
   // ^ and $ define start and end of string, respectively
   //+ define one or multiple occurances
@@ -217,7 +218,8 @@ const addNewOrder = async (req, res) => {
 
     const newOrderDetails = {
       _id: uuidv4(),
-      fullName,
+      givenName,
+      surname,
       creditCard,
       expiration,
       orderedItems,
@@ -255,7 +257,7 @@ const addNewOrder = async (req, res) => {
 // Creates new user when someone sign up
 
 const addNewUser = async (req, res) => {
-  const { fullName, email, password } = req.body;
+  const { givenName, surname, email, password } = req.body;
 
   try {
     const client = new MongoClient(MONGO_URI, options);
@@ -267,7 +269,8 @@ const addNewUser = async (req, res) => {
 
     const newUserDetails = {
       _id: uuidv4(),
-      fullName,
+      givenName,
+      surname,
       email,
       password,
     };
