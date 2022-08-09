@@ -27,7 +27,7 @@ const NavBar = () => {
         </StyledNavLink>
       </LeftSide>
       <RightSide>
-        {googleUserData.name || currentUser.fullName ? (
+        {googleUserData.name || currentUser.givenName ? (
           <>
             <StyledNavLink exact to="/cart">
               Your Cart ({cartItems.length})

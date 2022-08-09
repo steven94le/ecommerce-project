@@ -15,7 +15,8 @@ export const FormsProvider = ({ children }) => {
   };
 
   const initialOrderForm = {
-    fullName: "",
+    givenName: "",
+    surname: "",
     email: "",
     creditCard: "",
     expiration: "",

@@ -43,7 +43,7 @@ const CurrentUser = () => {
     </Wrapper>
   ) : (
     <Wrapper>
-      <StyledSpan>{`Howdy, ${currentUser.fullName}`}</StyledSpan>
+      <StyledSpan>{`Howdy, ${currentUser.givenName}`}</StyledSpan>
       <SignOutBtn onClick={(e) => handleSignOut(e)}>Sign Out</SignOutBtn>
     </Wrapper>
   );

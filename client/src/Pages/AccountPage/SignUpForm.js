@@ -5,7 +5,8 @@ import { EmailSignInContext } from "../../components/Contexts/EmailSignInContext
 import { FormsContext } from "../../components/Contexts/FormsContext";
 
 const defaultFormFields = {
-  fullName: "",
+  givenName: "",
+  surname: "",
   email: "",
   password: "",
   confirmPassword: "",
@@ -13,7 +14,7 @@ const defaultFormFields = {
 
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { fullName, email, password, confirmPassword } = formFields;
+  const { givenName, surname, email, password, confirmPassword } = formFields;
   const [error, setError] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const { setCurrentUser } = useContext(EmailSignInContext);
@@ -38,13 +39,15 @@ const SignUpForm = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        fullName,
+        givenName,
+        surname,
         email: newUserEmail,
         password,
       }),
     });
     const data = await response.json();
     const newUserData = data.data;
+    console.log("newUserData:", newUserData);
 
     if (!newUserData) {
       setError(true);
@@ -58,7 +61,8 @@ const SignUpForm = () => {
       setOrderForm({
         ...orderForm,
         email: newUserData.email,
-        fullName: newUserData.fullName,
+        givenName: newUserData.givenName,
+        surname: newUserData.surname,
       });
     }
   };
@@ -81,10 +85,18 @@ const SignUpForm = () => {
           type="text"
           required
           onChange={handleChange}
-          name="fullName"
-          value={fullName}
+          name="givenName"
+          value={givenName}
         ></StyledInput>
-        <StyledLabel>Full Name</StyledLabel>
+        <StyledLabel>First Name</StyledLabel>
+        <StyledInput
+          type="text"
+          required
+          onChange={handleChange}
+          name="surname"
+          value={surname}
+        ></StyledInput>
+        <StyledLabel>Last Name</StyledLabel>
 
         <StyledInput
           type="email"

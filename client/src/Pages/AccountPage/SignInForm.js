@@ -51,6 +51,7 @@ const SignInForm = () => {
 
     const data = await response.json();
     const userData = data.data;
+    console.log("userData:", userData);
 
     if (!userData) {
       setCurrentUser(data.message);
@@ -61,7 +62,8 @@ const SignInForm = () => {
       setOrderForm({
         ...orderForm,
         email: userData.email,
-        fullName: userData.fullName,
+        givenName: userData.given_name,
+        surname: userData.family_name,
       });
       routeChange();
     }
@@ -70,12 +72,14 @@ const SignInForm = () => {
   useEffect(() => {
     const handleCallbackResponse = (response) => {
       let userObj = jwt_decode(response.credential);
+      console.log("userObj:", userObj);
 
       setGoogleUserData(userObj);
       setOrderForm({
         ...orderForm,
         email: userObj.email,
-        fullName: userObj.name,
+        givenName: userObj.given_name,
+        surname: userObj.family_name,
       });
     };
     /* global google */
