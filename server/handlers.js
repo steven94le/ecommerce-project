@@ -1,26 +1,15 @@
-"use strict";
-const e = require("express");
-const { MongoClient } = require("mongodb");
-
 // use this package to generate unique ids: https://www.npmjs.com/package/uuid
 const { v4: uuidv4 } = require("uuid");
-
-require("dotenv").config();
-const { MONGO_URI } = process.env;
-
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
+const { startClient } = require("./utils.js");
 
 //get all wearable items
 const getItems = async (req, res) => {
   try {
-    const client = new MongoClient(MONGO_URI, options);
-    await client.connect();
+    const client = await startClient();
     const db = client.db("GroupECommerce");
     const allItems = await db.collection("items").find().toArray();
     await client.close();
+
     res.status(200).json({
       status: 200,
       data: allItems,
@@ -38,8 +27,7 @@ const getItems = async (req, res) => {
 const getItem = async (req, res) => {
   const reqId = parseInt(req.params.id);
   try {
-    const client = new MongoClient(MONGO_URI, options);
-    await client.connect();
+    const client = await startClient();
     const db = client.db("GroupECommerce");
     const allItems = await db.collection("items").find().toArray();
     await client.close();
@@ -48,6 +36,7 @@ const getItem = async (req, res) => {
     });
     const doesIdExist = itemIds.find((id) => id === reqId);
     const foundItem = allItems.find((item) => item["_id"] === reqId);
+
     if (doesIdExist === undefined) {
       res.status(400).json({
         status: 400,
@@ -71,12 +60,9 @@ const getItem = async (req, res) => {
 //get all brand names
 const getBrands = async (req, res) => {
   try {
-    const client = new MongoClient(MONGO_URI, options);
-    await client.connect();
+    const client = await startClient();
     const db = client.db("GroupECommerce");
-
     const brands = await db.collection("companies").distinct("name");
-
     client.close();
     res.status(200).json({
       status: 200,
@@ -93,10 +79,8 @@ const getBrandItems = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const client = new MongoClient(MONGO_URI, options);
-    await client.connect();
+    const client = await startClient();
     const db = client.db("GroupECommerce");
-
     const brands = await db.collection("companies").distinct("name");
 
     if (!brands.includes(id)) {
@@ -108,7 +92,6 @@ const getBrandItems = async (req, res) => {
       .findOne({ name: id });
 
     const brandId = brandDocument._id;
-
     const brandItems = await db
       .collection("items")
       .find({ companyId: brandId })
@@ -128,10 +111,8 @@ const getBrandItems = async (req, res) => {
 //get all category names
 const getCategories = async (req, res) => {
   try {
-    const client = new MongoClient(MONGO_URI, options);
-    await client.connect();
+    const client = await startClient();
     const db = client.db("GroupECommerce");
-
     const categories = await db.collection("items").distinct("category");
 
     client.close();
@@ -150,10 +131,8 @@ const getCategoryItems = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const client = new MongoClient(MONGO_URI, options);
-    await client.connect();
+    const client = await startClient();
     const db = client.db("GroupECommerce");
-
     const categories = await db.collection("items").distinct("category");
 
     if (!categories.includes(id)) {
@@ -211,8 +190,7 @@ const addNewOrder = async (req, res) => {
   }
 
   try {
-    const client = new MongoClient(MONGO_URI, options);
-    await client.connect();
+    const client = await startClient();
     const db = client.db("GroupECommerce");
 
     const newOrderDetails = {
@@ -253,16 +231,13 @@ const addNewOrder = async (req, res) => {
 };
 
 // Creates new user when someone sign up
-
 const addNewUser = async (req, res) => {
   const { fullName, email, password } = req.body;
 
   try {
-    const client = new MongoClient(MONGO_URI, options);
-    await client.connect();
+    const client = await startClient();
     const db = client.db("GroupECommerce");
     const users = await db.collection("users").find().toArray();
-
     const foundUser = users.find((user) => user.email === email);
 
     const newUserDetails = {
@@ -289,17 +264,12 @@ const addNewUser = async (req, res) => {
 };
 
 // verify user when signing in
-
 const verifyUser = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const client = new MongoClient(MONGO_URI, options);
-
-    await client.connect();
+    const client = await startClient();
     const db = client.db("GroupECommerce");
-
     const foundUser = await db.collection("users").findOne({ email, password });
-
     client.close();
 
     foundUser
