@@ -39,11 +39,9 @@ const Checkout = () => {
       const res = await fetch("/checkout", settings);
       const data = await res.json();
 
-      console.log("res", data);
-
       if (!res.ok) {
         setFormStatusPending("error");
-        setOrderErrMsg(data.error);
+        setOrderErrMsg(data.message);
         throw Error(`${res.status} ${res.statusText}`);
       }
       setFormStatusPending("confirmed");
