@@ -5,12 +5,13 @@ const morgan = require("morgan");
 
 const {
   addNewOrder,
-  getCategories,
+  handleGetCategories,
   getCategoryItems,
-  getItems,
-  getItem,
-  getBrands,
-  getBrandItems,
+  handleGetItems,
+  handleGetItem,
+  handleGetBrands,
+  handleGetBrandItems,
+  handleGetCategoryItems,
   addNewUser,
   verifyUser,
 } = require("./handlers");
@@ -39,12 +40,12 @@ express()
   )
   .use("/", express.static(__dirname + "/"))
 
-  .get("/category", getCategories)
-  .get("/category/:id", getCategoryItems)
-  .get("/brand", getBrands)
-  .get("/brand/:id", getBrandItems)
-  .get("/api/get-items", getItems)
-  .get("/api/get-item/:id", getItem)
+  .get("/category", handleGetCategories)
+  .get("/category/:id", handleGetCategoryItems)
+  .get("/brand", handleGetBrands)
+  .get("/brand/:id", handleGetBrandItems)
+  .get("/api/get-items", handleGetItems)
+  .get("/api/get-item/:id", handleGetItem)
   .post("/checkout", addNewOrder)
   .post("/users", verifyUser)
 
