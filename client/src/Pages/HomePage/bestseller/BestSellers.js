@@ -6,6 +6,8 @@ import { ItemsContext } from "../../../components/Contexts/ItemsContext";
 
 const BestSellers = () => {
   const { itemsState } = useContext(ItemsContext);
+
+  //Shuffles all the item and only get the first 10
   const randomBestSellers = itemsState
     .sort(() => 0.5 - Math.random())
     .slice(0, 10);

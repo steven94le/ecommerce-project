@@ -23,6 +23,8 @@ const SignInForm = () => {
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
+
+  //Redirects to homepage whenever someone signs-in
   const history = useHistory();
   const routeChange = () => {
     let path = `/`;
@@ -30,11 +32,13 @@ const SignInForm = () => {
     history.push(path);
   };
 
+  //Store value to formFields State
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
 
+  //Sends login information to the backend
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -66,9 +70,10 @@ const SignInForm = () => {
       routeChange();
     }
   };
-
+  // Initialize Google Sign-In API
   useEffect(() => {
     const handleCallbackResponse = (response) => {
+      //Decode the JWT into an object so that we can use the data
       let userObj = jwt_decode(response.credential);
       console.log("userObj:", userObj);
 
