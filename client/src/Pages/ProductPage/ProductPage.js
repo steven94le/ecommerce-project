@@ -2,11 +2,13 @@ import styled from "styled-components";
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { CartItemsContext } from "../../components/Contexts/CartItemsContext";
+import { WishlistContext } from "../../components/Contexts/WishlistContext";
 import { FormsContext } from "../../components/Contexts/FormsContext";
 
 const ProductPage = () => {
   const { id } = useParams();
   const { cartItems, setCartItems } = useContext(CartItemsContext);
+  const { wishlistItems, setWishlistItems } = useContext(WishlistContext);
   const { orderForm, setOrderForm } = useContext(FormsContext);
   const [productInfo, setProductInfo] = useState("");
 
@@ -21,6 +23,12 @@ const ProductPage = () => {
       ...orderForm,
       orderedItems: [...orderedItems, productInfo],
     });
+  };
+
+  //handler to add item to wishlist
+  const handleAddToWishlist = (ev) => {
+    ev.preventDefault();
+    setWishlistItems([...wishlistItems, productInfo]);
   };
 
   useEffect(() => {
@@ -57,9 +65,14 @@ const ProductPage = () => {
                   <OutOfStockText>Out of Stock</OutOfStockText>
                 </OutOfStock>
               ) : (
-                <StyledButton onClick={handleAddToCart}>
-                  <span>Add To Cart</span>
-                </StyledButton>
+                <ActionBar>
+                  <StyledButton onClick={handleAddToCart}>
+                    <span>Add To Cart</span>
+                  </StyledButton>
+                  <StyledButton onClick={handleAddToWishlist}>
+                    <span>Add To Wishlist</span>
+                  </StyledButton>
+                </ActionBar>
               )}
             </ItemDescription>
           </>
@@ -123,7 +136,7 @@ const StyledButton = styled.button`
   border: none;
   border-radius: 5px;
   height: 25px;
-  width: 125px;
+  width: 150px;
   background-image: linear-gradient(90deg, #08008b 0%, #0060bf 100%);
 
   &:hover {
@@ -135,6 +148,12 @@ const StyledButton = styled.button`
     background: lightblue;
     border: lightgrey 1px solid;
   }
+`;
+
+const ActionBar = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 `;
 
 export default ProductPage;
