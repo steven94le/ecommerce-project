@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./components/App";
 
 import { CartItemsProvider } from "./components/Contexts/CartItemsContext";
+import { WishlistProvider } from "./components/Contexts/WishlistContext";
 import { ItemsContextProvider } from "./components/Contexts/ItemsContext";
 import { GoogleUserContextProvider } from "./components/Contexts/GoogleUserContext";
 import { FormsProvider } from "./components/Contexts/FormsContext";
@@ -15,7 +16,9 @@ ReactDOM.render(
         <FormsProvider>
           <ItemsContextProvider>
             <CartItemsProvider>
-              <App />
+              <WishlistProvider>
+                <App />
+              </WishlistProvider>
             </CartItemsProvider>
           </ItemsContextProvider>
         </FormsProvider>

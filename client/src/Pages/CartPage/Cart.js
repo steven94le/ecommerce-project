@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React, { useContext } from "react";
 import { CartItemsContext } from "../../components/Contexts/CartItemsContext";
-import EmptyCart from "./EmptyCart";
+import EmptyStatus from "../../components/EmptyStatus/EmptyStatus";
 import Summary from "./Summary";
 
 const Cart = () => {
@@ -53,7 +53,10 @@ const Cart = () => {
             <Summary />
           </>
         ) : (
-          <EmptyCart />
+          <div>
+            <StyledHeader>Your cart is currently empty.</StyledHeader>
+            <EmptyStatus />
+          </div>
         )}
       </Wrapper>
     </>
