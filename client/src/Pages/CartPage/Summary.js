@@ -33,24 +33,25 @@ const Summary = () => {
 
   return (
     <Wrapper>
-      {!isLoggedIn && (
-        <>
-          <h4>Enter your email to continue to checkout as a guest.</h4>
-          <EmailInput>
-            <p>Email address</p>
-            <input
-              name="email"
-              type="text"
-              placeholder="john@smith.com"
-              onChange={(e) => handleOrderFormChange(e.target.value, "email")}
-            />
-          </EmailInput>
-        </>
-      )}
       <TotalCost>
         <p>Order Total: </p>
         <p>${totalCostRounded}</p>
       </TotalCost>
+      {!isLoggedIn && (
+        <>
+          <p>Enter your email to continue to checkout as a guest.</p>
+          <EmailInput>
+            <p>Email address</p>
+            <input
+              name="email"
+              type="email"
+              placeholder="john@smith.com"
+              onChange={(e) => handleOrderFormChange(e.target.value, "email")}
+              required
+            />
+          </EmailInput>
+        </>
+      )}
       <Link to="/checkout">
         <CheckOutButton
           type="button"
@@ -69,7 +70,7 @@ const Wrapper = styled.div`
   margin-left: 20px;
 
   div {
-    padding: 10px 0;
+    padding: 20px 0;
   }
 `;
 

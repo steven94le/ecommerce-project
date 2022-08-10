@@ -34,6 +34,11 @@ const StyledLink = styled(Link)`
 
   &:hover {
     cursor: pointer;
+    opacity: 0.8;
+  }
+
+  &:active {
+    background: darkgrey;
   }
 `;
 

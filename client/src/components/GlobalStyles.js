@@ -99,7 +99,7 @@ input::placeholder {
   opacity: 0.5
 }
 
-input[type="text"],input[type="number"] {
+input[type="text"],input[type="number"], input[type="email"] {
     font-size:12px;
 }
 
