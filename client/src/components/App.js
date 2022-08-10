@@ -14,6 +14,7 @@ import { useContext } from "react";
 import Confirmation from "../Pages/CheckoutPage/Confirmation";
 import { GoogleUserContext } from "./Contexts/GoogleUserContext";
 import { EmailSignInContext } from "./Contexts/EmailSignInContext";
+import WishlistPage from "../Pages/WishlistPage/WishlistPage";
 
 const App = () => {
   const { googleUserData } = useContext(GoogleUserContext);
@@ -41,6 +42,9 @@ const App = () => {
         </Route>
         <Route exact path="/category/:id">
           <CategoryPage />
+        </Route>
+        <Route exact path="/wishlist">
+          <WishlistPage />
         </Route>
         <Route exact path="/cart">
           <Cart />

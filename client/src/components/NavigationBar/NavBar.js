@@ -27,6 +27,9 @@ const NavBar = () => {
         </StyledNavLink>
       </LeftSide>
       <RightSide>
+        <StyledNavLink exact to="/wishlist">
+          Wishlist
+        </StyledNavLink>
         {googleUserData.name || currentUser.givenName ? (
           <>
             <StyledNavLink exact to="/cart">
@@ -44,10 +47,6 @@ const NavBar = () => {
             </StyledNavLink>
           </>
         )}
-
-        <Nav>
-          {/* TODO: only show link if the user is signed-In - E.g. Wishlist etc.*/}
-        </Nav>
       </RightSide>
     </Wrapper>
   );
@@ -80,11 +79,6 @@ const Logo = styled.div`
   background-position: left center, right center;
   overflow: hidden;
   padding-left: 20px;
-`;
-
-const Nav = styled.nav`
-  display: flex;
-  align-items: center;
 `;
 
 const StyledNavLink = styled(NavLink)`

@@ -1,24 +1,18 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const EmptyCart = () => {
+const EmptyStatus = () => {
   return (
-    <EmptyCartStatus>
-      <StyledHeader>Your cart is currently empty.</StyledHeader>
+    <Wrapper>
       <StyledLink to="/">Shop our wearables</StyledLink>
       <StyledLink to="/brands">Shop for a brand</StyledLink>
       <StyledLink to="/category">Shop for a category</StyledLink>
-    </EmptyCartStatus>
+    </Wrapper>
   );
 };
 
-const EmptyCartStatus = styled.div`
+const Wrapper = styled.div`
   text-align: center;
-`;
-
-const StyledHeader = styled.h3`
-  color: black;
-  margin: 20px;
 `;
 
 const StyledLink = styled(Link)`
@@ -42,4 +36,4 @@ const StyledLink = styled(Link)`
   }
 `;
 
-export default EmptyCart;
+export default EmptyStatus;
