@@ -13,7 +13,7 @@ const CardDetails = () => {
         <p>Card Number</p>
         <input
           name="creditCard"
-          type="text"
+          type="number"
           placeholder="0000-0000"
           onChange={(e) => handleOrderFormChange(e.target.value, "creditCard")}
           required
@@ -22,7 +22,7 @@ const CardDetails = () => {
         <p>Expiration</p>
         <input
           name="expiration"
-          type="text"
+          type="number"
           placeholder="MM-YY"
           onChange={(e) => handleOrderFormChange(e.target.value, "expiration")}
           required

@@ -117,13 +117,13 @@ const StyledDiv = styled.div`
 
 const StyledButton = styled.button`
   color: white;
-  background: steelblue;
   text-align: center;
   font-size: 18px;
   border: none;
   border-radius: 5px;
   height: 25px;
   width: 125px;
+  background-image: linear-gradient(90deg, #08008b 0%, #0060bf 100%);
 
   &:hover {
     cursor: pointer;

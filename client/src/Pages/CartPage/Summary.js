@@ -92,11 +92,11 @@ const TotalCost = styled.div`
 const CheckOutButton = styled.button`
   border: none;
   font-size: 14px;
-  background-color: steelblue;
   color: white;
   border-radius: 3px;
   width: 100%;
   height: 25px;
+  background-image: linear-gradient(90deg, #08008b 0%, #0060bf 100%);
 
   &:hover {
     cursor: pointer;
