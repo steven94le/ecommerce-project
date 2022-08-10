@@ -10,6 +10,7 @@ const ProductPage = () => {
   const { orderForm, setOrderForm } = useContext(FormsContext);
   const [productInfo, setProductInfo] = useState("");
 
+  //handler to add item to cart; order form updated to account for added item
   const handleAddToCart = (ev) => {
     ev.preventDefault();
     setCartItems([...cartItems, productInfo]);

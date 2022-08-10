@@ -17,29 +17,29 @@ const Summary = () => {
     Object.keys(googleUserData).length !== 0 ||
     Object.keys(currentUser).length !== 0;
 
-  const cartItemsCost = cartItems.map((cartItem) => {
+  //subtotal cost of cart items (excl shipping+tax), remove non-digits from price
+  const subTotalCost = cartItems.reduce((total, cartItem) => {
+    if (cartItem == null) return 0;
     const { price } = cartItem;
-    const unstringedPrice = price.replace("(refurbished)", "").replace("$", "");
-    const actualPrice = parseFloat(unstringedPrice);
-    return actualPrice;
-  });
+    const priceWithoutText = price
+      .replace("(refurbished)", "")
+      .replace("$", "");
+    const itemCost = parseFloat(priceWithoutText);
+    return total + itemCost;
+  }, 0);
 
-  const totalCost = cartItemsCost.reduce(
-    (previousValue, currentValue) => previousValue + currentValue,
-    0
-  );
-
-  const totalCostRounded = (Math.round(totalCost * 100) / 100).toFixed(2);
+  //stringify costs to two decimal places for display
+  const subTotalCostStr = parseFloat(subTotalCost).toFixed(2);
 
   return (
     <Wrapper>
       <TotalCost>
-        <p>Order Total: </p>
-        <p>${totalCostRounded}</p>
+        <p>Order Total</p>
+        <p>${subTotalCostStr}</p>
       </TotalCost>
       {!isLoggedIn && (
         <>
-          <p>Enter your email to continue to checkout as a guest.</p>
+          <p>Enter your email to checkout as a guest.</p>
           <EmailInput>
             <p>Email address</p>
             <input

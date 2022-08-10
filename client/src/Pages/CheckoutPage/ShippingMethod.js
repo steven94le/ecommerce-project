@@ -4,6 +4,7 @@ import React, { useState } from "react";
 const ShippingMethod = ({ setShippingMethod }) => {
   const [toggleShipping, setToggleShipping] = useState("standard");
 
+  //handler to update shipping cost based on shipping method selected
   const handleShipping = (ev) => {
     const shippingCost = ev.target.value;
     setShippingMethod(Number(shippingCost));

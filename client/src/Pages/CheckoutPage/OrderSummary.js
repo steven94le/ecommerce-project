@@ -11,6 +11,7 @@ const OrderSummary = ({
 }) => {
   const { cartItems } = useContext(CartItemsContext);
 
+  //subtotal cost of cart items (excl shipping+tax), remove non-digits from price
   const subTotalCost = cartItems.reduce((total, cartItem) => {
     if (cartItem == null) return 0;
     const { price } = cartItem;
@@ -24,6 +25,7 @@ const OrderSummary = ({
   const taxes = subTotalCost * TAX_RATE;
   const totalCost = subTotalCost + taxes + shippingMethod;
 
+  //stringify costs to two decimal places for display
   const subTotalCostStr = parseFloat(subTotalCost).toFixed(2);
   const shippingCosttStr = parseFloat(shippingMethod).toFixed(2);
   const taxesStr = parseFloat(taxes).toFixed(2);

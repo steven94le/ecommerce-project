@@ -7,6 +7,7 @@ import Summary from "./Summary";
 const Cart = () => {
   const { cartItems, setCartItems } = useContext(CartItemsContext);
 
+  //handler for removing item from cart based on its index position
   const handleRemoveItem = (ev) => {
     ev.preventDefault();
     const removedItemIndex = Number(ev.target.value);

@@ -27,6 +27,7 @@ const Checkout = () => {
   const { googleUserData } = useContext(GoogleUserContext);
   const { currentUser } = useContext(EmailSignInContext);
 
+  //handler for order purchase, redirects to confirmation page if purchase valid
   const handleOrderSubmit = async (ev) => {
     ev.preventDefault();
 
