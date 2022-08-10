@@ -13,18 +13,27 @@ const {
   sendResponse,
 } = require("./utils.js");
 
-//get all wearable items
+/**
+ * handler to get all wearable items
+ * @param {*} req
+ * @param {*} res
+ * @return {} {res, 200, items, "Items fetch successful."}
+ */
 const handleGetItems = async (req, res) => {
   try {
     const items = await getItems();
-    sendResponse(res, 200, items);
+    sendResponse(res, 200, items, "Items fetch successful.");
   } catch (err) {
     console.log(err);
-    sendResponse(res, 404, null, "Items not found.");
   }
 };
 
-//get a particular wearable item
+/**
+ * handler to get a particular wearable item based on item id
+ * @param {*} req - with item id
+ * @param {*} res
+ * @return {} {res, 200, foundItem, "Item fetch successful."} or {res, 404, null, "Invalid id."}
+ */
 const handleGetItem = async (req, res) => {
   const reqId = parseInt(req.params.id);
   try {
@@ -36,27 +45,36 @@ const handleGetItem = async (req, res) => {
     const foundItem = items.find((item) => item["_id"] === reqId);
 
     if (doesIdExist === undefined) {
-      sendResponse(res, 400, null, "Invalid id.");
+      sendResponse(res, 404, null, "Invalid id.");
     } else {
-      sendResponse(res, 200, foundItem);
+      sendResponse(res, 200, foundItem, "Item fetch successful.");
     }
   } catch (err) {
     console.log(err);
-    sendResponse(res, 404, null, "Item not found.");
   }
 };
 
-//get all brand names
+/**
+ * handler to get all the wearable brands
+ * @param {*} req
+ * @param {*} res
+ * @return {} {res, 200, brands, "Brands fetch successful."}
+ */
 const handleGetBrands = async (req, res) => {
   try {
     const brands = await getBrands();
-    sendResponse(res, 200, brands, "Companies fetched.");
+    sendResponse(res, 200, brands, "Brands fetch successful.");
   } catch (err) {
     console.log(err);
   }
 };
 
-//get wearables from a single brand
+/**
+ * handler to get all the wearables from a single brand based on brand id
+ * @param {*} req - with brand id
+ * @param {*} res
+ * @return {} {res, 200, brandItems, "Brand items fetch successful."} or {res, 404, null, "Brand not found."}
+ */
 const handleGetBrandItems = async (req, res) => {
   const { id } = req.params;
   try {
@@ -66,23 +84,33 @@ const handleGetBrandItems = async (req, res) => {
       return;
     }
     const brandItems = await getBrandItems(id);
-    sendResponse(res, 200, brandItems, "Brand items fetched.");
+    sendResponse(res, 200, brandItems, "Brand items fetch successful.");
   } catch (err) {
     console.log(err);
   }
 };
 
-//get all category names
+/**
+ * handler to get all the categories of wearables
+ * @param {*} req
+ * @param {*} res
+ * @return {} {res, 200, categories, "Categories fetch successful."}
+ */
 const handleGetCategories = async (req, res) => {
   try {
     const categories = await getCategories();
-    sendResponse(res, 200, categories, "Categories fetched.");
+    sendResponse(res, 200, categories, "Categories fetch successful.");
   } catch (err) {
     console.log(err);
   }
 };
 
-//get wearables from a single category
+/**
+ * handler to get all the wearables from a single brand based on category id
+ * @param {*} req - with category id
+ * @param {*} res
+ * @return {} {res, 200, category, "Category fetch successful."} or {res, 404, null, "Category not found."}
+ */
 const handleGetCategoryItems = async (req, res) => {
   const { id } = req.params;
 
@@ -94,20 +122,22 @@ const handleGetCategoryItems = async (req, res) => {
     }
 
     const category = await getCategoryItems(id);
-    sendResponse(res, 200, category, "Category fetched.");
+    sendResponse(res, 200, category, "Category fetch successful.");
   } catch (err) {
     console.log(err);
   }
 };
 
-//creates a new order when someone checkout the cart
+/**
+ * handler to create new order when user makes a purchase
+ * @param {*} req - with body of order form data: `givenName, `surname`, `creditCard`, `expiration`, `orderedItems`, `email`
+ * @param {*} res
+ * @returns new order entry
+ */
 const addNewOrder = async (req, res) => {
   const { givenName, surname, creditCard, expiration, orderedItems, email } =
     req.body;
 
-  // ^ and $ define start and end of string, respectively
-  //+ define one or multiple occurrences
-  //[] range of all digits between 0 and 9, inclusive
   const numbers = /^[0-9]+$/;
 
   if (creditCard.split("").length !== 8 || creditCard.match(numbers) === null) {
@@ -148,7 +178,12 @@ const addNewOrder = async (req, res) => {
   }
 };
 
-// Creates new user when someone sign up
+/**
+ * handler to create new user when a user signs up for the first time
+ * @param {*} req - with body of registration data: `givenName, `surname`, `email`, `password`
+ * @param {*} res
+ * @returns new user
+ */
 const addNewUser = async (req, res) => {
   const { givenName, surname, email, password } = req.body;
 
@@ -182,7 +217,12 @@ const addNewUser = async (req, res) => {
   }
 };
 
-// verify user when signing in
+/**
+ * handler to verify if user exists when user attempts to sign in
+ * @param {*} req - with body of log in data: `email`, `password`
+ * @param {*} res
+ * @return user verification
+ */
 const verifyUser = async (req, res) => {
   const { email, password } = req.body;
   try {
