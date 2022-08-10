@@ -52,7 +52,7 @@ const App = () => {
           <Confirmation />
         </Route>
         <Route exact path="/account">
-          {!googleUserData.name && !currentUser.fullName ? (
+          {!googleUserData.name && !currentUser.givenName ? (
             <AccountPage />
           ) : (
             <Redirect to={{ pathname: "/" }} />

@@ -2,6 +2,8 @@ import styled from "styled-components";
 import React, { useContext } from "react";
 import { CartItemsContext } from "../../components/Contexts/CartItemsContext";
 
+const TAX_RATE = 0.15;
+
 const OrderSummary = ({
   shippingMethod,
   handleOrderSubmit,
@@ -9,22 +11,23 @@ const OrderSummary = ({
 }) => {
   const { cartItems } = useContext(CartItemsContext);
 
-  const cartItemsCost = cartItems.map((cartItem) => {
+  //subtotal cost of cart items (excl shipping+tax), remove non-digits from price
+  const subTotalCost = cartItems.reduce((total, cartItem) => {
+    if (cartItem == null) return 0;
     const { price } = cartItem;
-    const unstringedPrice = price.replace("(refurbished)", "").replace("$", "");
-    const actualPrice = parseFloat(unstringedPrice);
-    return actualPrice;
-  });
+    const priceWithoutText = price
+      .replace("(refurbished)", "")
+      .replace("$", "");
+    const itemCost = parseFloat(priceWithoutText);
+    return total + itemCost;
+  }, 0);
 
-  const subTotal = cartItemsCost.reduce(
-    (previousValue, currentValue) => previousValue + currentValue,
-    0
-  );
+  const taxes = subTotalCost * TAX_RATE;
+  const totalCost = subTotalCost + taxes + shippingMethod;
 
-  const taxes = subTotal * 0.15;
-  const totalCost = subTotal + taxes + Number(shippingMethod);
-
-  const subTotalStr = parseFloat(subTotal).toFixed(2);
+  //stringify costs to two decimal places for display
+  const subTotalCostStr = parseFloat(subTotalCost).toFixed(2);
+  const shippingCosttStr = parseFloat(shippingMethod).toFixed(2);
   const taxesStr = parseFloat(taxes).toFixed(2);
   const totalCostStr = parseFloat(totalCost).toFixed(2);
 
@@ -48,11 +51,11 @@ const OrderSummary = ({
       <div>
         <Cost>
           <p>Subtotal</p>
-          <p>${subTotalStr}</p>
+          <p>${subTotalCostStr}</p>
         </Cost>
         <Cost>
           <p>Shipping</p>
-          <p>${shippingMethod ? shippingMethod : "0.00"}</p>
+          <p>${shippingMethod ? shippingCosttStr : "0.00"}</p>
         </Cost>
         <Cost>
           <p>Taxes (15%)</p>
@@ -69,7 +72,7 @@ const OrderSummary = ({
         onClick={handleOrderSubmit}
         disabled={disabledOrderSubmit}
       >
-        PLACE ORDER
+        <span>PLACE ORDER</span>
       </PlaceOrderButton>
     </Wrapper>
   );
@@ -104,19 +107,25 @@ const TotalCost = styled(Cost)`
 const PlaceOrderButton = styled.button`
   border: none;
   font-size: 14px;
-  background-color: black;
   color: white;
   border-radius: 3px;
   width: 100%;
   height: 25px;
+  background-image: linear-gradient(90deg, #08008b 0%, #0060bf 100%);
 
   &:hover {
     cursor: pointer;
+    opacity: 0.8;
   }
 
   &:disabled {
     cursor: not-allowed;
     opacity: 0.6;
+  }
+
+  &:active:enabled {
+    background: lightblue;
+    border: lightgrey 1px solid;
   }
 `;
 

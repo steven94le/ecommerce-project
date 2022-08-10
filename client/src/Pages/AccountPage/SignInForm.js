@@ -51,6 +51,7 @@ const SignInForm = () => {
 
     const data = await response.json();
     const userData = data.data;
+    console.log("userData:", userData);
 
     if (!userData) {
       setCurrentUser(data.message);
@@ -61,7 +62,6 @@ const SignInForm = () => {
       setOrderForm({
         ...orderForm,
         email: userData.email,
-        fullName: userData.fullName,
       });
       routeChange();
     }
@@ -70,12 +70,12 @@ const SignInForm = () => {
   useEffect(() => {
     const handleCallbackResponse = (response) => {
       let userObj = jwt_decode(response.credential);
+      console.log("userObj:", userObj);
 
       setGoogleUserData(userObj);
       setOrderForm({
         ...orderForm,
         email: userObj.email,
-        fullName: userObj.name,
       });
     };
     /* global google */
@@ -128,7 +128,10 @@ const SignInForm = () => {
           {error && <h3 style={{ color: "red" }}>{currentUser}</h3>}
           <BtnWrapper type="submit">Sign In</BtnWrapper>
 
-          <div id="signInDiv"></div>
+          <GoogAuth>
+            <span>Or Continue With</span>
+            <div id="signInDiv"></div>
+          </GoogAuth>
         </div>
       </form>
     </Container>
@@ -202,6 +205,18 @@ const BtnWrapper = styled.button`
       background-color: #357ae8;
       border: none;
     }
+  }
+`;
+
+const GoogAuth = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+
+  div {
+    padding-top: 10px;
   }
 `;
 export default SignInForm;

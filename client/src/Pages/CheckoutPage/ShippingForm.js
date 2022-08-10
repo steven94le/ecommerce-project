@@ -3,7 +3,8 @@ import React, { useContext } from "react";
 import { FormsContext } from "../../components/Contexts/FormsContext";
 
 const ShippingForm = () => {
-  const { handleShippingFormChange } = useContext(FormsContext);
+  const { handleShippingFormChange, handleOrderFormChange } =
+    useContext(FormsContext);
 
   return (
     <div>
@@ -18,6 +19,7 @@ const ShippingForm = () => {
             placeholder="John"
             onChange={(e) => {
               handleShippingFormChange(e.target.value, "givenName");
+              handleOrderFormChange(e.target.value, "givenName");
             }}
             required
           />
@@ -30,6 +32,7 @@ const ShippingForm = () => {
             placeholder="Smith"
             onChange={(e) => {
               handleShippingFormChange(e.target.value, "surname");
+              handleOrderFormChange(e.target.value, "surname");
             }}
             required
           />
@@ -52,7 +55,7 @@ const ShippingForm = () => {
           <p>Phone Number</p>
           <input
             name="phoneNumber"
-            type="text"
+            type="number"
             placeholder="123-456-7890"
             onChange={(e) =>
               handleShippingFormChange(e.target.value, "phoneNumber")

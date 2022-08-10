@@ -10,6 +10,7 @@ const ProductPage = () => {
   const { orderForm, setOrderForm } = useContext(FormsContext);
   const [productInfo, setProductInfo] = useState("");
 
+  //handler to add item to cart; order form updated to account for added item
   const handleAddToCart = (ev) => {
     ev.preventDefault();
     setCartItems([...cartItems, productInfo]);
@@ -57,7 +58,7 @@ const ProductPage = () => {
                 </OutOfStock>
               ) : (
                 <StyledButton onClick={handleAddToCart}>
-                  Add To Cart
+                  <span>Add To Cart</span>
                 </StyledButton>
               )}
             </ItemDescription>
@@ -117,15 +118,22 @@ const StyledDiv = styled.div`
 
 const StyledButton = styled.button`
   color: white;
-  background: steelblue;
   text-align: center;
   font-size: 18px;
   border: none;
   border-radius: 5px;
   height: 25px;
+  width: 125px;
+  background-image: linear-gradient(90deg, #08008b 0%, #0060bf 100%);
 
   &:hover {
     cursor: pointer;
+    opacity: 0.8;
+  }
+
+  &:active:enabled {
+    background: lightblue;
+    border: lightgrey 1px solid;
   }
 `;
 

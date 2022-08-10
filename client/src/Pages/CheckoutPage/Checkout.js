@@ -4,6 +4,8 @@ import React, { useState, useContext, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { CartItemsContext } from "../../components/Contexts/CartItemsContext";
 import { FormsContext } from "../../components/Contexts/FormsContext";
+import { GoogleUserContext } from "../../components/Contexts/GoogleUserContext";
+import { EmailSignInContext } from "../../components/Contexts/EmailSignInContext";
 import ShippingForm from "./ShippingForm";
 import CardDetails from "./CardDetails";
 import ShippingMethod from "./ShippingMethod";
@@ -22,7 +24,10 @@ const Checkout = () => {
     initialShippingForm,
     initialOrderForm,
   } = useContext(FormsContext);
+  const { googleUserData } = useContext(GoogleUserContext);
+  const { currentUser } = useContext(EmailSignInContext);
 
+  //handler for order purchase, redirects to confirmation page if purchase valid
   const handleOrderSubmit = async (ev) => {
     ev.preventDefault();
 
@@ -46,8 +51,15 @@ const Checkout = () => {
       }
       setFormStatusPending("confirmed");
       setCartItems([]);
-      setOrderForm(initialOrderForm);
       setShippingForm(initialShippingForm);
+
+      if (googleUserData !== null || currentUser !== null) {
+        const { email } = orderForm;
+        const newOrderForm = { ...initialOrderForm, email };
+        setOrderForm(newOrderForm);
+      } else {
+        setOrderForm(initialOrderForm);
+      }
     } catch (err) {
       console.log(err);
     }
