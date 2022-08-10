@@ -24,10 +24,10 @@ const OrderSummary = ({
   const taxes = subTotalCost * TAX_RATE;
   const totalCost = subTotalCost + taxes + shippingMethod;
 
-  const subTotalCostStr = subTotalCost.toFixed(2);
-  const shippingCosttStr = shippingMethod.toFixed(2);
-  const taxesStr = taxes.toFixed(2);
-  const totalCostStr = totalCost.toFixed(2);
+  const subTotalCostStr = parseFloat(subTotalCost).toFixed(2);
+  const shippingCosttStr = parseFloat(shippingMethod).toFixed(2);
+  const taxesStr = parseFloat(taxes).toFixed(2);
+  const totalCostStr = parseFloat(totalCost).toFixed(2);
 
   return (
     <Wrapper>
@@ -70,7 +70,7 @@ const OrderSummary = ({
         onClick={handleOrderSubmit}
         disabled={disabledOrderSubmit}
       >
-        PLACE ORDER
+        <span>PLACE ORDER</span>
       </PlaceOrderButton>
     </Wrapper>
   );
@@ -105,7 +105,7 @@ const TotalCost = styled(Cost)`
 const PlaceOrderButton = styled.button`
   border: none;
   font-size: 14px;
-  background-color: black;
+  background-color: steelblue;
   color: white;
   border-radius: 3px;
   width: 100%;
@@ -113,11 +113,17 @@ const PlaceOrderButton = styled.button`
 
   &:hover {
     cursor: pointer;
+    opacity: 0.8;
   }
 
   &:disabled {
     cursor: not-allowed;
     opacity: 0.6;
+  }
+
+  &:active:enabled {
+    background: lightblue;
+    border: lightgrey 1px solid;
   }
 `;
 

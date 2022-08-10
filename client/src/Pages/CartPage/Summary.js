@@ -92,7 +92,7 @@ const TotalCost = styled.div`
 const CheckOutButton = styled.button`
   border: none;
   font-size: 14px;
-  background-color: black;
+  background-color: steelblue;
   color: white;
   border-radius: 3px;
   width: 100%;
@@ -100,11 +100,17 @@ const CheckOutButton = styled.button`
 
   &:hover {
     cursor: pointer;
+    opacity: 0.8;
   }
 
   &:disabled {
     cursor: not-allowed;
     opacity: 0.6;
+  }
+
+  &:active:enabled {
+    background: lightblue;
+    border: lightgrey 1px solid;
   }
 `;
 

@@ -57,7 +57,7 @@ const ProductPage = () => {
                 </OutOfStock>
               ) : (
                 <StyledButton onClick={handleAddToCart}>
-                  Add To Cart
+                  <span>Add To Cart</span>
                 </StyledButton>
               )}
             </ItemDescription>
@@ -123,9 +123,16 @@ const StyledButton = styled.button`
   border: none;
   border-radius: 5px;
   height: 25px;
+  width: 125px;
 
   &:hover {
     cursor: pointer;
+    opacity: 0.8;
+  }
+
+  &:active:enabled {
+    background: lightblue;
+    border: lightgrey 1px solid;
   }
 `;
 
