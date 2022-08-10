@@ -128,7 +128,10 @@ const SignInForm = () => {
           {error && <h3 style={{ color: "red" }}>{currentUser}</h3>}
           <BtnWrapper type="submit">Sign In</BtnWrapper>
 
-          <div id="signInDiv"></div>
+          <GoogAuth>
+            <span>Or Continue With</span>
+            <div id="signInDiv"></div>
+          </GoogAuth>
         </div>
       </form>
     </Container>
@@ -202,6 +205,18 @@ const BtnWrapper = styled.button`
       background-color: #357ae8;
       border: none;
     }
+  }
+`;
+
+const GoogAuth = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+
+  div {
+    padding-top: 10px;
   }
 `;
 export default SignInForm;
