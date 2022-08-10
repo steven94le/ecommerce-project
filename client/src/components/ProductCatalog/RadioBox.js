@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 
-const RadioBox = ({ setNavFilter, setMinMax, navFilter }) => {
+const RadioBox = ({ setNavFilter, setMinMax, navFilter, setShowInStock, showInStock }) => {
     const [loading, setLoading] = useState(true)
     const [categoryNames, setCategoryNames] = useState()
     const [priceState, setPriceState] = useState()
@@ -17,6 +17,7 @@ const RadioBox = ({ setNavFilter, setMinMax, navFilter }) => {
             setPriceState('All')
             setMinMax({minimum: 0, maximum: 100000})
             setLoading(false)
+            setShowInStock(false)
         }
         getCategoryItems()
     },[setMinMax, setNavFilter])
@@ -95,6 +96,12 @@ return loading ? <></> : (
                         }
                     })
                 }
+
+                <FilterHeaders>Sort In Stock</FilterHeaders>
+                    <FormPair>
+                        <CheckInput name="inStock" type="checkbox" value={showInStock} onClick={() => setShowInStock(!showInStock)}  />
+                        <CheckLabel>In Stock</CheckLabel>
+                    </FormPair>
         </RadioArea> 
     </CheckBoxWrapper>
 )
