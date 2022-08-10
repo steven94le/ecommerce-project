@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { CartItemsContext } from "../../components/Contexts/CartItemsContext";
 import { WishlistContext } from "../../components/Contexts/WishlistContext";
 import { FormsContext } from "../../components/Contexts/FormsContext";
+import { GoogleUserContext } from "../../components/Contexts/GoogleUserContext";
+import { EmailSignInContext } from "../../components/Contexts/EmailSignInContext";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -11,6 +13,8 @@ const ProductPage = () => {
   const { wishlistItems, setWishlistItems } = useContext(WishlistContext);
   const { orderForm, setOrderForm } = useContext(FormsContext);
   const [productInfo, setProductInfo] = useState("");
+  const { googleUserData } = useContext(GoogleUserContext);
+  const { currentUser } = useContext(EmailSignInContext);
 
   //handler to add item to cart; order form updated to account for added item
   const handleAddToCart = (ev) => {
@@ -18,17 +22,24 @@ const ProductPage = () => {
     setCartItems([...cartItems, productInfo]);
 
     const { orderedItems } = orderForm;
-
     setOrderForm({
       ...orderForm,
       orderedItems: [...orderedItems, productInfo],
     });
   };
 
-  //handler to add item to wishlist
+  //handler to add item to wishlist, only signed-in users are able to add
   const handleAddToWishlist = (ev) => {
     ev.preventDefault();
-    setWishlistItems([...wishlistItems, productInfo]);
+
+    if (
+      Object.keys(googleUserData).length > 0 ||
+      Object.keys(currentUser).length > 0
+    ) {
+      setWishlistItems([...wishlistItems, productInfo]);
+    } else {
+      alert("Please sign in to use the wishlist!");
+    }
   };
 
   useEffect(() => {

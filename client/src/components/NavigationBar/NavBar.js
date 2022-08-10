@@ -30,6 +30,7 @@ const NavBar = () => {
         <StyledNavLink exact to="/wishlist">
           Wishlist
         </StyledNavLink>
+
         {googleUserData.name || currentUser.givenName ? (
           <>
             <StyledNavLink exact to="/cart">
