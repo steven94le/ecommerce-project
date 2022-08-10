@@ -66,7 +66,7 @@ const SignUpForm = () => {
       });
     }
   };
-
+  //Store value to formFields State
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });

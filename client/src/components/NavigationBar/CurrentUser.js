@@ -19,12 +19,15 @@ const CurrentUser = () => {
   const { currentUser, setCurrentUser } = useContext(EmailSignInContext);
   const { given_name, picture } = googleUserData;
 
+  //Redirects to homepage whenever someone signs-out
+
   const history = useHistory();
   const routeChange = () => {
     let path = `/`;
     history.push(path);
   };
 
+  //Resets all the state whenever user signs out
   const handleSignOut = (e) => {
     e.preventDefault();
     setGoogleUserData({});
