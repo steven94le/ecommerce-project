@@ -6,7 +6,7 @@ const ShippingMethod = ({ setShippingMethod }) => {
 
   const handleShipping = (ev) => {
     const shippingCost = ev.target.value;
-    setShippingMethod(shippingCost);
+    setShippingMethod(Number(shippingCost));
     setToggleShipping(ev.target.id);
   };
 
