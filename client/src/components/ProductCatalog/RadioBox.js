@@ -22,10 +22,12 @@ const RadioBox = ({ setNavFilter, setMinMax, navFilter, setShowInStock, showInSt
         getCategoryItems()
     },[setMinMax, setNavFilter, setShowInStock])
 
+    //Handlers for taking the radio button selection and storing it in a state.  
     const handleNav = (e) => {
         setNavFilter(e.target.value)
     }
 
+    // Switch statement converts text value into an integer range stored in a state.
     const handlePriceRange = (e) => {
         switch (e.target.value) {
             case "All":

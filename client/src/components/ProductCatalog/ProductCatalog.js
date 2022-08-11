@@ -19,7 +19,7 @@ const ProductCatalog = () => {
   const [showInStock, setShowInStock] = useState()
 
   useEffect(() => {
-
+    //Conditional statement to display items that are in stock
     const filterInStock = itemsState?.filter((item) => {
       if (showInStock === true) {
         return item.numInStock > 0;
@@ -27,7 +27,7 @@ const ProductCatalog = () => {
         return item
       }
     })
-
+    //conditional statement to calculate which items in the array should be displayed based on price
     const filteredArray = filterInStock?.filter((item) => {
       if (
         item.category === navFilter &&
@@ -47,7 +47,7 @@ const ProductCatalog = () => {
     setCurrentPage(1);
   }, [navFilter, itemsState, minMax, showInStock]);
 
-  //get current posts
+  //Calculation to find which posts will be displayed. Posts per page is always set to 10
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
