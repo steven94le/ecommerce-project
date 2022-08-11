@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Footer from "../../components/Footer/Footer";
 import ProductCatalog from "../../components/ProductCatalog/ProductCatalog";
 
 import Banner from "./Banner";
@@ -12,6 +13,7 @@ const Home = () => {
       <BestSellers />
       <ProductCatalog />
       <NewsLetter />
+      <Footer />
     </HomeWrapper>
   );
 };
