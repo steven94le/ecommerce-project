@@ -56,6 +56,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 210px;
 `;
 const StyledImg = styled.img`
   height: 50px;

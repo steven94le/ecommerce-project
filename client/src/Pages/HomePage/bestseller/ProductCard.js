@@ -39,7 +39,7 @@ const Name = styled.h2`
   font-size: 15px;
 `;
 const ProdImg = styled.img`
-  width: 300px;
+  width: 150px;
   height: auto;
   object-fit: cover;
   padding: 10px;

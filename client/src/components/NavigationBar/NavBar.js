@@ -64,13 +64,13 @@ const LeftSide = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 25%;
+  width: 30%;
 `;
 const RightSide = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 20%;
+  width: 30%;
 `;
 
 const StyledNavLink = styled(NavLink)`

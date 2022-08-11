@@ -17,21 +17,19 @@ const Categories = () => {
     getCategories();
   }, []);
 
-  return (
+  return loading ? (
+    <StyledTitle>Loading...</StyledTitle>
+  ) : (
     <Wrapper>
       <StyledTitle>Categories</StyledTitle>
       <CategoryWrapper>
-        {categories && categories.length > 0 ? (
-          categories?.map((category, id) => {
-            return (
-              <StyledCard to={`category/${category}`} key={id}>
-                <p>{category}</p>
-              </StyledCard>
-            );
-          })
-        ) : (
-          <>Loading</>
-        )}
+        {categories?.map((category, id) => {
+          return (
+            <StyledCard to={`category/${category}`} key={id}>
+              <p>{category}</p>
+            </StyledCard>
+          );
+        })}
       </CategoryWrapper>
     </Wrapper>
   );
@@ -60,6 +58,7 @@ const StyledTitle = styled.h1`
   font-weight: bold;
   font-size: 48px;
   opacity: 0.9;
+  color: white;
 `;
 
 const CategoryWrapper = styled.div`
@@ -69,7 +68,7 @@ const CategoryWrapper = styled.div`
 `;
 
 const StyledCard = styled(Link)`
-  color: black;
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;

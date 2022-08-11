@@ -66,26 +66,36 @@ const ProductPage = () => {
         {productInfo ? (
           <>
             <img src={productInfo.imageSrc} alt="wearable" />
-            <ItemDescription value={productInfo}>
+            <Item value={productInfo}>
               <StyledDiv>{productInfo.price}</StyledDiv>
               <StyledDiv>Body Location: {productInfo.body_location}</StyledDiv>
               <StyledDiv>Category: {productInfo.category}</StyledDiv>
               <StyledDiv>Stock: {productInfo.numInStock}</StyledDiv>
               {productInfo.numInStock === 0 ? (
                 <OutOfStock>
-                  <OutOfStockText>Out of Stock</OutOfStockText>
+                  <span>Out of Stock</span>
                 </OutOfStock>
               ) : (
                 <ActionBar>
                   <StyledButton onClick={handleAddToCart}>
                     <span>Add To Cart</span>
                   </StyledButton>
-                  <StyledButton onClick={handleAddToWishlist}>
-                    <span>Add To Wishlist</span>
-                  </StyledButton>
                 </ActionBar>
               )}
-            </ItemDescription>
+              <StyledButton onClick={handleAddToWishlist}>
+                <span>Add To Wishlist</span>
+              </StyledButton>
+            </Item>
+            <Description>
+              <p>Product Description:</p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </Description>
           </>
         ) : (
           <>Loading</>
@@ -109,38 +119,30 @@ const StyledTitle = styled.div`
   justify-content: center;
   padding: 40px 0 20px 0px;
   font-weight: bold;
+  font-size: 48px;
+  text-align: center;
 `;
 
-const ItemDescription = styled.div`
+const Item = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 20px;
+
+  button {
+    margin: 5px;
+  }
 `;
 
-const OutOfStockText = styled.span`
-  padding: 0px;
-  margin: 0px;
+const Description = styled.div`
+  width: 225px;
+
+  p {
+    font-weight: bold;
+  }
 `;
 
-const OutOfStock = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  background: red;
-  text-align: center;
-  font-size: 18px;
-  border: none;
-  border-radius: 5px;
-  height: 25px;
-`;
-
-const StyledDiv = styled.div`
-  padding-bottom: 20px;
-`;
-
-const StyledButton = styled.button`
+const Button = styled.button`
   color: white;
   text-align: center;
   font-size: 18px;
@@ -148,6 +150,31 @@ const StyledButton = styled.button`
   border-radius: 5px;
   height: 25px;
   width: 150px;
+`;
+
+const OutOfStock = styled(Button)`
+  background: linear-gradient(
+    90deg,
+    rgba(149, 0, 0, 1) 0%,
+    rgba(240, 0, 0, 1) 100%
+  );
+
+  &:hover {
+    cursor: not-allowed;
+  }
+`;
+
+const StyledDiv = styled.div`
+  padding-bottom: 20px;
+  text-align: center;
+`;
+
+const StyledButton = styled(Button)`
+  background: linear-gradient(
+    90deg,
+    rgba(8, 0, 139, 1) 0%,
+    rgba(0, 96, 191, 1) 100%
+  );
 
   &:hover {
     cursor: pointer;

@@ -34,7 +34,7 @@ const Brands = () => {
             </StyledLink>
           ))
         ) : (
-          <>Loading</>
+          <>Loading...</>
         )}
       </BrandsWrapper>
     </Wrapper>

@@ -25,7 +25,7 @@ const BrandPage = () => {
 
   return (
     <>
-      <StyledTitle>Brand's Wearables</StyledTitle>
+      <StyledTitle>{id}'s Wearables</StyledTitle>
       <Wrapper>
         {brandItems && brandItems.length > 0 ? (
           brandItems.map((brandItem, index) => (
@@ -42,7 +42,7 @@ const BrandPage = () => {
             </StyledLink>
           ))
         ) : (
-          <>Loading</>
+          <>Loading...</>
         )}
       </Wrapper>
     </>
@@ -54,6 +54,7 @@ const StyledTitle = styled.div`
   justify-content: center;
   padding: 40px 0 20px 0px;
   font-weight: bold;
+  font-size: 48px;
 `;
 
 const Wrapper = styled.div`
