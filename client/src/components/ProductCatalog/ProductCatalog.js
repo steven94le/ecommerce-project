@@ -16,7 +16,7 @@ const ProductCatalog = () => {
     minimum: 0,
     maximum: 100000,
   });
-  const [showInStock, setShowInStock] = useState()
+  const [showInStock, setShowInStock] = useState();
 
   useEffect(() => {
     //Conditional statement to display items that are in stock
@@ -24,9 +24,9 @@ const ProductCatalog = () => {
       if (showInStock === true) {
         return item.numInStock > 0;
       } else {
-        return item
+        return item;
       }
-    })
+    });
     //conditional statement to calculate which items in the array should be displayed based on price
     const filteredArray = filterInStock?.filter((item) => {
       if (
@@ -141,10 +141,12 @@ const StyledCard = styled(Link)`
   padding: 20px;
   color: black;
   box-shadow: 0px 0px 10px 2px lightgray;
+  border-radius: var(--border-radius);
   &:hover {
     cursor: pointer;
-    box-shadow: 0px 0px 50px 4px lightgray;
+    box-shadow: 0px 0px 100px 4px lightblue;
     transition: all ease-in 400ms;
+    border: steelblue 1px solid;
   }
 `;
 

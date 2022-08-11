@@ -5,15 +5,7 @@ const Banner = () => {
   return (
     <BannerWrapper>
       <BannerDetails>
-        <h1
-          style={{
-            color: "black",
-            textTransform: "uppercase",
-            fontSize: "50px",
-          }}
-        >
-          Luxury Wearable Collection
-        </h1>
+        <StyledHeader>Luxury Wearable Collection</StyledHeader>
         <BtnDiv>
           <SearchBar />
         </BtnDiv>
@@ -50,6 +42,13 @@ const BannerDetails = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+`;
+
+const StyledHeader = styled.h1`
+  color: white;
+  text-transform: uppercase;
+  font-size: 50px;
+  opacity: 0.9;
 `;
 
 const BtnDiv = styled.div`

@@ -56,6 +56,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 210px;
 `;
 const StyledImg = styled.img`
   height: 50px;
@@ -76,7 +77,6 @@ const SignOutBtn = styled.button`
 
   background-color: red;
   height: 50px;
-  padding: 0px;
   width: 100px;
   font-size: 16px;
   border-radius: 10px;

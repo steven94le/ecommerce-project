@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import bannerImg from "./assets/nike-athlete-watch-background.jpg";
+import Loader from "../../components/Loader/Loader";
 
 const Brands = () => {
   const [brandNames, setBrandNames] = useState("");
@@ -23,9 +25,9 @@ const Brands = () => {
   }, []);
 
   return (
-    <>
+    <Wrapper>
       <StyledTitle>Brands</StyledTitle>
-      <Wrapper>
+      <BrandsWrapper>
         {brandNames && brandNames.length > 0 ? (
           brandNames.map((brand, index) => (
             <StyledLink to={`/brands/${brand}`} key={`brand-${index + 1}`}>
@@ -33,21 +35,39 @@ const Brands = () => {
             </StyledLink>
           ))
         ) : (
-          <>Loading</>
+          <Loader />
         )}
-      </Wrapper>
-    </>
+      </BrandsWrapper>
+    </Wrapper>
   );
 };
 
-const StyledTitle = styled.div`
+const Wrapper = styled.div`
+  width: 100%;
+  height: 90vh;
+  overflow: auto;
+  position: relative;
+  background-image: linear-gradient(
+      0deg,
+      rgb(220, 220, 220, 0.3),
+      rgb(220, 220, 220, 0.3)
+    ),
+    url(${bannerImg});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+
+const StyledTitle = styled.h1`
   display: flex;
   justify-content: center;
   padding: 40px 0px;
   font-weight: bold;
+  font-size: 48px;
+  opacity: 0.5;
 `;
 
-const Wrapper = styled.div`
+const BrandsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -61,14 +81,15 @@ const StyledLink = styled(Link)`
   border: 1px lightgrey solid;
   padding: 100px;
   font-size: 16px;
-  margin: 15px;
+  margin: 5px;
 
   &:hover {
     cursor: pointer;
-    background: steelblue;
+    background: lightgrey;
     color: white;
     border-color: lightgrey;
     transition: all ease 400ms;
+    opacity: 0.8;
   }
 `;
 

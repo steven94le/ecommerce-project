@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import ProductCard from "./ProductCard";
-
 import { ItemsContext } from "../../../components/Contexts/ItemsContext";
+import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 
 const BestSellers = () => {
   const { itemsState } = useContext(ItemsContext);
@@ -32,10 +32,10 @@ const BestSellers = () => {
       <StyledH1>Best Selling Products</StyledH1>
       <Carousel>
         <Btn style={{ left: "0" }} onClick={btnPrev}>
-          <p>&lt;</p>
+          <FiArrowLeft />
         </Btn>
         <Btn style={{ right: "0" }} onClick={btnNext}>
-          <p>&gt;</p>
+          <FiArrowRight />
         </Btn>
         <Products className="products-container">
           {randomBestSellers.map((item) => {
@@ -51,6 +51,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 const StyledH1 = styled.h1`
   color: black;
   font-size: 40px;
@@ -62,7 +63,7 @@ const Carousel = styled.div`
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 26px;
+  padding: 10px 24px;
 `;
 
 const Products = styled.div`
@@ -83,15 +84,7 @@ const Btn = styled.button`
   align-items: center;
   background: none;
 
-  p {
-    font-size: 50px;
-    background-color: rgb(128, 128, 128, 0.4);
-    box-shadow: 0px 0px 10px 1px black;
-    border-radius: 10px;
-    color: white;
-
-    width: 50px;
-    height: 50px;
+  &:hover {
     cursor: pointer;
   }
 `;
