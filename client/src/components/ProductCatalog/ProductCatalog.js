@@ -16,9 +16,19 @@ const ProductCatalog = () => {
     minimum: 0,
     maximum: 100000,
   });
+  const [showInStock, setShowInStock] = useState()
 
   useEffect(() => {
-    const filteredArray = itemsState?.filter((item) => {
+    //Conditional statement to display items that are in stock
+    const filterInStock = itemsState?.filter((item) => {
+      if (showInStock === true) {
+        return item.numInStock > 0;
+      } else {
+        return item
+      }
+    })
+    //conditional statement to calculate which items in the array should be displayed based on price
+    const filteredArray = filterInStock?.filter((item) => {
       if (
         item.category === navFilter &&
         parseInt(item.price.slice(1)) >= minMax.minimum &&
@@ -35,9 +45,9 @@ const ProductCatalog = () => {
     });
     setPosts(filteredArray);
     setCurrentPage(1);
-  }, [navFilter, itemsState, minMax]);
+  }, [navFilter, itemsState, minMax, showInStock]);
 
-  //get current posts
+  //Calculation to find which posts will be displayed. Posts per page is always set to 10
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
@@ -58,6 +68,8 @@ const ProductCatalog = () => {
             setNavFilter={setNavFilter}
             setMinMax={setMinMax}
             navFilter={navFilter}
+            setShowInStock={setShowInStock}
+            showInStock={showInStock}
           />
           <ItemGrid>
             {currentPosts?.map((item, id) => {

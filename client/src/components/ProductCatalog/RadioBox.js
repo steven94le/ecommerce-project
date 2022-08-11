@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const RadioBox = ({ setNavFilter, setMinMax, navFilter }) => {
+const RadioBox = ({
+  setNavFilter,
+  setMinMax,
+  navFilter,
+  setShowInStock,
+  showInStock,
+}) => {
   const [loading, setLoading] = useState(true);
   const [categoryNames, setCategoryNames] = useState();
   const [priceState, setPriceState] = useState();
@@ -24,14 +30,17 @@ const RadioBox = ({ setNavFilter, setMinMax, navFilter }) => {
       setPriceState("All");
       setMinMax({ minimum: 0, maximum: 100000 });
       setLoading(false);
+      setShowInStock(false);
     };
     getCategoryItems();
-  }, [setMinMax, setNavFilter]);
+  }, [setMinMax, setNavFilter, setShowInStock]);
 
+  //Handlers for taking the radio button selection and storing it in a state.
   const handleNav = (e) => {
     setNavFilter(e.target.value);
   };
 
+  // Switch statement converts text value into an integer range stored in a state.
   const handlePriceRange = (e) => {
     switch (e.target.value) {
       case "All":
@@ -126,6 +135,17 @@ const RadioBox = ({ setNavFilter, setMinMax, navFilter }) => {
             );
           }
         })}
+
+        <FilterHeaders>Sort In Stock</FilterHeaders>
+        <FormPair>
+          <CheckInput
+            name="inStock"
+            type="checkbox"
+            value={showInStock}
+            onClick={() => setShowInStock(!showInStock)}
+          />
+          <CheckLabel>In Stock</CheckLabel>
+        </FormPair>
       </RadioArea>
     </CheckBoxWrapper>
   );
@@ -152,7 +172,6 @@ const RadioArea = styled.form`
   height: auto;
   padding-bottom: 30px;
   box-shadow: 0px 0px 5px 2px lightgray;
-  border-radius: var(--border-radius);
 `;
 const CheckInput = styled.input`
   display: inline-block;
