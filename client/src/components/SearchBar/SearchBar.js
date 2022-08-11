@@ -44,7 +44,7 @@ const SearchBar = () => {
         <ResultWrapper>
           {filteredData.slice(0, 15).map((item, key) => {
             return (
-              <StyledLink to={`/product/${item._id}`} target="_blank">
+              <StyledLink to={`/product/${item._id}`} key={item._id}>
                 <p>{item.name}</p>
               </StyledLink>
             );
