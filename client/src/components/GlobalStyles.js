@@ -2,15 +2,27 @@ import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
   :root {
-    --color-cadmium-red: #D80026;
-    --color-alabama-crimson: #AA001E;
-    --color-orange: #F79D00;
-    --color-selective-yellow: #FDBB01;
-    --color-desert-sand: #E3C4A6;
-    --font-heading: 'Permanent Marker', Arial, Helvetica, sans-serif;
-    --font-body: 'Kosugi', Arial, Helvetica, sans-serif;
+    --font-heading: Esthetique, Helvetica, Arial, sans-serif;
+    --font-body: Helvetica, Arial, sans-serif;
     --padding-page: 24px;
+    --navbar-gradient: linear-gradient(
+    90deg,
+    rgba(34, 34, 34, 1) 0%,
+    rgba(138, 138, 138, 1) 100%
+  );
+    --button-gradient-blue: linear-gradient(
+    90deg,
+    rgba(8, 0, 139, 1) 0%,
+    rgba(0, 96, 191, 1) 100%
+  );
+    --button-gradient-red: linear-gradient(
+    90deg,
+    rgba(149, 0, 0, 1) 0%,
+    rgba(240, 0, 0, 1) 100%
+  );
+    --border-radius: 10px;
   }
+
 
   /* http://meyerweb.com/eric/tools/css/reset/
       v2.0 | 20110126
@@ -66,8 +78,9 @@ button {
   font-family: var(--font-heading);
   font-size: 14px;
   text-align: center;
-
 }
+
+
 p,
 a,
 li,

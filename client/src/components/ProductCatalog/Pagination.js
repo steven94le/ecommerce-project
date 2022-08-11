@@ -32,7 +32,7 @@ const Pagination = ({ posts, postsPerPage, currentPage, setCurrentPage }) => {
         <></>
       ) : (
         <span style={{ paddingRight: "30px" }}>
-          {currentPage} of {numPages}
+          Page {currentPage} of {numPages}
         </span>
       )}
       <StyledBtn onClick={handlePageDown}>
@@ -62,7 +62,7 @@ const BtnWrap = styled.div`
 `;
 
 const StyledBtn = styled.button`
-  width: 50px;
+  width: 75px;
   height: 30px;
   font-size: 20px;
   background-color: whitesmoke;
@@ -72,8 +72,14 @@ const StyledBtn = styled.button`
   justify-content: center;
   transition: 0.1s;
   margin: 3px;
+
+  &:hover {
+    background-color: steelblue;
+  }
+
   &:active {
     box-shadow: 0px 0px 1px 1px lightgray;
+    background-color: lightblue;
   }
 `;
 
