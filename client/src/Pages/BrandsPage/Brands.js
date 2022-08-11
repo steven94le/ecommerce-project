@@ -30,7 +30,6 @@ const Brands = () => {
         {brandNames && brandNames.length > 0 ? (
           brandNames.map((brand, index) => (
             <StyledLink to={`/brands/${brand}`} key={`brand-${index + 1}`}>
-              {console.log("brand:", brand)}
               <div>{brand}</div>
             </StyledLink>
           ))

@@ -153,11 +153,7 @@ const Button = styled.button`
 `;
 
 const OutOfStock = styled(Button)`
-  background: linear-gradient(
-    90deg,
-    rgba(149, 0, 0, 1) 0%,
-    rgba(240, 0, 0, 1) 100%
-  );
+  background: var(--button-gradient-red);
 
   &:hover {
     cursor: not-allowed;
@@ -170,11 +166,7 @@ const StyledDiv = styled.div`
 `;
 
 const StyledButton = styled(Button)`
-  background: linear-gradient(
-    90deg,
-    rgba(8, 0, 139, 1) 0%,
-    rgba(0, 96, 191, 1) 100%
-  );
+  background: var(--button-gradient-blue);
 
   &:hover {
     cursor: pointer;

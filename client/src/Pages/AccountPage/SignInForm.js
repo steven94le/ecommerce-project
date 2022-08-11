@@ -185,7 +185,7 @@ const BtnWrapper = styled.button`
   letter-spacing: 0.5px;
   padding: 0 5px 0 5px;
   font-size: 15px;
-  background-color: green;
+  background: var(--button-gradient-blue);
   color: white;
   text-transform: uppercase;
   font-weight: bolder;
@@ -197,9 +197,11 @@ const BtnWrapper = styled.button`
   border-radius: 10px;
 
   &:hover {
-    background-color: white;
-    color: green;
-    border: 1px solid green;
+    opacity: 0.7;
+  }
+
+  &:active {
+    background: lightblue;
   }
 
   &.googleSignIn {

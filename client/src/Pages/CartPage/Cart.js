@@ -66,6 +66,7 @@ const Cart = () => {
 const StyledHeader = styled.h2`
   color: black;
   padding: 30px;
+  font-size: 36px;
 `;
 
 const Wrapper = styled.div`

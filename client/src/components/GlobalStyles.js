@@ -10,9 +10,19 @@ export default createGlobalStyle`
     rgba(34, 34, 34, 1) 0%,
     rgba(138, 138, 138, 1) 100%
   );
-    --background-gradient: linear-gradient(90deg, rgba(203,203,203,1) 0%, rgba(255,255,255,1) 100%);
+    --button-gradient-blue: linear-gradient(
+    90deg,
+    rgba(8, 0, 139, 1) 0%,
+    rgba(0, 96, 191, 1) 100%
+  );
+      --button-gradient-red: linear-gradient(
+    90deg,
+    rgba(149, 0, 0, 1) 0%,
+    rgba(240, 0, 0, 1) 100%
+  );
     --border-radius: 10px;
   }
+
 
   /* http://meyerweb.com/eric/tools/css/reset/
       v2.0 | 20110126

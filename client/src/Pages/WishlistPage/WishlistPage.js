@@ -72,7 +72,7 @@ const WishlistPage = () => {
           )}
         </div>
       ) : (
-        <StyledHeader>Please sign in to use the wishlist</StyledHeader>
+        <StyledHeader>Please sign in to use the wishlist.</StyledHeader>
       )}
     </>
   );
@@ -104,6 +104,7 @@ const Item = styled.div`
 const StyledHeader = styled.h2`
   color: black;
   padding: 30px;
+  font-size: 36px;
 `;
 
 const StyledButton = styled.button`
