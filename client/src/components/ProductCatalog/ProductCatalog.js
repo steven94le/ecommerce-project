@@ -65,7 +65,7 @@ const ProductCatalog = () => {
             showInStock={showInStock}
             />
 
-          <div>
+          <PageAndGrid>
           <Pagination
             postsPerPage={postsPerPage}
             posts={posts}
@@ -91,11 +91,15 @@ const ProductCatalog = () => {
               );
             })}
           </ItemGrid>
-          </div>
+          </PageAndGrid>
       </Wrapper>
     </>
   );
 };
+
+const PageAndGrid = styled.div`
+  width: 100%;
+`
 
 const StyledThumbnail = styled.img`
   height: auto;

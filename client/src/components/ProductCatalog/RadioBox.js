@@ -158,12 +158,15 @@ const FilterHeaders = styled.p`
     padding-top: 20px;
 `
 const CheckBoxWrapper = styled.div`
-    padding: 60px;
+    padding:0px;
+    border-right: solid 2px lightgray;
+
 `
 const FormPair = styled.div`
   display: flex;
   align-items: center;
   width: auto;
+  padding: 5px;
 `;
 const RadioArea = styled.form`
     display: flex;
@@ -171,7 +174,6 @@ const RadioArea = styled.form`
     width: 200px;
     height: auto;
     padding-bottom: 30px;
-    box-shadow: 0px 0px 5px 2px lightgray;
 `
 const CheckInput = styled.input`
   display: inline-block;
@@ -182,7 +184,7 @@ const CheckLabel = styled.label`
   color: black;
   font-size: 14px;
   display: inline-block;
-  font-weight: bold;
+
 `;
 
 export default RadioBox;

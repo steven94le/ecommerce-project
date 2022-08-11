@@ -59,6 +59,7 @@ const BtnWrap = styled.div`
   align-items: center;
   justify-content: right;
   height: 100px;
+  align-self: right;
 `;
 
 const StyledBtn = styled.button`
