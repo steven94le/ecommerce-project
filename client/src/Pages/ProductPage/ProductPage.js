@@ -148,7 +148,6 @@ const StyledButton = styled.button`
   border-radius: 5px;
   height: 25px;
   width: 150px;
-  background-image: linear-gradient(90deg, #08008b 0%, #0060bf 100%);
 
   &:hover {
     cursor: pointer;

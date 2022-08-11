@@ -129,10 +129,12 @@ const StyledCard = styled(Link)`
   padding: 20px;
   color: black;
   box-shadow: 0px 0px 10px 2px lightgray;
+  border-radius: var(--border-radius);
   &:hover {
     cursor: pointer;
-    box-shadow: 0px 0px 50px 4px lightgray;
+    box-shadow: 0px 0px 100px 4px lightblue;
     transition: all ease-in 400ms;
+    border: steelblue 1px solid;
   }
 `;
 

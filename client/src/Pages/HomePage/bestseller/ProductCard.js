@@ -27,6 +27,12 @@ const Wrapper = styled(Link)`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   margin: 20px;
   border-radius: 10px;
+
+  &:hover {
+    padding: 25px;
+    transition: all ease-in 200ms;
+    border: steelblue 2px solid;
+  }
 `;
 const Name = styled.h2`
   color: black;

@@ -14,11 +14,9 @@ const NavBar = () => {
   return (
     <Wrapper>
       <LeftSide>
-        <Logo>
-          <NavLink exact to="/">
-            <h1 style={{ color: "white" }}>Team 04</h1>
-          </NavLink>
-        </Logo>
+        <StyledNavLink style exact to="/">
+          Team 4(04)
+        </StyledNavLink>
         <StyledNavLink exact to="/brands">
           Brands
         </StyledNavLink>
@@ -30,7 +28,6 @@ const NavBar = () => {
         <StyledNavLink exact to="/wishlist">
           Wishlist
         </StyledNavLink>
-
         {googleUserData.name || currentUser.givenName ? (
           <>
             <StyledNavLink exact to="/cart">
@@ -56,30 +53,24 @@ const NavBar = () => {
 const Wrapper = styled.header`
   display: flex;
   justify-content: space-between;
-  background: grey;
+  background: var(--navbar-gradient);
+  opacity: 0.8;
   align-items: center;
   height: 10vh;
+  padding: 0px 20px;
 `;
 
 const LeftSide = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  width: 20%;
+  width: 25%;
 `;
 const RightSide = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  width: 15%;
-`;
-
-const Logo = styled.div`
-  background-position: left center, right center;
-  overflow: hidden;
-  padding-left: 20px;
+  width: 20%;
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -95,9 +86,7 @@ const StyledNavLink = styled(NavLink)`
   }
 
   &:hover {
-    background: white;
-    color: green;
-    border-color: purple;
+    color: grey;
   }
 `;
 
