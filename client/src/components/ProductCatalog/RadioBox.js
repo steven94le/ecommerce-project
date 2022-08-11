@@ -110,7 +110,8 @@ return loading ? <></> : (
 }
 
 const FilterHeaders = styled.p`
-    align-self: left;
+    font-size: 16px;
+    align-self: center;
     margin: 20px;
     font-weight: bold;
     padding-top: 20px;
