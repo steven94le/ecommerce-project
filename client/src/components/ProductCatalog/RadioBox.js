@@ -110,13 +110,13 @@ return loading ? <></> : (
 }
 
 const FilterHeaders = styled.p`
-    align-self: center;
+    align-self: left;
     margin: 20px;
     font-weight: bold;
     padding-top: 20px;
 `
 const CheckBoxWrapper = styled.div`
-    padding: 60px;
+    padding: 0px;
 `
 const FormPair = styled.div`
     display: flex;
@@ -127,9 +127,9 @@ const RadioArea = styled.form`
     display: flex;
     flex-direction: column;
     width: 200px;
-    height: auto;
+    height: 100%;
     padding-bottom: 30px;
-    box-shadow: 0px 0px 5px 2px lightgray;
+    border-right: solid 2px lightgray;
 `
 const CheckInput = styled.input`
     display: inline-block;

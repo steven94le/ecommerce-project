@@ -57,20 +57,22 @@ const ProductCatalog = () => {
   ) : (
     <>
       <Wrapper>
-        <Pagination
-          postsPerPage={postsPerPage}
-          posts={posts}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
-        <SubWrapper>
           <RadioBox
             setNavFilter={setNavFilter}
             setMinMax={setMinMax}
             navFilter={navFilter}
             setShowInStock={setShowInStock}
             showInStock={showInStock}
-          />
+            />
+
+          <div>
+          <Pagination
+            postsPerPage={postsPerPage}
+            posts={posts}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+            />
+
           <ItemGrid>
             {currentPosts?.map((item, id) => {
               return (
@@ -89,7 +91,7 @@ const ProductCatalog = () => {
               );
             })}
           </ItemGrid>
-        </SubWrapper>
+          </div>
       </Wrapper>
     </>
   );
@@ -105,19 +107,11 @@ const Wrapper = styled.div`
   width: 100%;
   height: auto;
   display: flex;
-  flex-direction: column;
-  justify-content: left;
-`;
-
-const SubWrapper = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
+  flex-direction: row;
   justify-content: left;
 `;
 
 const ItemGrid = styled.div`
-  margin-top: 30px;
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
