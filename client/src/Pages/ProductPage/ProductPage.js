@@ -6,6 +6,7 @@ import { WishlistContext } from "../../components/Contexts/WishlistContext";
 import { FormsContext } from "../../components/Contexts/FormsContext";
 import { GoogleUserContext } from "../../components/Contexts/GoogleUserContext";
 import { EmailSignInContext } from "../../components/Contexts/EmailSignInContext";
+import Loader from "../../components/Loader/Loader";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -98,7 +99,7 @@ const ProductPage = () => {
             </Description>
           </>
         ) : (
-          <>Loading</>
+          <Loader />
         )}
       </Wrapper>
     </>

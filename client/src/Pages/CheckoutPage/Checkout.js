@@ -76,13 +76,15 @@ const Checkout = () => {
     <>
       {formStatusPending !== "confirmed" ? (
         <>
-          {formStatusPending === "error" && <ErrorMsg>{orderErrMsg}</ErrorMsg>}
           <Header>CHECKOUT</Header>
           <Wrapper>
             <UserInfo>
               <ShippingForm />
               <ShippingMethod setShippingMethod={setShippingMethod} />
               <CardDetails />
+              {formStatusPending === "error" && (
+                <ErrorMsg>{orderErrMsg}</ErrorMsg>
+              )}
             </UserInfo>
             <OrderSummary
               shippingMethod={shippingMethod}
@@ -100,18 +102,19 @@ const Checkout = () => {
 
 const ErrorMsg = styled.div`
   display: flex;
-  margin: 0 auto;
   height: 25px;
   justify-content: center;
   align-items: center;
   color: red;
   font-size: 14px;
+  border: 1px red solid;
 `;
 
 const Header = styled.h4`
   display: flex;
   justify-content: center;
   margin: 2rem;
+  font-size: 20px;
 `;
 
 const Wrapper = styled.div`

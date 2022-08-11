@@ -3,8 +3,9 @@ import React, { useContext } from "react";
 import { CartItemsContext } from "../../components/Contexts/CartItemsContext";
 import EmptyStatus from "../../components/EmptyStatus/EmptyStatus";
 import Summary from "./Summary";
+import { Link } from "react-router-dom";
 
-const Cart = () => {
+const Cart = ({ guestEmail, setGuestEmail }) => {
   const { cartItems, setCartItems } = useContext(CartItemsContext);
 
   //handler for removing item from cart based on its index position
@@ -25,12 +26,14 @@ const Cart = () => {
               {cartItems.map((cartItem, index) => (
                 <div key={`cart-item-${index + 1}`}>
                   <Item>
-                    <img
-                      src={cartItem.imageSrc}
-                      alt="cart item"
-                      height="100"
-                      width="100"
-                    />
+                    <Link to={`product/${cartItem._id}`}>
+                      <img
+                        src={cartItem.imageSrc}
+                        alt="cart item"
+                        height="100"
+                        width="100"
+                      />
+                    </Link>
                     <ItemDescription>
                       <ItemHeader>
                         <p>{cartItem.name}</p>
@@ -50,7 +53,7 @@ const Cart = () => {
                 </div>
               ))}
             </ItemContainer>
-            <Summary />
+            <Summary guestEmail={guestEmail} setGuestEmail={setGuestEmail} />
           </>
         ) : (
           <div>

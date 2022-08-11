@@ -15,7 +15,7 @@ export default createGlobalStyle`
     rgba(8, 0, 139, 1) 0%,
     rgba(0, 96, 191, 1) 100%
   );
-      --button-gradient-red: linear-gradient(
+    --button-gradient-red: linear-gradient(
     90deg,
     rgba(149, 0, 0, 1) 0%,
     rgba(240, 0, 0, 1) 100%

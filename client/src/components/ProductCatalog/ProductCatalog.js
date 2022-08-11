@@ -16,7 +16,7 @@ const ProductCatalog = () => {
     minimum: 0,
     maximum: 100000,
   });
-  const [showInStock, setShowInStock] = useState()
+  const [showInStock, setShowInStock] = useState();
 
   useEffect(() => {
     //Conditional statement to display items that are in stock
@@ -24,9 +24,9 @@ const ProductCatalog = () => {
       if (showInStock === true) {
         return item.numInStock > 0;
       } else {
-        return item
+        return item;
       }
-    })
+    });
     //conditional statement to calculate which items in the array should be displayed based on price
     const filteredArray = filterInStock?.filter((item) => {
       if (

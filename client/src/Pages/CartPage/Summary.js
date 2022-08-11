@@ -6,13 +6,14 @@ import { FormsContext } from "../../components/Contexts/FormsContext";
 import { GoogleUserContext } from "../../components/Contexts/GoogleUserContext";
 import { EmailSignInContext } from "../../components/Contexts/EmailSignInContext";
 
-const Summary = () => {
+const Summary = ({ guestEmail, setGuestEmail }) => {
   const { cartItems } = useContext(CartItemsContext);
   const { orderForm, handleOrderFormChange } = useContext(FormsContext);
   const { googleUserData } = useContext(GoogleUserContext);
   const { currentUser } = useContext(EmailSignInContext);
   const { email } = orderForm;
 
+  //check if either user is already signed in via google or email
   const isLoggedIn =
     Object.keys(googleUserData).length !== 0 ||
     Object.keys(currentUser).length !== 0;
@@ -37,8 +38,25 @@ const Summary = () => {
         <p>Order Total</p>
         <p>${subTotalCostStr}</p>
       </TotalCost>
-      {!isLoggedIn && (
-        <>
+      <TotalCost>
+        <p>Shipping & Taxes</p>
+        <p>Calculated at Checkout</p>
+      </TotalCost>
+      {guestEmail && (
+        <DisplayEmail>
+          <p>Email</p>
+          <p>{guestEmail}</p>
+          <button
+            onClick={() => {
+              setGuestEmail("");
+            }}
+          >
+            Modify Email
+          </button>
+        </DisplayEmail>
+      )}
+      {!isLoggedIn && !guestEmail && (
+        <div>
           <p>Enter your email to checkout as a guest.</p>
           <EmailInput>
             <p>Email address</p>
@@ -50,12 +68,15 @@ const Summary = () => {
               required
             />
           </EmailInput>
-        </>
+        </div>
       )}
       <Link to="/checkout">
         <CheckOutButton
           type="button"
           disabled={!isLoggedIn && !email.includes("@")}
+          onClick={() => {
+            setGuestEmail(email);
+          }}
         >
           PROCEED TO CHECKOUT
         </CheckOutButton>
@@ -87,17 +108,22 @@ const EmailInput = styled.div`
 const TotalCost = styled.div`
   display: flex;
   justify-content: space-between;
-  font-weight: bold;
+`;
+
+const DisplayEmail = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  gap: 3rem;
 `;
 
 const CheckOutButton = styled.button`
   border: none;
   font-size: 14px;
   color: white;
-  border-radius: 3px;
+  border-radius: 10px;
   width: 100%;
   height: 25px;
-  background-image: linear-gradient(90deg, #08008b 0%, #0060bf 100%);
+  background: var(--button-gradient-blue);
 
   &:hover {
     cursor: pointer;

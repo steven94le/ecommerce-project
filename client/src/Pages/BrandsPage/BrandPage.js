@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import Loader from "../../components/Loader/Loader";
 
 const BrandPage = () => {
   const { id } = useParams();
@@ -42,7 +43,7 @@ const BrandPage = () => {
             </StyledLink>
           ))
         ) : (
-          <>Loading...</>
+          <Loader />
         )}
       </Wrapper>
     </>

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import bannerImg from "./assets/nike-athlete-watch-background.jpg";
+import Loader from "../../components/Loader/Loader";
 
 const Brands = () => {
   const [brandNames, setBrandNames] = useState("");
@@ -34,7 +35,7 @@ const Brands = () => {
             </StyledLink>
           ))
         ) : (
-          <>Loading...</>
+          <Loader />
         )}
       </BrandsWrapper>
     </Wrapper>

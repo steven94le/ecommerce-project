@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import bannerImg from "./assets/wearable-tech.jpg";
+import Loader from "../../components/Loader/Loader";
 
 const Categories = () => {
   const [loading, setLoading] = useState(true);
@@ -18,7 +19,7 @@ const Categories = () => {
   }, []);
 
   return loading ? (
-    <StyledTitle>Loading...</StyledTitle>
+    <Loader />
   ) : (
     <Wrapper>
       <StyledTitle>Categories</StyledTitle>

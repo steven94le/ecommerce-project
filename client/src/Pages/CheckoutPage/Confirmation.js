@@ -2,11 +2,16 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import userImg from "./assets/template_picture.jpg";
 import backgroundImg from "./assets/checkout_background.gif";
+import React, { useContext } from "react";
+import { FormsContext } from "../../components/Contexts/FormsContext";
 
 const Confirmation = () => {
+  const { orderForm } = useContext(FormsContext);
+  console.log("orderForm:", orderForm);
   return (
     <Wrapper>
       <div>Order Purchased!</div>
+      <div>Confirmation email sent to: {orderForm.email}</div>
       <div>Thank you for shopping at our store!</div>
       <Users>
         <User>
@@ -22,6 +27,7 @@ const Confirmation = () => {
           <p>Steven</p>
         </User>
       </Users>
+
       <Link to="/">
         <StyledButton>Go Home</StyledButton>
       </Link>
@@ -60,7 +66,7 @@ const Users = styled.div`
 const User = styled.div`
   display: flex;
   flex-direction: column;
-  height: 200px;
+  height: 150px;
 
   p {
     padding-top: 25px;
