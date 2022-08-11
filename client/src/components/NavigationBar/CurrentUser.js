@@ -77,7 +77,6 @@ const SignOutBtn = styled.button`
 
   background-color: red;
   height: 50px;
-  padding: 0px;
   width: 100px;
   font-size: 16px;
   border-radius: 10px;

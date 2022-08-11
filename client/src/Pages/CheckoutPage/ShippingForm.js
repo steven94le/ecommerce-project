@@ -55,7 +55,7 @@ const ShippingForm = () => {
           <p>Phone Number</p>
           <input
             name="phoneNumber"
-            type="number"
+            type="text"
             placeholder="123-456-7890"
             onChange={(e) =>
               handleShippingFormChange(e.target.value, "phoneNumber")
