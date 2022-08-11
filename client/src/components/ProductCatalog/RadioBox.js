@@ -20,7 +20,7 @@ const RadioBox = ({ setNavFilter, setMinMax, navFilter, setShowInStock, showInSt
             setShowInStock(false)
         }
         getCategoryItems()
-    },[setMinMax, setNavFilter])
+    },[setMinMax, setNavFilter, setShowInStock])
 
     const handleNav = (e) => {
         setNavFilter(e.target.value)
