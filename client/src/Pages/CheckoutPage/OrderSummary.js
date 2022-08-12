@@ -4,11 +4,7 @@ import { CartItemsContext } from "../../components/Contexts/CartItemsContext";
 
 const TAX_RATE = 0.15;
 
-const OrderSummary = ({
-  shippingMethod,
-  handleOrderSubmit,
-  disabledOrderSubmit,
-}) => {
+const OrderSummary = ({ shippingMethod }) => {
   const { cartItems } = useContext(CartItemsContext);
 
   //subtotal cost of cart items (excl shipping+tax), remove non-digits from price

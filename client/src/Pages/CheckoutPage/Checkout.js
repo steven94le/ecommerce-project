@@ -12,7 +12,7 @@ import ShippingMethod from "./ShippingMethod";
 import EmailInput from "./EmailInput";
 import BillingForm from "./BillingForm";
 
-const Checkout = () => {
+const Checkout = ({ isBillingToggled, toggle }) => {
   const [shippingMethod, setShippingMethod] = useState("");
   const { setCartItems } = useContext(CartItemsContext);
   const [formStatusPending, setFormStatusPending] = useState("");
@@ -73,13 +73,17 @@ const Checkout = () => {
 
   useEffect(() => {
     !Object.values(shippingForm).includes("") &&
-    !Object.values(billingForm).includes("") &&
+    (!Object.values(billingForm).includes("") || isBillingToggled) &&
     !Object.values(orderForm).includes("")
       ? setDisabledOrderSubmit(false)
       : setDisabledOrderSubmit(true);
-  }, [orderForm, shippingForm, setDisabledOrderSubmit]);
-  console.log("shippingForm:", shippingForm);
-  console.log("billingForm:", billingForm);
+  }, [
+    orderForm,
+    shippingForm,
+    billingForm,
+    isBillingToggled,
+    setDisabledOrderSubmit,
+  ]);
 
   return (
     <>
@@ -95,7 +99,10 @@ const Checkout = () => {
                   )}
                   <Addresses>
                     <ShippingForm />
-                    <BillingForm />
+                    <BillingForm
+                      isBillingToggled={isBillingToggled}
+                      toggle={toggle}
+                    />
                   </Addresses>
                   <ShippingMethod setShippingMethod={setShippingMethod} />
                   <CardDetails />

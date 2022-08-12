@@ -15,10 +15,12 @@ import Confirmation from "../Pages/CheckoutPage/Confirmation";
 import { GoogleUserContext } from "./Contexts/GoogleUserContext";
 import { EmailSignInContext } from "./Contexts/EmailSignInContext";
 import WishlistPage from "../Pages/WishlistPage/WishlistPage";
+import { useToggle } from "./Hooks/hooks";
 
 const App = () => {
   const { googleUserData } = useContext(GoogleUserContext);
   const { currentUser } = useContext(EmailSignInContext);
+  const [isBillingToggled, toggle] = useToggle();
 
   return (
     <BrowserRouter>
@@ -50,10 +52,10 @@ const App = () => {
           <Cart />
         </Route>
         <Route exact path="/checkout">
-          <Checkout />
+          <Checkout isBillingToggled={isBillingToggled} toggle={toggle} />
         </Route>
         <Route exact path="/confirmation">
-          <Confirmation />
+          <Confirmation isBillingToggled={isBillingToggled} />
         </Route>
         <Route exact path="/account">
           {!googleUserData.name && !currentUser.givenName ? (
