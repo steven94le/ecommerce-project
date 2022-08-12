@@ -4,11 +4,7 @@ import { CartItemsContext } from "../../components/Contexts/CartItemsContext";
 
 const TAX_RATE = 0.15;
 
-const OrderSummary = ({
-  shippingMethod,
-  handleOrderSubmit,
-  disabledOrderSubmit,
-}) => {
+const OrderSummary = ({ shippingMethod }) => {
   const { cartItems } = useContext(CartItemsContext);
 
   //subtotal cost of cart items (excl shipping+tax), remove non-digits from price
@@ -67,26 +63,19 @@ const OrderSummary = ({
           <p>${totalCostStr}</p>
         </TotalCost>
       </div>
-      <PlaceOrderButton
-        type="button"
-        onClick={handleOrderSubmit}
-        disabled={disabledOrderSubmit}
-      >
-        <span>PLACE ORDER</span>
-      </PlaceOrderButton>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  width: 30%;
-  height: 600px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ItemWrapper = styled.div`
-  height: 60%;
+  height: 50%;
   overflow: auto;
-  margin-top: 20px;
+  margin-top: 10px;
 `;
 
 const Item = styled.div`
@@ -102,31 +91,6 @@ const Cost = styled.div`
 
 const TotalCost = styled(Cost)`
   font-weight: bold;
-`;
-
-const PlaceOrderButton = styled.button`
-  border: none;
-  font-size: 14px;
-  color: white;
-  border-radius: 3px;
-  width: 100%;
-  height: 25px;
-  background-image: linear-gradient(90deg, #08008b 0%, #0060bf 100%);
-
-  &:hover {
-    cursor: pointer;
-    opacity: 0.8;
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
-
-  &:active:enabled {
-    background: lightblue;
-    border: lightgrey 1px solid;
-  }
 `;
 
 export default OrderSummary;

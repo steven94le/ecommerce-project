@@ -37,8 +37,6 @@ const ShippingForm = () => {
             required
           />
         </div>
-      </FormGroup>
-      <FormGroup>
         <div>
           <p>Address</p>
           <input
@@ -63,8 +61,6 @@ const ShippingForm = () => {
             required
           />
         </div>
-      </FormGroup>
-      <FormGroup>
         <div>
           <p>City</p>
           <input
@@ -87,8 +83,6 @@ const ShippingForm = () => {
             required
           />
         </div>
-      </FormGroup>
-      <FormGroup>
         <div>
           <p>Country</p>
           <input
@@ -120,14 +114,12 @@ const ShippingForm = () => {
 };
 
 const FormGroup = styled.div`
-  display: flex;
-  justify-content: space-between;
-
   div {
     display: flex;
     justify-content: space-between;
-    width: 225px;
-    vertical-align: auto;
+  }
+  > div > p {
+    font-size: 13px;
   }
 `;
 

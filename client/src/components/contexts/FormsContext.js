@@ -14,6 +14,17 @@ export const FormsProvider = ({ children }) => {
     postalCode: "",
   };
 
+  const initialBillingForm = {
+    givenName: "",
+    surname: "",
+    address: "",
+    phoneNumber: "",
+    city: "",
+    province: "",
+    country: "",
+    postalCode: "",
+  };
+
   const initialOrderForm = {
     givenName: "",
     surname: "",
@@ -24,7 +35,12 @@ export const FormsProvider = ({ children }) => {
   };
 
   const [shippingForm, setShippingForm] = useState(initialShippingForm);
+  const [billingForm, setBillingForm] = useState(initialBillingForm);
   const [orderForm, setOrderForm] = useState(initialOrderForm);
+
+  const handleBillingFormChange = (value, name) => {
+    setBillingForm({ ...billingForm, [name]: value });
+  };
 
   const handleShippingFormChange = (value, name) => {
     setShippingForm({ ...shippingForm, [name]: value });
@@ -39,11 +55,15 @@ export const FormsProvider = ({ children }) => {
       value={{
         shippingForm,
         setShippingForm,
+        billingForm,
+        setBillingForm,
         orderForm,
         setOrderForm,
         handleShippingFormChange,
         handleOrderFormChange,
+        handleBillingFormChange,
         initialShippingForm,
+        initialBillingForm,
         initialOrderForm,
       }}
     >

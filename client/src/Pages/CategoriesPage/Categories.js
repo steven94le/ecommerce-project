@@ -58,7 +58,7 @@ const StyledTitle = styled.h1`
   padding: 40px 0px;
   font-weight: bold;
   font-size: 48px;
-  opacity: 0.9;
+  opacity: 0.8;
   color: white;
 `;
 

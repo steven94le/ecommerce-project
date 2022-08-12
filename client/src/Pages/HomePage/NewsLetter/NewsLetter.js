@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import styled from "styled-components";
 import bannerImg from "../assets/pexels-pixabay-267394.jpg";
 import EmailInput from "./EmailInput";
