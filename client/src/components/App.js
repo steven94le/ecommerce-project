@@ -15,18 +15,10 @@ import Confirmation from "../Pages/CheckoutPage/Confirmation";
 import { GoogleUserContext } from "./Contexts/GoogleUserContext";
 import { EmailSignInContext } from "./Contexts/EmailSignInContext";
 import WishlistPage from "../Pages/WishlistPage/WishlistPage";
-import React, { useState, useEffect } from "react";
-
-const emailLocalStorage = window.localStorage.getItem("email") || "";
 
 const App = () => {
   const { googleUserData } = useContext(GoogleUserContext);
   const { currentUser } = useContext(EmailSignInContext);
-  const [guestEmail, setGuestEmail] = useState(emailLocalStorage);
-
-  useEffect(() => {
-    window.localStorage.setItem("email", guestEmail);
-  }, [guestEmail]);
 
   return (
     <BrowserRouter>
@@ -55,7 +47,7 @@ const App = () => {
           <WishlistPage />
         </Route>
         <Route exact path="/cart">
-          <Cart guestEmail={guestEmail} setGuestEmail={setGuestEmail} />
+          <Cart />
         </Route>
         <Route exact path="/checkout">
           <Checkout />

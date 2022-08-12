@@ -9,6 +9,7 @@ import { EmailSignInContext } from "../../components/Contexts/EmailSignInContext
 import ShippingForm from "./ShippingForm";
 import CardDetails from "./CardDetails";
 import ShippingMethod from "./ShippingMethod";
+import EmailInput from "./EmailInput";
 
 const Checkout = () => {
   const [shippingMethod, setShippingMethod] = useState("");
@@ -23,9 +24,15 @@ const Checkout = () => {
     setShippingForm,
     initialShippingForm,
     initialOrderForm,
+    handleOrderFormChange,
   } = useContext(FormsContext);
   const { googleUserData } = useContext(GoogleUserContext);
   const { currentUser } = useContext(EmailSignInContext);
+
+  //check if either user is already signed in via google or email
+  const isLoggedIn =
+    Object.keys(googleUserData).length !== 0 ||
+    Object.keys(currentUser).length !== 0;
 
   //handler for order purchase, redirects to confirmation page if purchase valid
   const handleOrderSubmit = async (ev) => {
@@ -78,19 +85,30 @@ const Checkout = () => {
         <>
           <Header>CHECKOUT</Header>
           <Wrapper>
-            <UserInfo>
-              <ShippingForm />
-              <ShippingMethod setShippingMethod={setShippingMethod} />
-              <CardDetails />
-              {formStatusPending === "error" && (
-                <ErrorMsg>{orderErrMsg}</ErrorMsg>
-              )}
-            </UserInfo>
-            <OrderSummary
-              shippingMethod={shippingMethod}
-              handleOrderSubmit={handleOrderSubmit}
-              disabledOrderSubmit={disabledOrderSubmit}
-            />
+            <LeftSide>
+              <form>
+                <UserInfo>
+                  {!isLoggedIn && (
+                    <EmailInput handleOrderFormChange={handleOrderFormChange} />
+                  )}
+                  <ShippingForm />
+                  <ShippingMethod setShippingMethod={setShippingMethod} />
+                  <CardDetails />
+                </UserInfo>
+                <PlaceOrderButton
+                  type="button"
+                  onClick={handleOrderSubmit}
+                  disabled={disabledOrderSubmit}
+                  value="PLACE ORDER"
+                />
+                {formStatusPending === "error" && (
+                  <ErrorMsg>{orderErrMsg}</ErrorMsg>
+                )}
+              </form>
+            </LeftSide>
+            <RightSide>
+              <OrderSummary shippingMethod={shippingMethod} />
+            </RightSide>
           </Wrapper>
         </>
       ) : (
@@ -99,16 +117,6 @@ const Checkout = () => {
     </>
   );
 };
-
-const ErrorMsg = styled.div`
-  display: flex;
-  height: 25px;
-  justify-content: center;
-  align-items: center;
-  color: red;
-  font-size: 14px;
-  border: 1px red solid;
-`;
 
 const Header = styled.h4`
   display: flex;
@@ -120,22 +128,62 @@ const Header = styled.h4`
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  gap: 8rem;
-`;
-
-const UserInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 40%;
-  height: 100%;
+  gap: 5rem;
+  margin: 0px 100px;
+  height: 70vh;
 
   > div {
-    margin-bottom: 2rem;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+const LeftSide = styled.div``;
+const RightSide = styled.div``;
+
+const UserInfo = styled.div`
+  > div {
+    padding-bottom: 25px;
   }
 
   > div > div {
-    padding: 5px 0 5px 0;
+    padding: 5px 0;
   }
+`;
+
+const PlaceOrderButton = styled.input`
+  border: none;
+  font-size: 14px;
+  color: white;
+  border-radius: 3px;
+  width: 100%;
+  height: 25px;
+  background-image: linear-gradient(90deg, #08008b 0%, #0060bf 100%);
+  margin-top: 20px;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &:active:enabled {
+    background: lightblue;
+    border: lightgrey 1px solid;
+  }
+`;
+
+const ErrorMsg = styled.div`
+  text-align: center;
+  height: 25px;
+  color: red;
+  font-size: 14px;
+  padding-top: 20px;
 `;
 
 export default Checkout;
