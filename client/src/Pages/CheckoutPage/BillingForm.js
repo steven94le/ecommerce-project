@@ -2,13 +2,12 @@ import styled from "styled-components";
 import React, { useContext } from "react";
 import { FormsContext } from "../../components/Contexts/FormsContext";
 
-const ShippingForm = () => {
-  const { handleShippingFormChange, handleOrderFormChange } =
-    useContext(FormsContext);
+const BillingForm = () => {
+  const { handleBillingFormChange } = useContext(FormsContext);
 
   return (
     <div>
-      <h4>SHIPPING ADDRESS</h4>
+      <h4>BILLING ADDRESS</h4>
       <hr />
       <FormGroup>
         <div>
@@ -17,10 +16,9 @@ const ShippingForm = () => {
             name="givenName"
             type="text"
             placeholder="John"
-            onChange={(e) => {
-              handleShippingFormChange(e.target.value, "givenName");
-              handleOrderFormChange(e.target.value, "givenName");
-            }}
+            onChange={(e) =>
+              handleBillingFormChange(e.target.value, "givenName")
+            }
             required
           />
         </div>
@@ -30,10 +28,7 @@ const ShippingForm = () => {
             name="surname"
             type="text"
             placeholder="Smith"
-            onChange={(e) => {
-              handleShippingFormChange(e.target.value, "surname");
-              handleOrderFormChange(e.target.value, "surname");
-            }}
+            onChange={(e) => handleBillingFormChange(e.target.value, "surname")}
             required
           />
         </div>
@@ -43,9 +38,7 @@ const ShippingForm = () => {
             name="address"
             type="text"
             placeholder="1007 Mountain Dr"
-            onChange={(e) =>
-              handleShippingFormChange(e.target.value, "address")
-            }
+            onChange={(e) => handleBillingFormChange(e.target.value, "address")}
             required
           />
         </div>
@@ -56,7 +49,7 @@ const ShippingForm = () => {
             type="text"
             placeholder="123-456-7890"
             onChange={(e) =>
-              handleShippingFormChange(e.target.value, "phoneNumber")
+              handleBillingFormChange(e.target.value, "phoneNumber")
             }
             required
           />
@@ -67,7 +60,7 @@ const ShippingForm = () => {
             name="city"
             type="text"
             placeholder="Montreal"
-            onChange={(e) => handleShippingFormChange(e.target.value, "city")}
+            onChange={(e) => handleBillingFormChange(e.target.value, "city")}
             required
           />
         </div>
@@ -78,7 +71,7 @@ const ShippingForm = () => {
             type="text"
             placeholder="Quebec"
             onChange={(e) =>
-              handleShippingFormChange(e.target.value, "province")
+              handleBillingFormChange(e.target.value, "province")
             }
             required
           />
@@ -89,9 +82,7 @@ const ShippingForm = () => {
             name="country"
             type="text"
             placeholder="Canada"
-            onChange={(e) =>
-              handleShippingFormChange(e.target.value, "country")
-            }
+            onChange={(e) => handleBillingFormChange(e.target.value, "country")}
             required
           />
         </div>
@@ -102,7 +93,7 @@ const ShippingForm = () => {
             type="text"
             placeholder="H1H1H1"
             onChange={(e) =>
-              handleShippingFormChange(e.target.value, "postalCode")
+              handleBillingFormChange(e.target.value, "postalCode")
             }
             required
             maxLength="6"
@@ -123,4 +114,4 @@ const FormGroup = styled.div`
   }
 `;
 
-export default ShippingForm;
+export default BillingForm;

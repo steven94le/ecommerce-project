@@ -10,8 +10,10 @@ import { useHistory } from "react-router-dom";
 const CurrentUser = () => {
   const {
     setShippingForm,
+    setBillingForm,
     setOrderForm,
     initialShippingForm,
+    initialBillingForm,
     initialOrderForm,
   } = useContext(FormsContext);
   const { setCartItems } = useContext(CartItemsContext);
@@ -33,6 +35,7 @@ const CurrentUser = () => {
     setGoogleUserData({});
     setCurrentUser({});
     setShippingForm(initialShippingForm);
+    setBillingForm(initialBillingForm);
     setOrderForm(initialOrderForm);
     setCartItems([]);
     routeChange();

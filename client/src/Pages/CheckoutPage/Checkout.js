@@ -10,6 +10,7 @@ import ShippingForm from "./ShippingForm";
 import CardDetails from "./CardDetails";
 import ShippingMethod from "./ShippingMethod";
 import EmailInput from "./EmailInput";
+import BillingForm from "./BillingForm";
 
 const Checkout = () => {
   const [shippingMethod, setShippingMethod] = useState("");
@@ -20,9 +21,8 @@ const Checkout = () => {
   const {
     orderForm,
     shippingForm,
+    billingForm,
     setOrderForm,
-    setShippingForm,
-    initialShippingForm,
     initialOrderForm,
     handleOrderFormChange,
   } = useContext(FormsContext);
@@ -58,7 +58,6 @@ const Checkout = () => {
       }
       setFormStatusPending("confirmed");
       setCartItems([]);
-      setShippingForm(initialShippingForm);
 
       if (googleUserData !== null || currentUser !== null) {
         const { email } = orderForm;
@@ -74,10 +73,13 @@ const Checkout = () => {
 
   useEffect(() => {
     !Object.values(shippingForm).includes("") &&
+    !Object.values(billingForm).includes("") &&
     !Object.values(orderForm).includes("")
       ? setDisabledOrderSubmit(false)
       : setDisabledOrderSubmit(true);
   }, [orderForm, shippingForm, setDisabledOrderSubmit]);
+  console.log("shippingForm:", shippingForm);
+  console.log("billingForm:", billingForm);
 
   return (
     <>
@@ -91,7 +93,10 @@ const Checkout = () => {
                   {!isLoggedIn && (
                     <EmailInput handleOrderFormChange={handleOrderFormChange} />
                   )}
-                  <ShippingForm />
+                  <Addresses>
+                    <ShippingForm />
+                    <BillingForm />
+                  </Addresses>
                   <ShippingMethod setShippingMethod={setShippingMethod} />
                   <CardDetails />
                 </UserInfo>
@@ -140,11 +145,18 @@ const Wrapper = styled.div`
 `;
 
 const LeftSide = styled.div``;
+
+const Addresses = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+`;
+
 const RightSide = styled.div``;
 
 const UserInfo = styled.div`
   > div {
-    padding-bottom: 25px;
+    padding-bottom: 15px;
   }
 
   > div > div {
@@ -160,7 +172,6 @@ const PlaceOrderButton = styled.input`
   width: 100%;
   height: 25px;
   background-image: linear-gradient(90deg, #08008b 0%, #0060bf 100%);
-  margin-top: 20px;
 
   &:hover {
     cursor: pointer;

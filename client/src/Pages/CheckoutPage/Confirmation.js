@@ -6,13 +6,15 @@ import React, { useContext } from "react";
 import { FormsContext } from "../../components/Contexts/FormsContext";
 
 const Confirmation = () => {
-  const { orderForm } = useContext(FormsContext);
+  const { orderForm, shippingForm, billingForm } = useContext(FormsContext);
+  console.log("billingForm:", billingForm);
+  console.log("shippingForm:", shippingForm);
   console.log("orderForm:", orderForm);
   return (
     <Wrapper>
       <div>Order Purchased!</div>
       <div>Confirmation email sent to: {orderForm.email}</div>
-      <div>Thank you for shopping at our store!</div>
+      <div>Thank You For Your Order!</div>
       <Users>
         <User>
           <UserImg src={userImg} alt={userImg} />
