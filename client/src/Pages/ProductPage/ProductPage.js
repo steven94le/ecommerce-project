@@ -61,48 +61,55 @@ const ProductPage = () => {
   }, [id]);
 
   return (
-    <>
-      <StyledTitle>{productInfo.name}</StyledTitle>
-      <Wrapper>
-        {productInfo ? (
-          <>
+    <Wrapper>
+      {productInfo ? (
+        <>
+          <LeftSide>
             <img src={productInfo.imageSrc} alt="wearable" />
-            <Item value={productInfo}>
-              <StyledDiv>{productInfo.price}</StyledDiv>
-              <StyledDiv>Body Location: {productInfo.body_location}</StyledDiv>
-              <StyledDiv>Category: {productInfo.category}</StyledDiv>
-              <StyledDiv>Stock: {productInfo.numInStock}</StyledDiv>
+          </LeftSide>
+          <RightSide value={productInfo}>
+            <StyledTitle>{productInfo.name}</StyledTitle>
+            <ItemInfo>
+              <Price>{productInfo.price}</Price>
+              <p>Body Location: {productInfo.body_location}</p>
+              <p>Category: {productInfo.category}</p>
+              <p>Stock: {productInfo.numInStock}</p>
+            </ItemInfo>
+
+            <ActionBar>
               {productInfo.numInStock === 0 ? (
                 <OutOfStock>
                   <span>Out of Stock</span>
                 </OutOfStock>
               ) : (
-                <ActionBar>
-                  <StyledButton onClick={handleAddToCart}>
-                    <span>Add To Cart</span>
-                  </StyledButton>
-                </ActionBar>
+                <StyledButton onClick={handleAddToCart}>
+                  <span>Add To Cart</span>
+                </StyledButton>
               )}
               <StyledButton onClick={handleAddToWishlist}>
                 <span>Add To Wishlist</span>
               </StyledButton>
-            </Item>
+            </ActionBar>
             <Description>
-              <p>Product Description:</p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+              <p>
+                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum.
+              </p>
             </Description>
-          </>
-        ) : (
-          <Loader />
-        )}
-      </Wrapper>
-    </>
+          </RightSide>
+        </>
+      ) : (
+        <Loader />
+      )}
+    </Wrapper>
   );
 };
 
@@ -110,36 +117,54 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  width: 100%;
-  height: 50%;
-`;
+  width: auto;
+  height: 90vh;
+  gap: 2rem;
+  margin: 0px 200px;
 
-const StyledTitle = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 40px 0 20px 0px;
-  font-weight: bold;
-  font-size: 48px;
-  text-align: center;
-`;
-
-const Item = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 20px;
-
-  button {
-    margin: 5px;
+  > div {
+    height: 75vh;
+    width: 50%;
+    vertical-align: baseline;
   }
 `;
 
-const Description = styled.div`
-  width: 225px;
+const LeftSide = styled.div`
+  position: relative;
 
+  img {
+    position: absolute;
+    width: 50%;
+    left: 50%;
+    top: 10%;
+    transform: translate(-45%);
+  }
+`;
+
+const RightSide = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledTitle = styled.h1`
+  font-size: 24px;
+  text-align: left;
+`;
+
+const ItemInfo = styled.div`
   p {
-    font-weight: bold;
+    padding: 15px 0;
+  }
+`;
+
+const Price = styled.p`
+  font-weight: bold;
+`;
+
+const ActionBar = styled.div`
+  margin: 10px 0;
+  button:not(:first-child) {
+    margin-left: 1rem;
   }
 `;
 
@@ -149,41 +174,34 @@ const Button = styled.button`
   font-size: 18px;
   border: none;
   border-radius: 5px;
-  height: 25px;
+  height: 35px;
   width: 150px;
 `;
 
 const OutOfStock = styled(Button)`
   background: var(--button-gradient-red);
-
+  opacity: 0.5;
   &:hover {
     cursor: not-allowed;
   }
 `;
 
-const StyledDiv = styled.div`
-  padding-bottom: 20px;
-  text-align: center;
-`;
-
 const StyledButton = styled(Button)`
   background: var(--button-gradient-blue);
-
   &:hover {
     cursor: pointer;
     opacity: 0.8;
   }
-
   &:active:enabled {
     background: lightblue;
     border: lightgrey 1px solid;
   }
 `;
 
-const ActionBar = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+const Description = styled.div`
+  p {
+    margin: 15px 0;
+  }
 `;
 
 export default ProductPage;
