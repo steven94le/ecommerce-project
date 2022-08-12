@@ -7,6 +7,13 @@ import { FormsContext } from "../../components/Contexts/FormsContext";
 import { GoogleUserContext } from "../../components/Contexts/GoogleUserContext";
 import { EmailSignInContext } from "../../components/Contexts/EmailSignInContext";
 import Loader from "../../components/Loader/Loader";
+import {
+  AiFillInstagram,
+  AiFillFacebook,
+  AiFillTwitterSquare,
+  AiTwotoneMail,
+} from "react-icons/ai";
+import RelatedProducts from "./RelatedProducts";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -63,49 +70,63 @@ const ProductPage = () => {
   return (
     <Wrapper>
       {productInfo ? (
-        <>
-          <LeftSide>
-            <img src={productInfo.imageSrc} alt="wearable" />
-          </LeftSide>
-          <RightSide value={productInfo}>
-            <StyledTitle>{productInfo.name}</StyledTitle>
-            <ItemInfo>
-              <Price>{productInfo.price}</Price>
-              <p>Body Location: {productInfo.body_location}</p>
-              <p>Category: {productInfo.category}</p>
-              <p>Stock: {productInfo.numInStock}</p>
-            </ItemInfo>
+        <div>
+          <div style={{ display: "flex" }}>
+            <LeftSide>
+              <img src={productInfo.imageSrc} alt="wearable" />
+            </LeftSide>
+            <RightSide value={productInfo}>
+              <StyledTitle>{productInfo.name}</StyledTitle>
+              <hr style={{ borderTop: "1px solid #8c8b8b;" }} />
 
-            <ActionBar>
-              {productInfo.numInStock === 0 ? (
-                <OutOfStock>
-                  <span>Out of Stock</span>
-                </OutOfStock>
-              ) : (
-                <StyledButton onClick={handleAddToCart}>
-                  <span>Add To Cart</span>
+              <ItemInfo>
+                <Price>{productInfo.price}</Price>
+                <p>Body Location: {productInfo.body_location}</p>
+                <p>Category: {productInfo.category}</p>
+                <p>Stock: {productInfo.numInStock}</p>
+              </ItemInfo>
+
+              <ActionBar>
+                {productInfo.numInStock === 0 ? (
+                  <OutOfStock>
+                    <span>Out of Stock</span>
+                  </OutOfStock>
+                ) : (
+                  <StyledButton onClick={handleAddToCart}>
+                    <span>Add To Cart</span>
+                  </StyledButton>
+                )}
+                <StyledButton onClick={handleAddToWishlist}>
+                  <span>Add To Wishlist</span>
                 </StyledButton>
-              )}
-              <StyledButton onClick={handleAddToWishlist}>
-                <span>Add To Wishlist</span>
-              </StyledButton>
-            </ActionBar>
-            <Description>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </p>
-              <p>
-                Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt
-                mollit anim id est laborum.
-              </p>
-            </Description>
-          </RightSide>
-        </>
+              </ActionBar>
+              <hr style={{ borderTop: "1px solid #8c8b8b;" }} />
+              <Description>
+                <h2 style={{ textAlign: "start" }}>Product Description</h2>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+                <p>
+                  Duis aute irure dolor in reprehenderit in voluptate velit esse
+                  cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                  occaecat cupidatat non proident, sunt in culpa qui officia
+                  deserunt mollit anim id est laborum.
+                </p>
+              </Description>
+              <hr style={{ borderTop: "1px solid #8c8b8b;" }} />
+              <div>
+                <AiFillInstagram size={35} />
+                <AiFillFacebook size={35} />
+                <AiFillTwitterSquare size={35} />
+                <AiTwotoneMail size={35} />
+              </div>
+            </RightSide>
+          </div>
+          <RelatedProducts />
+        </div>
       ) : (
         <Loader />
       )}
@@ -117,33 +138,33 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: auto;
+  width: 100%;
   height: 90vh;
   gap: 2rem;
-  margin: 0px 200px;
+  margin: 0;
 
   > div {
     height: 75vh;
-    width: 50%;
+    width: 70%;
     vertical-align: baseline;
   }
 `;
 
 const LeftSide = styled.div`
-  position: relative;
+  width: 50%;
 
   img {
-    position: absolute;
-    width: 50%;
+    width: 100%;
     left: 50%;
     top: 10%;
-    transform: translate(-45%);
+    transform: translate(-20%);
   }
 `;
 
 const RightSide = styled.div`
   display: flex;
   flex-direction: column;
+  width: 50%;
 `;
 
 const StyledTitle = styled.h1`
