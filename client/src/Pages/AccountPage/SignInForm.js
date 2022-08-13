@@ -55,7 +55,6 @@ const SignInForm = () => {
 
     const data = await response.json();
     const userData = data.data;
-    console.log("userData:", userData);
 
     if (!userData) {
       setCurrentUser(data.message);
@@ -75,7 +74,6 @@ const SignInForm = () => {
     const handleCallbackResponse = (response) => {
       //Decode the JWT into an object so that we can use the data
       let userObj = jwt_decode(response.credential);
-      console.log("userObj:", userObj);
 
       setGoogleUserData(userObj);
       setOrderForm({

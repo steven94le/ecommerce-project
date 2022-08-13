@@ -22,6 +22,7 @@ const Checkout = ({ isBillingToggled, toggle }) => {
     orderForm,
     shippingForm,
     billingForm,
+    setBillingForm,
     setOrderForm,
     initialOrderForm,
     handleOrderFormChange,
@@ -66,6 +67,11 @@ const Checkout = ({ isBillingToggled, toggle }) => {
       } else {
         setOrderForm(initialOrderForm);
       }
+
+      if (isBillingToggled) {
+        setBillingForm(shippingForm);
+        toggle();
+      }
     } catch (err) {
       console.log(err);
     }
@@ -108,7 +114,7 @@ const Checkout = ({ isBillingToggled, toggle }) => {
                   <CardDetails />
                 </UserInfo>
                 <PlaceOrderButton
-                  type="button"
+                  type="submit"
                   onClick={handleOrderSubmit}
                   disabled={disabledOrderSubmit}
                   value="PLACE ORDER"
