@@ -22,7 +22,7 @@ const RelatedProducts = () => {
           <p style={{ color: "blue", cursor: "pointer" }}>Write a Review</p>
         </div>
       </Review>
-      <hr style={{ borderTop: "1px solid #8c8b8b;" }} />
+      <hr style={{ borderTop: "1px solid #8c8b8b" }} />
 
       <Related>
         <h2>Related Products</h2>

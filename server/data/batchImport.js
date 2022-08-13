@@ -8,7 +8,6 @@ const options = {
   useUnifiedTopology: true,
 };
 
-console.log("asdasd", MONGO_URI);
 const batchImport = async () => {
   const client = new MongoClient(MONGO_URI, options);
   await client.connect();
