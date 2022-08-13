@@ -99,6 +99,7 @@ const InputWrapper = styled.div`
 `;
 
 const ResultWrapper = styled.div`
+  position: fixed;
   margin-top: 5px;
   width: 42vw;
   height: 200px;
