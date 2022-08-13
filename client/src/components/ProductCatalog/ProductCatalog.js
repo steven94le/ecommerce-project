@@ -123,7 +123,7 @@ const ItemGrid = styled.div`
 
 const StyledText = styled.p`
   font-stretch: expanded;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 13px;
   text-align: center;
 `;
