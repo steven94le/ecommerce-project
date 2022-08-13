@@ -41,6 +41,8 @@ const ProductCatalog = () => {
         parseInt(item.price.slice(1)) <= minMax.maximum
       ) {
         return item;
+      } else {
+        return null;
       }
     });
     setPosts(filteredArray);
