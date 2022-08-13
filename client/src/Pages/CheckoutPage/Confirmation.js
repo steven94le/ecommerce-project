@@ -1,19 +1,33 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import userImg from "./assets/template_picture.jpg";
+import userImg1 from "./assets/user_img1.jpeg";
+import userImg2 from "./assets/user_img2.jpeg";
+import userImg3 from "./assets/user_img3.jpeg";
 import backgroundImg from "./assets/checkout_background.gif";
 import React, { useContext } from "react";
 import { FormsContext } from "../../components/Contexts/FormsContext";
 
-const Confirmation = ({ isBillingToggled }) => {
+const Confirmation = () => {
   const { orderForm, shippingForm, billingForm } = useContext(FormsContext);
   const shippingFormArr = Object.entries(shippingForm);
   const billingFormArr = Object.entries(billingForm);
-  const { givenName, email } = orderForm;
+  const { email } = orderForm;
+  const { givenName } = shippingForm;
 
   const date = new Date();
   const orderDate =
     date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+
+  const formFieldsToDisplay = {
+    givenName: "First Name",
+    surname: "Last Name",
+    address: "Address",
+    phoneNumber: "Phone Number",
+    city: "City",
+    province: "Province",
+    country: "Country",
+    postalCode: "Postal Code",
+  };
 
   return (
     <Wrapper>
@@ -29,51 +43,43 @@ const Confirmation = ({ isBillingToggled }) => {
           <h1>Shipping info</h1>
           <hr />
           {shippingFormArr.map((formField, index) => (
-            <p key={`${formField} - ${index + 1}`}>
-              {formField[0]}: {formField[1]}
-            </p>
+            <div key={`${formField}-${index + 1}`}>
+              <p>
+                {formFieldsToDisplay[formField[0]]}: {formField[1]}
+              </p>
+            </div>
           ))}
         </OrderInfo>
         <OrderInfo>
           <h1>Billing info</h1>
           <hr />
-          {isBillingToggled ? (
-            <>
-              {shippingFormArr.map((formField, index) => (
-                <p key={`${formField} - ${index + 1}`}>
-                  {formField[0]}: {formField[1]}
-                </p>
-              ))}
-            </>
-          ) : (
-            <>
-              {billingFormArr.map((formField, index) => (
-                <p>
-                  {formField[0]}: {formField[1]}
-                </p>
-              ))}
-            </>
-          )}
+          {billingFormArr.map((formField, index) => (
+            <div key={`${formField}-${index + 1}`}>
+              <p>
+                {formFieldsToDisplay[formField[0]]}: {formField[1]}
+              </p>
+            </div>
+          ))}
         </OrderInfo>
       </LeftSide>
       <RightSide>
         <Link to="/">
-          <StyledButton>Shop For More!</StyledButton>
+          <StyledButton>Continue Shopping</StyledButton>
         </Link>
         <ImgArea>
           <img src={backgroundImg} alt={backgroundImg} />
         </ImgArea>
         <Users>
           <User>
-            <UserImg src={userImg} alt={userImg} />
+            <UserImg src={userImg1} alt={userImg1} />
             <p>Aidan</p>
           </User>
           <User>
-            <UserImg src={userImg} alt={userImg} />
+            <UserImg src={userImg2} alt={userImg2} />
             <p>Shane</p>
           </User>
           <User>
-            <UserImg src={userImg} alt={userImg} />
+            <UserImg src={userImg3} alt={userImg3} />
             <p>Steven</p>
           </User>
         </Users>
@@ -86,10 +92,11 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50%;
+  height: 90vh;
   gap: 5rem;
-  margin: 20px 100px;
+  padding: 20px 100px;
   font-size: 15px;
+  background-color: #f2f2f2;
 
   > div {
     display: flex;
@@ -102,6 +109,10 @@ const Wrapper = styled.div`
 const LeftSide = styled.div`
   display: flex;
   gap: 3rem;
+
+  > div:first-child > p {
+    padding: 12px 0px;
+  }
 `;
 
 const OrderInfo = styled.div`
@@ -109,13 +120,11 @@ const OrderInfo = styled.div`
   border-radius: 10px;
   height: 220px;
   padding: 10px;
+  box-shadow: 0px 5px 5px 1px #ccc;
+  background-color: white;
 
   > p:first-child {
     font-weight: bold;
-  }
-
-  > p {
-    padding-bottom: 5px;
   }
 `;
 
@@ -131,8 +140,8 @@ const StyledButton = styled.button`
   font-size: 18px;
   border: none;
   border-radius: 5px;
-  height: 25px;
-  width: 150px;
+  height: 35px;
+  width: 175px;
   margin-top: 20px;
   background: linear-gradient(
     90deg,
@@ -177,8 +186,8 @@ const User = styled.div`
 `;
 
 const UserImg = styled.img`
-  height: 50%;
-  width: auto;
+  height: 75px;
+  width: 75px;
   border-radius: 50%;
 `;
 
