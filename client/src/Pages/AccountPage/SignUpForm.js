@@ -47,7 +47,6 @@ const SignUpForm = () => {
     });
     const data = await response.json();
     const newUserData = data.data;
-    console.log("newUserData:", newUserData);
 
     if (!newUserData) {
       setError(true);

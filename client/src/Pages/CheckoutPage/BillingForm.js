@@ -4,7 +4,6 @@ import { FormsContext } from "../../components/Contexts/FormsContext";
 
 const BillingForm = ({ isBillingToggled, toggle }) => {
   const { handleBillingFormChange } = useContext(FormsContext);
-  console.log("isBillingToggled:", isBillingToggled);
 
   return (
     <div>

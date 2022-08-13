@@ -7,8 +7,6 @@ import { FormsContext } from "../../components/Contexts/FormsContext";
 
 const Confirmation = ({ isBillingToggled }) => {
   const { orderForm, shippingForm, billingForm } = useContext(FormsContext);
-  console.log("orderForm:", orderForm);
-  console.log("isBillingToggled:", isBillingToggled);
   const shippingFormArr = Object.entries(shippingForm);
   const billingFormArr = Object.entries(billingForm);
   const { givenName, email } = orderForm;

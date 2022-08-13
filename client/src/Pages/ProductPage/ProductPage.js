@@ -77,7 +77,7 @@ const ProductPage = () => {
             </LeftSide>
             <RightSide value={productInfo}>
               <StyledTitle>{productInfo.name}</StyledTitle>
-              <hr style={{ borderTop: "1px solid #8c8b8b;" }} />
+              <hr style={{ borderTop: "1px solid #8c8b8b" }} />
 
               <ItemInfo>
                 <Price>{productInfo.price}</Price>
@@ -100,7 +100,7 @@ const ProductPage = () => {
                   <span>Add To Wishlist</span>
                 </StyledButton>
               </ActionBar>
-              <hr style={{ borderTop: "1px solid #8c8b8b;" }} />
+              <hr style={{ borderTop: "1px solid #8c8b8b" }} />
               <Description>
                 <h2 style={{ textAlign: "start" }}>Product Description</h2>
                 <p>
@@ -116,7 +116,7 @@ const ProductPage = () => {
                   deserunt mollit anim id est laborum.
                 </p>
               </Description>
-              <hr style={{ borderTop: "1px solid #8c8b8b;" }} />
+              <hr style={{ borderTop: "1px solid #8c8b8b" }} />
               <div>
                 <AiFillInstagram size={35} />
                 <AiFillFacebook size={35} />
