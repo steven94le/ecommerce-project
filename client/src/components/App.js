@@ -1,15 +1,72 @@
-import { useState, useEffect } from 'react';
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import Brands from "../Pages/BrandsPage/Brands";
+import BrandPage from "../Pages/BrandsPage/BrandPage";
+import ProductPage from "../Pages/ProductPage/ProductPage";
+import Categories from "../Pages/CategoriesPage/Categories";
+import CategoryPage from "../Pages/CategoriesPage/CategoryPage";
+import GlobalStyles from "./GlobalStyles";
+import Home from "../Pages/HomePage/Home";
+import NavBar from "./NavigationBar/NavBar";
+import Cart from "../Pages/CartPage/Cart";
+import Checkout from "../Pages/CheckoutPage/Checkout";
+import AccountPage from "../Pages/AccountPage/AccountPage";
+import { useContext } from "react";
+import Confirmation from "../Pages/CheckoutPage/Confirmation";
+import { GoogleUserContext } from "./Contexts/GoogleUserContext";
+import { EmailSignInContext } from "./Contexts/EmailSignInContext";
+import WishlistPage from "../Pages/WishlistPage/WishlistPage";
+import { useToggle } from "./Hooks/hooks";
 
-function App() {
-  const [bacon, setBacon] = useState(null);
+const App = () => {
+  const { googleUserData } = useContext(GoogleUserContext);
+  const { currentUser } = useContext(EmailSignInContext);
+  const [isBillingToggled, toggle] = useToggle();
 
-  useEffect(() => {
-    fetch('/bacon')
-      .then(res => res.json())
-      .then(data => setBacon(data));
-  }, []);
-
-  return <div>{bacon ? bacon : `...where's my stuff?...`}</div>;
-}
+  return (
+    <BrowserRouter>
+      <GlobalStyles />
+      <NavBar />
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/brands">
+          <Brands />
+        </Route>
+        <Route exact path="/brands/:id">
+          <BrandPage />
+        </Route>
+        <Route exact path="/product/:id">
+          <ProductPage />
+        </Route>
+        <Route exact path="/category">
+          <Categories />
+        </Route>
+        <Route exact path="/category/:id">
+          <CategoryPage />
+        </Route>
+        <Route exact path="/wishlist">
+          <WishlistPage />
+        </Route>
+        <Route exact path="/cart">
+          <Cart />
+        </Route>
+        <Route exact path="/checkout">
+          <Checkout isBillingToggled={isBillingToggled} toggle={toggle} />
+        </Route>
+        <Route exact path="/confirmation">
+          <Confirmation isBillingToggled={isBillingToggled} />
+        </Route>
+        <Route exact path="/account">
+          {!googleUserData.name && !currentUser.givenName ? (
+            <AccountPage />
+          ) : (
+            <Redirect to={{ pathname: "/" }} />
+          )}
+        </Route>
+      </Switch>
+    </BrowserRouter>
+  );
+};
 
 export default App;
