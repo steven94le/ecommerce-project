@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const ProductCard = ({ item }) => {
+const RelatedProdCard = ({ item }) => {
   const { _id, imageSrc, name, price } = item;
   return (
     <Wrapper to={`/product/${_id}`}>
@@ -22,7 +22,7 @@ const Wrapper = styled(Link)`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  width: 500px;
+  width: auto;
   height: auto;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   margin: 20px;
@@ -37,6 +37,7 @@ const Wrapper = styled(Link)`
 const Name = styled.h2`
   color: black;
   font-size: 10px;
+  font-weight: lighter;
 `;
 const ProdImg = styled.img`
   width: 150px;
@@ -53,4 +54,5 @@ const DetailsWrapper = styled.div`
 const Price = styled.p`
   color: black;
 `;
-export default ProductCard;
+
+export default RelatedProdCard;
