@@ -27,7 +27,9 @@ const Categories = () => {
         {categories?.map((category, id) => {
           return (
             <StyledCard to={`category/${category}`} key={id}>
-              <p>{category}</p>
+              <CategoryNameWrapper>
+                <CategoryHeader>{category}</CategoryHeader>
+              </CategoryNameWrapper>
             </StyledCard>
           );
         })}
@@ -43,8 +45,8 @@ const Wrapper = styled.div`
   position: relative;
   background-image: linear-gradient(
       0deg,
-      rgb(220, 220, 220, 0.3),
-      rgb(220, 220, 220, 0.3)
+      rgb(220, 220, 220, 0.2),
+      rgb(220, 220, 220, 0.5)
     ),
     url(${bannerImg});
   background-position: center;
@@ -60,6 +62,7 @@ const StyledTitle = styled.h1`
   font-size: 48px;
   opacity: 0.8;
   color: white;
+  letter-spacing: 5px;
 `;
 
 const CategoryWrapper = styled.div`
@@ -73,19 +76,34 @@ const StyledCard = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 250px;
+  width: 275px;
   height: 150px;
   margin: 30px;
-  box-shadow: 0px 0px 10px 1px lightgray;
+  padding: 10px;
+  background-color: rgba(50, 0 , 0, 0.2);
+  //box-shadow: 0px 0px 5px 1px lightgray;
+  transition: all 400ms ease-in-out;
 
   &:hover {
     cursor: pointer;
     background: lightgrey;
-    color: white;
+    color: black;
     border-color: lightgrey;
-    transition: all ease 400ms;
+    transition: all ease-in 400ms;
     opacity: 0.8;
   }
 `;
+const CategoryNameWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`
+
+const CategoryHeader = styled.span`
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: 5px;
+`
 
 export default Categories;

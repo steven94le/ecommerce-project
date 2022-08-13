@@ -31,7 +31,9 @@ const Brands = () => {
         {brandNames && brandNames.length > 0 ? (
           brandNames.map((brand, index) => (
             <StyledLink to={`/brands/${brand}`} key={`brand-${index + 1}`}>
-              <div>{brand}</div>
+              <BrandNameWrapper>
+                <BrandHeader>{brand}</BrandHeader>
+              </BrandNameWrapper>
             </StyledLink>
           ))
         ) : (
@@ -50,7 +52,7 @@ const Wrapper = styled.div`
   background-image: linear-gradient(
       0deg,
       rgb(220, 220, 220, 0.3),
-      rgb(220, 220, 220, 0.3)
+      rgb(220, 220, 220, 0.8)
     ),
     url(${bannerImg});
   background-position: center;
@@ -65,6 +67,8 @@ const StyledTitle = styled.h1`
   font-weight: bold;
   font-size: 48px;
   opacity: 0.5;
+  letter-spacing: 5px; 
+  
 `;
 
 const BrandsWrapper = styled.div`
@@ -74,23 +78,36 @@ const BrandsWrapper = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  color: black;
+  color: white;
   text-decoration: none;
   width: 20%;
   text-align: center;
-  border: 1px lightgrey solid;
+  //box-shadow: 0px 0px 3px 1px lightgray;
+  background-color: rgba(50, 0 ,0,0.2);
   padding: 100px;
   font-size: 16px;
-  margin: 5px;
+  margin: 10px;
+  transition: all 400ms ease-in-out;
 
   &:hover {
     cursor: pointer;
     background: lightgrey;
-    color: white;
     border-color: lightgrey;
-    transition: all ease 400ms;
+    transition: all 400ms ease-in;
+    color: black;
     opacity: 0.8;
   }
 `;
+
+const BrandNameWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+const BrandHeader = styled.span`
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: 5px;
+`
 
 export default Brands;
