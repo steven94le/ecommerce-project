@@ -1,69 +1,115 @@
-# Wearables E-Commerce Project
+# Wearables E-Commerce Project :shopping_cart:
 
-You will make use of _everything_ that you have learned thus far in the bootcamp to build an e-commerce app that will showcase all of the provided _wearables_ items.
+# Introduction :wave:
 
-The stack is React.Js, Node.Js, and styled-components.
+A bootcamp group project featuring an e-commerce store with mock wearable items data. Users can browse through the collection, filter with product specifications, review/edit their cart, and complete purchases after filling out necessary form information. The user is able to create an account or sign into their existing account. Google sign-in is available as an alternative option and was implemented through Google Identity Services. User account data and purchase records are stored and accessed within the MongoDB database. We built this full-stack application in a short amount of time and learned a lot along the way, especially when it comes to version control protocols via Git and GitHub, iterative development, and collaborative programming.
 
-Your node server should be RESTful and follow REST principles, at least to the extent we learned during the bootcamp.
+<img width="750" alt="image" src="https://user-images.githubusercontent.com/76791687/186236204-001def0e-54d5-4d26-a0f0-6a25a9c25f26.png">
 
----
-
-**✋ You CANNOT use any external UI libraries, including, but not limited to, Material UI, Bootstrap to style your project!**
 
 ---
 
-## Getting Started
+## **Features :computer:**
 
-<img src="./server/assets/software-dev-path.jpg" style="width: 100%;" />
+<details>
+  <summary>Searchbar - clicking on a search result will direct you to the product page</summary>
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/76791687/186237056-32a6ec28-6e75-4bf3-bc00-40bd3e9c3614.png">
+</details>
 
-You have your assignment and your team. What should you do first? This will vary for every team, and even every team member.
+<details>
+  <summary>"Best sellers" - carousel of randomized products</summary>
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/76791687/186237127-c0a635a7-d3b5-4a4b-82fc-043f634fe62e.png">
+</details>
 
-**The important thing is to NOT just jump in and start coding!**
+<details>
+  <summary>Product catalogue - browse/filter entire collection, brands/categories pages show catalogue in alternative ways</summary>
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/76791687/186237181-9a4ef6ae-56c3-49f6-828b-2bbea0d5bdac.png">
+<br/>
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/76791687/186237470-0b923a64-a8f8-4515-875e-7ef9473eb958.png">
+<br/>
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/76791687/186237510-36b9e9fe-1ac1-4ace-b63e-50dceda60133.png">
+</details>
 
-There probably shouldn't be any coding until very near the end of the first day.
+<details>
+  <summary>Product page - description, add to cart/out of stock, wishlist functionality only for signed-in users</summary>
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/76791687/186246001-4a1695ad-52f2-462f-a3c0-60259e165b19.png">
+<br/>
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/76791687/186245862-985d6a9c-95f4-4b8b-826b-b5a1a85f2f2d.png">
+<br/>
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/76791687/186247981-448af4d5-4eb4-4f7a-8a8d-4343a1a52727.png">
+<br/>
+<img width="436" alt="image" src="https://user-images.githubusercontent.com/76791687/186248958-28abac22-3c95-4f18-918d-50ccf05bc244.png">
+</details>
 
-## Meet your Product Manager!
+<details>
+  <summary>Sign in via account registration or email/google login (validation in place on both frontend and backend) - signed-in users can use the wishlist functionality and won't have to input their emails at checkout</summary>
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/76791687/186238041-bac16445-a09c-43ed-8010-adc059d34b62.png">
+</details>
 
-Each team has been assigned a product manager. This person is in charge of answering questions, guiding you and basically preventing everything from falling apart!
+<details>
+  <summary>Cart - users can review/remove items from their cart before proceeding to checkout</summary>
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/76791687/186237946-6dd7e060-39d1-4dd1-93cd-932a8c42c4dd.png">
+</details>
 
-This person should be present for some of your team meetings, but not all. PMs are super busy people and have multiple projects/people to manage. 😉
+<details>
+  <summary>Checkout - users will need to fill out the necessary form information before placing their order </summary>
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/76791687/186239593-d169c282-c547-4569-b53e-1699c1696b18.png">
+</details>
 
-## Planning
+<details>
+  <summary>Wishlist - only signed-in users can use/see this page and items here can be removed or added straight to cart</summary>
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/76791687/186239365-a86ce8c0-535f-4931-b517-5b50d0495f40.png">
+</details>
 
-1. You will break into groups (with your assigned PM.)
-2. Your PM will answer any initial questions, and give you more information, as required.
-3. Breakout into a separate meeting with just your team. _Your PM will bounce from team to team to make sure you're on track._
-4. Time to use the [Kickoff Meeting Agenda](__documentation/KICKOFF_MEETING_AGENDA.md)
+<details>
+  <summary>Confirmation page shows user's form information</summary>
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/76791687/186239816-91589052-9d68-4f09-a7f9-95d02243ed2a.png">
+</details>
 
-### First team meeting
+## **Deploying The Project :computer:**
 
-It could also be a good/fun idea to give yourselves an original team name. :)
+Clone the repository to your local machine using the terminal:
 
-Your first team meeting should start with the [Kickoff Meeting Agenda](__documentation/KICKOFF_MEETING_AGENDa.md).
+`$ git clone git@github.com:steven94le/ecommerce-project.git`
 
-[Successful Software Project Delivery in 10 Steps](https://www.appnovation.com/blog/successful-software-project-delivery-10-steps).
+### Installing the dependencies:
 
-💡 How a project starts is indicative of how it will end.
+### The Client
 
-## Teamwork
+1. Navigate to the client folder `cd client`
+2. Install the required packages `yarn install`
+3. Once that's done you can start the server with `yarn start`
 
-The most important aspect of this project is the ability to work in a team. No matter your contribution to the project, you should understand the **FULL** codebase. This will require that you
+This will run the app in development mode. Open http://localhost:3000 to view it in the browser! The page will reload if you make changes.
 
-- **Review** each other's code.
-- **Ask** questions when you don't understand.
-- **Comment** your code extensively. _Always go for clarity over brevity._
-- **Communicate** with your team.
+### The Server
 
-## Updating GitHub
+1. Navigate to the server folder `cd server`
+2. Install the required packages `yarn install`
+3. Once that's done you can start the server with `yarn start`
 
-See the [Step by Step Document](https://docs.google.com/document/d/1Txc02kMSnTjyOWFj3HDXc5y5tSurt3AFJGpXZKxvX6A/edit?usp=sharing)
+The company and items json files in the `server/data` directory were provided by the bootcamp instructors. We imported these mock data onto our MongoDB which is then used throughout our application.
 
-## Project Guidelines
+## **Technologies Used :computer:**
 
-You can see the guidelines [here](./__documentation/PROJECT.md)
+Frontend:
+- JavaScript, HTML, CSS
+- React.js
+- Styled Components
+- Google Identity Services JavaScript SDK
 
-## Presentation
+Backend:
+- Node.js
+- Express
 
-Your team will have to present the final product on the final day in order to get a passing grade. Who will draw the short straw?
+Other Tools:
+- GitHub
+- Git
+- MongoDB
+- Trello
 
-- The presentation shouldn't be more than 5 mintues long.
+## **Authors :bust_in_silhouette:**
+
+- Aidan Charlton (GitHub: [@AidanCharlton](https://github.com/AidanCharlton))
+- Shane Castro (GitHub: [@CastroShane](https://github.com/CastroShane))
+- Steven Le (GitHub: [@steven94le](https://github.com/steven94le))
